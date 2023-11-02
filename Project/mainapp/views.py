@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-def temp(request):
+def homepage(request):
     context = {}
-    return render(request, 'mainapp/temp.html', context)
+    return render(request, 'homepage.html')
+
+
 
 # Create your views here.

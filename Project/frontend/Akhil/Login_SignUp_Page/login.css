@@ -3,12 +3,9 @@ body{
 	padding: 0;
 	display: flex;
 	flex-direction:column;
-  background: url("/images/bg.png");
 	justify-content: center;
 	align-items: center;
-	min-height: auto;
 	font-family: 'Jost', sans-serif;
-	background-color:#90bc79;
 }
 .main{
 	width: 500px;
@@ -16,14 +13,22 @@ body{
 	overflow: hidden;
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
-	margin-bottom:100px;
+	margin-top:40px;
 }
 
-.logo{
-	margin-bottom:30px;
+.name{
+	margin-left:25px;
+	margin-right:25px;
 }
+
+
+.long-input{
+	width:80%;
+}
+
 
 .logo img{
+	margin-top:10px;
 	width:150px;
 	border-radius:75px;
 }
@@ -44,7 +49,7 @@ label{
 	margin-left: 60px;
   margin-right: 60px;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top: 0px;
 	font-weight: bold;
 	cursor: pointer;
 	transition: .5s ease-in-out;
@@ -125,7 +130,7 @@ button{
 	height: 700px;
 	background: #fff;
 	border-radius: 60% / 10%;
-	transform: translateY(-100px);
+	transform: translateY(-220px);
 	transition: .8s ease-in-out;
 }
 .login label{
@@ -139,7 +144,7 @@ button{
 }
 
 #chk:checked ~ .login{
-	transform: translateY(-620px);
+	transform: translateY(-600px);
 }
 #chk:checked ~ .login label{
 	transform: scale(1);	

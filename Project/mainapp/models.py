@@ -1,17 +1,23 @@
 from django.db import models
 from datetime import date
 
-class Units(models.Model):
+class Unit(models.Model):
     type = models.CharField(max_length=100) # Check box feild
     capacity = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)  
+    
+    def __str__(self):
+        return self.title
 
 
-class Bookings(models.Model):
+class Booking(models.Model):
     start_date = models.DateField(default= date.today)
     end_date = models.DateField(default= date.today)
     description = models.TextField()
-    unit_id = models.ManyToManyField(Units)
+    unit_id = models.ManyToManyField(Unit)
+    
+    def __str__(self):
+        return self.title
 
 
 class Farmer(models.Model):
@@ -21,17 +27,23 @@ class Farmer(models.Model):
     phone_no = models.DecimalField(max_digits=10, decimal_places=0)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
-    booking_id = models.ForeignKey(Bookings, on_delete=models.CASCADE)
+    booking_id = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.title
     
     
-class Warehouses(models.Model):
+class Warehouse(models.Model):
     name = models.CharField(max_length=100)
     address = models.TextField()
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     poc_name = models.CharField(max_length=100)
     poc_phone_no = models.DecimalField(max_digits=10, decimal_places=0)
-    unit_id = models.ForeignKey(Units, on_delete=models.CASCADE)
+    unit_id = models.ForeignKey(Unit, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.title
 
     
 class Warehouse_owner(models.Model):
@@ -39,4 +51,7 @@ class Warehouse_owner(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=200)
     phone_no = models.DecimalField(max_digits=10, decimal_places=0)
-    warehouse_id = models.ForeignKey(Warehouses, on_delete=models.CASCADE)
+    warehouse_id = models.ForeignKey(Warehouse, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.title
