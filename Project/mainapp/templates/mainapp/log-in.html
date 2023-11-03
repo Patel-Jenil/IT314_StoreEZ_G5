@@ -1,1 +1,29 @@
-<h1>This is login page</h1>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  
+	<div class="main">  	
+    <div class="logo" style="text-align:center;">
+      <img src="{%static 'img/logo.jpg'%}">
+    </div>
+		<input type="checkbox" id="chk" aria-hidden="true">
+    
+    <div class="signup">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <!-- <label for="chk" aria-hidden="true">Sign up</label> -->
+        <h2 class="headings">Log In</h2>
+        <input class="long-input" type="email"  placeholder="Enter Email" name="username" required>
+        <input class="long-input"  type="password"  placeholder="Enter Password" name="password" required>
+        <button>Log In</button>
+      </form> 
+      <!-- Forgot Password -->
+</body>
+</html>
