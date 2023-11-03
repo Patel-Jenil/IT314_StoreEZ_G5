@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>This is the sign up page</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password1" required>
+
+    <label for="psw-repeat"><b>Repeat Password</b></label>
+    <input type="password" placeholder="Repeat Password" name="password2" required>
+    <fieldset>
+        <legend>Select a user type:</legend>
+      
+        <div>
+          <input type="radio" id="huey" name="user" value="1" checked />
+          <label for="huey">Warehouse Owner</label>
+        </div>
+      
+        <div>
+          <input type="radio" id="dewey" name="user" value="0" />
+          <label for="dewey">Farmer</label>
+        </div>
+      </fieldset>
+    <button type="submit" class="signupbtn">Sign Up</button>
+</form>
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.models import AbstractUser
 
 class Unit(models.Model):
     type = models.CharField(max_length=100) # Check box feild
@@ -55,3 +56,6 @@ class Warehouse_owner(models.Model):
     
     def __str__(self):
         return self.title
+    
+
+    

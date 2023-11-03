@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:center;
+  border-radius: 5px;
+  color: #bca3a3;
+  font-family: sans-serif;
+  width: 50%;
+  height: 70%;
+  background: rgba(255,255,255,0.2);
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  /* background-image: url('bg-login.jpg'); */
+  /* background-image: linear-gradient(135deg, #d90368, #541388, #2E294E); */
+  /* background-image: linear-gradient(135deg, #d90368, #541388, #2E294E); */
+  /* background-image: linear-gradient(135deg, #d90368, #541388, #2E294E); */
+  background-image: linear-gradient(rgba(0,0,0,0.34),rgba(0,0,0, 0.3)),url(../Images/bg-login.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  
+}
+
+
+.maindiv
+{
+/* background-color: #000; */
+width: 60%;
+
+}
+#Welcome
+{
+    font-size: 30px;
+    margin-top: 30px;
+    /* background: #000; */
+}
+.formtext
+{
+  font-size: 23px;
+}
+
+.formbox
+{
+  width: 100%;
+  height: 30px;
+  opacity: 0.4;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.formbox2 
+{
+  /* width: 100%; */
+  opacity: 0.4;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-size: 20px;
+  justify-content: center;
+  scale: 1.15;
+  margin-left: 42%;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+  
+.maindiv
+{
+  margin-top: -30px;
+}
+.mainbottom
+{
+   margin-top: 20px;
+   margin-bottom: 10px;
+}
+
+.bottom{
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+.bottom-link{
+  text-decoration: none;
+  color: #bca3a3;
+  font-family: sans-serif;
+  /* scale: 4; */
+}
+
+.hidden
+{
+  visibility: hidden;
+}
+
+ .mgt-20
+{
+  margin-top: 32px;
+} 
