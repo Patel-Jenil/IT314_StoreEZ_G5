@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Login And Sign up form by | Asadbek</title>
+      <link rel="stylesheet" href="{% static 'css/pass_reset.css' %}">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+      <div class="wrapper">
+
+         <div class="logo" style="text-align:center;">
+            <img src="{% static 'img/logo-color.png' %}">
+         </div>
+
+         <div class="title-text">
+            <div class="title login">
+               Enter new Password
+            </div>
+         </div>
+         <div class="form-container">
+            <div class="form-inner">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="">Enter your email below and we'll email instruction for setting a new one.</label>
+                    {{form.as_p}}
+                    <div class="field btn">
+                       <div class="btn-layer"></div>
+                       <input type="submit" value="Reset Password">
+                    </div>
+                 </form>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
