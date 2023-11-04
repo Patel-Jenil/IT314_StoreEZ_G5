@@ -1,41 +1,93 @@
-{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Slide Navbar</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+{%load static %}
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Login And Sign up form</title>
+      <link rel="stylesheet" href="{% static 'signup.css' %}">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+      <div class="wrapper">
+        {% if page == 'register' %}
+         <div class="title-text">
+            <div class="title signup">
+               Signup
+            </div>
+         </div>
+         {% else %}
+         <div class="title-text">
+            <div class="title signup">
+               Log In
+            </div>
+         </div>
+         {% endif %}
+         <div class="form-container">
+            <div class="logo" style="text-align:center;">
+               <img src="{% static 'img/logo.jpg' %}">
+            </div>
 
-</head>
-<body>
-  
-	<div class="main">  	
-    <div class="logo" style="text-align:center;">
-      <img src="{%static 'img/logo.jpg'%}">
-    </div>
-		<input type="checkbox" id="chk" aria-hidden="true">
-    
-    <div class="signup">
-      <form action="" method="POST">
-        {% csrf_token %}
-        <!-- <label for="chk" aria-hidden="true">Sign up</label> -->
-        <h2 class="headings">Sign up</h2>
-        <input class="long-input" type="email"  placeholder="Enter Email" name="email" required>
-        <input class="long-input"  type="password"  placeholder="Enter Password" name="password1" required>
-        <input class="long-input"  type="password"  placeholder="Confirm Password" name="password2" required>
-        <div class="box">
-          <h3 class="headings">Select the user type?</h3>
-        <input type="radio" id="Warehouse_Owner" name="user" value="1" checked />
-        <label for="Warehouse_Owner">Warehouse Owner</label>
-        <input type="radio" id="Farmer" name="user" value="0" />
-        <label for="Farmer">Farmer</label>
-        </div>
-        <button>Sign up</button>
-      </form> 
-    </div>
+            <div class="form-inner">
 
-      <button>Login</button>
-	</div>
+            {% if page == 'register' %}
+                <form action="#" method="POST" class="signup">
+                    {% csrf_token %}
+                    <div class="field">
+                       <input type="email" placeholder="Email Address" name="email" required>
+                    </div>
+                    <div class="field">
+                       <input type="password" placeholder="Password" name="password1" required>
+                    </div>
+                    <div class="field">
+                       <input type="password" placeholder="Confirm password" name="password2" required>
+                    </div>
+                    <div class="slide-controls">
+                        <input type="radio"  id="farmer" name="user" value="0" checked >
+                        <input type="radio"  id="Warehouse_Owner" name="user" value="1">
+                        <label for="farmer" class="slide farmer">Farmer</label>
+                        <label for="Warehouse_Owner" class="slide Warehouse_Owner">Warehouse Owner</label>
+                        <div class="slider-tab"></div>
+                    </div>
+                    <div class="field btn">
+                       <div class="btn-layer"></div>
+                       <input type="submit" value="Signup">
+                    </div>
+                    <div class="signup-link">
+                        Already a member? <a href="{% url 'login' %}">LogIn now</a>
+                     </div>
 
-</body>
+                </form>
+
+            {% else %}
+                <form action="#" class="login" method="POST">
+                {% csrf_token %}
+                  <div class="field">
+                     <input type="email" placeholder="Email Address" name="username" required>
+                  </div>
+                  <div class="field">
+                     <input type="password" placeholder="Password" name="password" required>
+                  </div>
+                  <div class="pass-link">
+                     <a href="{% url 'reset_password' %}">Forgot password?</a>
+                  </div>
+                  <div class="field btn">
+                     <div class="btn-layer"></div>
+                     <input type="submit" value="Login">
+                  </div>
+                  <div class="signup-link">
+                     Not a member? <a href="{% url 'register' %}">Signup now</a>
+                  </div>
+               </form>
+            
+            {% endif %}
+
+            <form action="#">
+                <div>
+                   <input>
+                </div>
+             </form>
+            </div>
+         </div>
+      </div>
+   </body>
 </html>

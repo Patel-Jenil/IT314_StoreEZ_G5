@@ -10,7 +10,7 @@ def homepage(request):
     return render(request, 'homepage.html')
 
 def loginUser(request):
-
+    page ='login'
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -31,18 +31,20 @@ def loginUser(request):
         else : 
             print("Invalid usrname or password") 
         
-
-    return render(request, 'mainapp/log-in.html')
+    context = {'page':page}
+    return render(request, 'mainapp/signup.html', context)
 
 def register(request):  
+    page ='register'
     if request.method == 'POST':
         email = request.POST.get('email')
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
         flag = request.POST.get('user')
+        # print(flag)
         
         my_user = User.objects.create_user(username=email, email=email, password=pass1)
-        # print(email, pass1, pass2, flag)
+        print(email, pass1, pass2, flag)
         # return HttpResponse("Warehouse Owner created !!!")
         if flag == "1":
             owner = Warehouse_owner.objects.create(user=my_user)
@@ -50,8 +52,8 @@ def register(request):
         else :
             farmer = Farmer.objects.create(user=my_user)
             return HttpResponse("Farmer created !!!")
-            
-    return render(request, 'mainapp/signup.html') 
+    context = {'page':page}
+    return render(request, 'mainapp/signup.html', context) 
 
 
 
