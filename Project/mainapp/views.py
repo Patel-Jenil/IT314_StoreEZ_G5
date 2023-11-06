@@ -24,7 +24,7 @@ def loginUser(request):
             login(request, my_user)
             
             try:
-                Farmer.objects.get(user=my_user)
+                Farmer.objects.get(email=my_user.email)
             except Farmer.DoesNotExist:
                 # return HttpResponse("Warehouse")
                 return redirect("Warehouse_profile")
@@ -34,7 +34,7 @@ def loginUser(request):
             print("Invalid usrname or password") 
         
 
-    return render(request, 'mainapp/log-in.html')
+    return render(request, 'mainapp/signup.html')
 
 def register(request):  
     if request.method == 'POST':
@@ -53,8 +53,11 @@ def register(request):
         else :
             farmer = Farmer.objects.create(email = my_user.email)
             return HttpResponse("Farmer created !!!")
-            
-    return render(request, 'mainapp/signup.html')
+        
+    context = {
+        'page':"register"
+    }
+    return render(request, 'mainapp/signup.html',context)
 
 
 def aboutus(request):
