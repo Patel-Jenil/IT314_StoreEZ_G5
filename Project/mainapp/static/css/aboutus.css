@@ -1,0 +1,50 @@
+.fitalic{
+    font-style: italic;
+}
+.Adit{
+    color: blueviolet;
+}
+
+.ff{
+    font-family: "Times New Roman", Times, serif;
+}
+
+.ab{
+    display: flex;
+    height: 30%;
+    width: 80%;
+    background-color: #25381b;
+    
+}
+
+.car{
+    height: 30%;
+    width: 70%;
+}
+
+
+
+.imgcenter{
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+}
+
+.stats-counter .stats-item span {
+    font-size: 40px;
+    display: block;
+    font-weight: 700;
+    color: #25381b;
+    line-height: 40px;
+}
+
+.stats-counter .stats-item .purecounter {
+    min-width: 90px;
+    padding-right: 15px;
+}
+
+.pad{
+    padding: 10%;
+}
+
+
