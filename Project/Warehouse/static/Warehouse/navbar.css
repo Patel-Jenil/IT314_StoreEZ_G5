@@ -1,0 +1,10 @@
+.cont{
+  border-bottom:solid;
+  margin:0;
+  padding:0;
+  width:95%;
+  align-self: center;
+  padding-top:20px;
+  padding-bottom:20px;
+  border-bottom-color:white;
+}

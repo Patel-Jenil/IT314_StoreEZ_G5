@@ -25,7 +25,8 @@ def loginUser(request):
             try:
                 Farmer.objects.get(user=my_user)
             except Farmer.DoesNotExist:
-                return HttpResponse("Warehouse")
+                # return HttpResponse("Warehouse")
+                return redirect("Warehouse_profile")
                 
             return HttpResponse("Farmer")
         else : 
@@ -42,13 +43,14 @@ def register(request):
         flag = request.POST.get('user')
         
         my_user = User.objects.create_user(username=email, email=email, password=pass1)
+        login(request, my_user)
         # print(email, pass1, pass2, flag)
         # return HttpResponse("Warehouse Owner created !!!")
         if flag == "1":
-            owner = Warehouse_owner.objects.create(user=my_user)
-            return HttpResponse("Warehouse Owner created !!!")
+            owner = Warehouse_owner.objects.create(email = my_user.email)
+            return redirect('warehouse_editprofile')
         else :
-            farmer = Farmer.objects.create(user=my_user)
+            farmer = Farmer.objects.create(email = my_user.email)
             return HttpResponse("Farmer created !!!")
             
     return render(request, 'mainapp/signup.html') 

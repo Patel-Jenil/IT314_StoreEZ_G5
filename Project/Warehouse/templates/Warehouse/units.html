@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Item Hover Color Background</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://rawcdn.githack.com/SochavaAG/example-mycode/master/_common/css/reset.css'>
+  <link rel="stylesheet" href="{% static 'Warehouse/newstyles.css' %}  ">
+  <link rel="stylesheet" href="{% static 'Warehouse/newstyles.css' %}">
+
+</head>
+
+<body>
+  {% comment %} {{units}} {% endcomment %}
+  <div class="container mt-2">
+      <div class="Upper">
+        <h1>Units</h1> 
+        <a class="new_unit" href="">Add Unit</a>
+      </div>
+
+      <div class="filter">
+        <label for="">Start-Date:</label>
+        <input type="date" id="birthday" name="birthday">
+
+        <label for="">End-Date:</label>
+        <input type="date" id="birthday" name="birthday">
+        <button>Filter</button>
+      </div>
+      <div class="row">
+        {% for unit in  units%}
+        <div class="col-xl-2 col-md-3 col-sm-6 col-6">
+          <div class="ag-courses_item">
+            <a href="#" class="ag-courses-item_link">
+              <div class="ag-courses-item_bg"></div>
+      
+              <div class="ag-courses-item_title">
+                Unit {{forloop.counter}}
+              </div>
+      
+              <div class="ag-courses-item_date-box">
+                Start:
+                <span class="ag-courses-item_date">
+                  04.11.2022
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+    </div>
+    
+</body>
+
+</html>
+
+
+
+

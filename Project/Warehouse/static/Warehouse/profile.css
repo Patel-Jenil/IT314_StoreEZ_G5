@@ -1,0 +1,43 @@
+.profile-head {
+    transform: translateY(5rem)
+}
+
+.cover {
+    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+body {
+    background:white;
+    /* background: #654ea3;
+    background: linear-gradient(to right, #e96443, #904e95); */
+    min-height: 100vh;
+    overflow-x:hidden;
+}
+
+.bg-green{
+    background: #066c40;
+}
+
+.bg-wwhite{
+    background-color: #eae9e2;
+}
+
+/* .bg-green2{
+    background-color: #0f9e60;
+} */
+
+.bgg2{
+    background: radial-gradient(2000px at 14% 22.3%, rgb(15, 164, 102) 0%, rgb(234,233,226) 90%);
+}
+
+.bgg{
+    /* background: radial-gradient(to right, #eae9e2, #066c40); */
+    /* background: radial-gradient(759px at 14% 22.3%, rgb(10, 64, 88) 0%, rgb(15, 164, 102) 90%); */
+    background-color: rgb(10, 64, 88);
+}
+.txts{
+    font-weight: bold;
+    color: #eae9e2;
+}
