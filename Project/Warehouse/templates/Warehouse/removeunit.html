@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>
+        <label for="units">Select a unit to delete</label>
+        <select id="cars" name="cars">
+            <option value="volvo">1</option>
+            <option value="saab">2</option>
+            <option value="fiat">3</option>
+            <option value="audi">4</option>
+        </select>
+    </p>
+    
+    <input type="submit">
+</form>
+{% endblock %}

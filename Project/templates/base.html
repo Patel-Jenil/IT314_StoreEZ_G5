@@ -32,6 +32,11 @@
 
     <!-- Template Stylesheet -->
     <link href="{%static 'css/style.css' %}" rel="stylesheet">
+
+    {% block css %}
+
+
+    {% endblock %}
 </head>
 
 <body>  
@@ -48,20 +53,25 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-                        <a href="{% url 'homepage' %}" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Farmer</a>
-                        <a href="product.html" class="nav-item nav-link">Warehouse</a>
+
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'homepage' %}" class="nav-item nav-link text-black">Home</a>
+
+                        <a href="{% url 'index' %}" class="nav-item nav-link">Warehouse</a>
+                        <a href="product.html" class="nav-item nav-link">My Profile</a>
                         <a href="{% url 'aboutus' %}" class="nav-item nav-link">About Us</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu bg-light mt-2">
-                                <!-- <a href="feature.html" class="dropdown-item">Features</a>-->
-                                
-                            </div>
-                        </div>
+
+                        {% else %}
+
+                        {% endif %}
                         
                     </div>
-                    <a href="" class="btn btn-dark py-2 px-4 d-none d-lg-inline-block">Login/Sign Up</a>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="btn btn-dark py-2 px-4 d-none d-lg-inline-block">Logout</a>
+
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-dark py-2 px-4 d-none d-lg-inline-block">Login/Sign Up</a>
+                    {% endif %}
                 </div>
             </nav>
         </div>
@@ -76,7 +86,7 @@
     {% endblock content %}
 
     <!-- Footer Start -->
-        <div class="container-fluid bg-primary hero-header mt-4 footer">
+        <!-- <div class="container-fluid bg-primary hero-header mt-4 footer">
 
             <div class="container wow fadeIn" data-wow-delay="0.1s">
                 <div class="copyright">
@@ -88,7 +98,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     <!-- Footer End -->
 
 
@@ -106,6 +116,9 @@
 
     <!-- Template Javascript -->
     <script src="{%static 'js/main.js'%}"></script>
+
+    {% block js %}
+    {% endblock %}
 </body>
 
 </html>

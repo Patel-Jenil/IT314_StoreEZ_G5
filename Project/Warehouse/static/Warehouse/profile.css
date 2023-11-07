@@ -29,7 +29,8 @@ body {
 } */
 
 .bgg2{
-    background: radial-gradient(2000px at 14% 22.3%, rgb(15, 164, 102) 0%, rgb(234,233,226) 90%);
+    /* background: radial-gradient(2000px at 14% 22.3%, rgb(15, 164, 102) 0%, rgb(234,233,226) 90%); */
+    background-color: #90bc79;
 }
 
 .bgg{

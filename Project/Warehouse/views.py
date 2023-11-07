@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from mainapp.models import Warehouse, Warehouse_owner, Unit
 from django.shortcuts import render, redirect, get_object_or_404
@@ -90,3 +91,24 @@ def index(request):
         'warehouses':warehouses
     }
     return render(request,'warehouse/index.html',context)
+
+@login_required()
+def addunit(request, id):
+    context = {}
+    if request.method == "POST":
+        type = request.POST.get('type')
+        capacity = request.POST.get('capacity')
+        price = request.POST.get('price')
+        warehouse = Warehouse.objects.get(id = id)
+        
+        
+        unit = Unit(type=type, capacity=capacity, price=price, warehouse=warehouse)
+        unit.save()
+        return redirect('units', id=id)
+        # print(type, capacity, price, warehouse)
+        
+        
+    return render(request, 'warehouse/add_units.html', context)
+
+def removeunit(request, id):
+    return render(request, 'warehouse/removeunit.html')

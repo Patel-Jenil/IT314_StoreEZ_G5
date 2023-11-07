@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p> <input type="text" placeholder="type" name="type"> </p>
+    
+    <p><input type="text" placeholder="Capacity" name="capacity"> </p>
+    <p><input type="text" placeholder="Price" name="price"> </p>
+    
+    
+    <input type="submit">
+</form>
+
+{% endblock %}

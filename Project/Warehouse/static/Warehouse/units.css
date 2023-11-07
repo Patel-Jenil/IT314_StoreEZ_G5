@@ -17,8 +17,9 @@
   }
   .new_unit{
     position: relative;
-    left: 93%;
+    left: 90%;
     display: inline-block;
+    margin-left: 2%;
   }
   
   .ag-courses_box {
