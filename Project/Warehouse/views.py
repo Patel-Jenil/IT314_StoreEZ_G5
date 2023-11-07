@@ -112,3 +112,22 @@ def addunit(request, id):
 
 def removeunit(request, id):
     return render(request, 'warehouse/removeunit.html')
+
+@login_required()
+def addwarehouse(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        poc_name = request.POST.get('poc_name')
+        phone_no = request.POST.get('phone_no')
+        print(request.user.id)
+        warehouse_owner = Warehouse_owner.objects.get(email = request.user.email)
+        print(warehouse_owner)
+        user = Warehouse(name = name, address = address, city = city, state = state, poc_name = poc_name , poc_phone_no=phone_no,owner = warehouse_owner)
+        user.save()
+    context = {
+        'user_id':request.user.id
+    }
+    return render(request,'warehouse/add_warehouse.html',context)

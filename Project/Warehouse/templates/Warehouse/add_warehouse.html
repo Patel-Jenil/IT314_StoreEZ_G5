@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{% url 'add_warehouse' %}"  method="post">
+    {% csrf_token %}
+    <label for="fname"> name:</label><br>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="address">address</label><br>
+  <input type="text" id="address" name="address" required><br><br>
+
+  <label for="city">city</label><br>
+  <input type="text" id="city" name="city" required><br><br>
+
+
+  <label for="state">state</label><br>
+  <input type="text" id="state" name="state" required><br><br>
+
+  <label for="poc_name">poc_name</label><br>
+  <input type="text" id="poc_name" name="poc_name" required><br><br>
+
+  <label for="phone_no">phone_no</label><br>
+  <input type="text" id="phone_no" name="phone_no" required><br><br>
+  
+
+  {% comment %} <label for="image">image</label><br>
+  <input type="text" id="image" name="image"><br><br> {% endcomment %}
+
+  {% comment %} <input type="hidden" id="owner" name="id" value = "{{user_id}}"> {% endcomment %}
+
+
+
+    <input type="submit">
+</form>
+
+{% endblock %}
