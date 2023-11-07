@@ -9,7 +9,9 @@ class Warehouse_owner(models.Model):
     last_name = models.CharField(max_length=100, null=True)
     email = models.EmailField(max_length=200)
     phone_no = models.DecimalField(max_digits=10, decimal_places=0, null=True)
-    # warehouse_id = models.ForeignKey(Warehouse, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(default="images/default_user_image.jpg",upload_to="images/warehouse_owner/",blank=True,null=True)
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
     
     
 class Warehouse(models.Model):
@@ -17,24 +19,21 @@ class Warehouse(models.Model):
     address = models.TextField()
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
-    poc_name = models.CharField(max_length=100)
+    poc_name = models.CharField(max_length=100, null=True)
     poc_phone_no = models.DecimalField(max_digits=10, decimal_places=0)
     owner = models.ForeignKey(Warehouse_owner, on_delete=models.CASCADE)
+    image = models.ImageField(default="images/default_warehouse_image.jpg",upload_to="images/warehouse/",blank=True,null=True)
     def __str__(self):
-        return self.name
+        return f'{self.name}'
     
 class Unit(models.Model):
+    id = models.BigAutoField(primary_key=True)
     type = models.CharField(max_length=100) # Check box field
     capacity = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)  
     warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE)
-    
-    
-class Booking(models.Model):
-    start_date = models.DateField(default= date.today)
-    end_date = models.DateField(default= date.today)
-    description = models.TextField()
-    unit = models.ManyToManyField(Unit)
+    def __str__(self):
+        return f'{self.id} {self.type} {self.capacity}'
     
     
 class Farmer(models.Model):
@@ -44,5 +43,17 @@ class Farmer(models.Model):
     phone_no = models.DecimalField(max_digits=10, decimal_places=0, null=True)
     city = models.CharField(max_length=100, null=True)
     state = models.CharField(max_length=100, null=True)
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE, null=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(default="images/default_user_image.jpg",upload_to="images/farmer/",blank=True,null=True)
+    def __str__(self) -> str:
+        return f'{self.first_name} {self.last_name}'
+    
+    
+class Booking(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    start_date = models.DateField(default= date.today)
+    end_date = models.DateField(default= date.today)
+    description = models.TextField()
+    unit = models.ManyToManyField(Unit)
+    farmer = models.ForeignKey(Farmer,on_delete=models.SET_NULL, null=True)
+    def __str__(self) -> str:
+        return f"{self.id} {self.start_date}-{self.end_date}"
