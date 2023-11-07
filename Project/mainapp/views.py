@@ -29,7 +29,7 @@ def loginUser(request):
                 # return HttpResponse("Warehouse")
                 return redirect("Warehouse_profile")
                 
-            return HttpResponse("Farmer")
+            return redirect("farmer_profile")
         else : 
             print("Invalid usrname or password") 
         
@@ -52,7 +52,7 @@ def register(request):
             return redirect('warehouse_editprofile')
         else :
             farmer = Farmer.objects.create(email = my_user.email)
-            return HttpResponse("Farmer created !!!")
+            return redirect('farmer_editprofile')
         
     context = {
         'page':"register"
@@ -65,4 +65,4 @@ def aboutus(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('homepage')
