@@ -1,12 +1,13 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.models import User
 from mainapp.models import Farmer
+from farmer.forms import EditProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 
 @login_required()
-def display(request):
+def farmer_profile(request):
     user=request.user
     print(user.email)
     farmer=get_object_or_404(Farmer,email=user.email)
@@ -14,11 +15,40 @@ def display(request):
     context={
         "farmer":farmer
     }
-    return render(request,"farmer/farmer_display.html",context)
+    return render(request,"farmer/profile.html",context)
     # return HttpResponse('Hi')
 
-def edit(request):
-    
+@login_required()
+def editprofile(request):
+    editprofile = EditProfile()
+    context = {'editprofile': editprofile,'user':request.user}
+    if request.method == "POST":
+        editprofile  = EditProfile(request.POST)
+        if editprofile.is_valid():
+            user = editprofile.save(commit=False)
+            loggedin_user = request.user
+            farmer_user = get_object_or_404(Farmer, email=loggedin_user.email)
+            farmer_user.first_name = user.first_name
+            farmer_user.last_name = user.last_name
+            farmer_user.phone_no = user.phone_no
+            farmer_user.city = user.city
+            farmer_user.state = user.state
+            farmer_user.image = user.image
+            farmer_user.save()
+            
+            # user = User.objects.get(username =loggedin_user.email)
+            # user.username = farmer_user.email
+            # user.email = farmer_user.email
+            # user.save()
+            # login_newuser = authenticate(username = user.email , password = loggedin_user.password)
+            # login(request,login_newuser)
+            return redirect('farmer_profile')
+        
+        else:
+            context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors}
+    return render(request,'farmer/editprofile.html',context)
+
+
     # if request.POST:
     #     first_name = request.POST.get('first_name')
     #     last_name = request.POST.get('last_name')
@@ -41,4 +71,4 @@ def edit(request):
     # # context = {}
     #     print(request)
     # return render(request,"farmer/edit.html")
-     return HttpResponse("Hiii:")
+    #  return HttpResponse("Hiii:")

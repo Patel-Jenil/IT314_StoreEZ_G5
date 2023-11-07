@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from farmer.views import *
+from . import views
 
 urlpatterns = [
-    path("farmer/profile",display,name='farmerdis'),
-    path("farmer/edit",edit,name='edit'),
+    path("farmer/profile",views.farmer_profile,name='farmer_profile'),
+    path("farmer/editprofile",views.editprofile,name='farmer_editprofile'),
 ]
