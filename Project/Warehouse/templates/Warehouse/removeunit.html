@@ -5,11 +5,12 @@
     {% csrf_token %}
     <p>
         <label for="units">Select a unit to delete</label>
-        <select id="cars" name="cars">
-            <option value="volvo">1</option>
-            <option value="saab">2</option>
-            <option value="fiat">3</option>
-            <option value="audi">4</option>
+        <select name="unit">
+
+            {% for unit in  units %}
+            <option value="{{unit.id}}">{{forloop.counter}}</option>
+            {% endfor %}
+            
         </select>
     </p>
     

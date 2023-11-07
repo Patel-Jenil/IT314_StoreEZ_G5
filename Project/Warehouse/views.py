@@ -70,6 +70,7 @@ def editprofile(request):
             context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors}
     return render(request,'warehouse/editprofile.html',context)
 
+@login_required()
 def warehouses(request, id):
     warehouse = Warehouse.objects.get(id = id)
     context = {'warehouse':warehouse}
@@ -79,7 +80,7 @@ def warehouses(request, id):
 def units(request, id):
     # warehouse = Warehouse.objects.get(id = id)
     units = Warehouse.objects.get(id = id).unit_set.all()
-    print(units)
+    # print(units)
     context = {'units':units}
     return render(request,'warehouse/units.html',context)
 
@@ -94,7 +95,7 @@ def index(request):
 
 @login_required()
 def addunit(request, id):
-    context = {}
+    # print(id)
     if request.method == "POST":
         type = request.POST.get('type')
         capacity = request.POST.get('capacity')
@@ -106,12 +107,24 @@ def addunit(request, id):
         unit.save()
         return redirect('units', id=id)
         # print(type, capacity, price, warehouse)
-        
-        
+    # print("id:",id)   
+    context = {'id': id}
     return render(request, 'warehouse/add_units.html', context)
 
 def removeunit(request, id):
-    return render(request, 'warehouse/removeunit.html')
+    context = {}
+    if request.method == "POST":
+        unit = request.POST.get('unit')
+        # print("id: ",unit)
+        del_unit = Unit.objects.get(id=unit)
+        print(del_unit)
+        del_unit.delete()
+        return redirect('units', id=id)
+    
+    units = Warehouse.objects.get(id = id).unit_set.all()   
+    # print(units.count())
+    context = {'units': units}
+    return render(request, 'warehouse/removeunit.html', context)
 
 @login_required()
 def addwarehouse(request):

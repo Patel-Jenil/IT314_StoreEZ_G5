@@ -17,9 +17,11 @@
   }
   .new_unit{
     position: relative;
-    left: 90%;
+    left: 80%;
     display: inline-block;
     margin-left: 2%;
+    /* margin-bottom: 4%; */
+    color: #121212  ;
   }
   
   .ag-courses_box {
@@ -105,7 +107,7 @@
     -o-transition: all .5s ease;
     transition: all .5s ease;
   }
-  .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
+  /* .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
     background-color: #3ecd5e;
   }
   .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
@@ -119,4 +121,31 @@
   }
   .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
     background-color: #4c49ea;
-  }
+  } */
+
+  *:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+input[type="date"]{
+    background-color: #4a5d5e;
+    padding: 0.5%;
+    /* position: absolute; */
+    /* transform: translate(-50%,-50%); */
+    /* top: 50%; */
+    /* left: 50%; */
+    font-family: "Roboto Mono",monospace;
+    color: #ffffff;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
