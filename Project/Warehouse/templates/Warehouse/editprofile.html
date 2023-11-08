@@ -16,7 +16,7 @@
 background-color: #90bc79;">
   <div class="cont" style="height:100px;">
     <nav class="navbar navbar-expand-lg navbar-light p-0">
-        <a href="index.html" class="navbar-brand">
+        <a href="{% url 'homepage' %}" class="navbar-brand">
             <h2 class="text-white"><b>Store-EZ</b></h2>
         </a>
         <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
@@ -46,7 +46,7 @@ background-color: #90bc79;">
           </p>
         </div>
         <div style="text-align:center;">
-          <img class="profile-img" src="{% static "warehouse/profile-img.avif" %}">
+          <img class="profile-img" src="{% static "farmer/profile-img.avif" %}">
         </div>
         <div class="namee" style="display:flex;
         flex-direction: row; margin:0;">
@@ -61,10 +61,18 @@ background-color: #90bc79;">
           </div>
           
         </div>
-        <div id="div2">
+        {% comment %} <div id="div2">
           <label for="email">Email ID</label><br>
           {{editprofile.email}}
         </div>
+        {% endcomment %}
+
+        
+        <div id="div5">
+          <label for="image">Upload an Image (Skip to unchange)</label><br>
+          {{editprofile.image}}
+        </div>
+        
         
         <div id="div6">
           <label for="phone">Mobile No.</label><br>
@@ -77,14 +85,10 @@ background-color: #90bc79;">
 
         <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
           <div style="flex:1;">
-            <button class="cancel-button">
-              Cancel
-            </button>
+            <a href="{% url 'Warehouse_profile' %}" class="btn btn-default">Cancel</a>
           </div>
           <div style="flex:1;">
-            <button class="save-button">
-                Save
-            </button>
+            <input type="submit" value="Confirm" />
           </div>
           
         </div>

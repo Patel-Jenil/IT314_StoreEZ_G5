@@ -51,24 +51,25 @@ def editprofile(request):
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
             loggedin_user = request.user
-            warehouse_user = get_object_or_404(Warehouse_owner, email=loggedin_user.email)
-            warehouse_user.first_name = user.first_name
-            warehouse_user.last_name = user.last_name
-            warehouse_user.email = user.email
-            warehouse_user.phone_no = user.phone_no
-            warehouse_user.save()
+            warehouse_owner = get_object_or_404(Warehouse_owner, email=loggedin_user.email)
+            warehouse_owner.first_name = user.first_name
+            warehouse_owner.last_name = user.last_name
+            warehouse_owner.phone_no = user.phone_no
+            warehouse_owner.image = user.image
+            print(user.phone_no, user.image, user.first_name, user.last_name)
+            warehouse_owner.save()
             
-            user = User.objects.get(username =loggedin_user.email)
-            user.username = warehouse_user.email
-            user.email = warehouse_user.email
-            user.save()
-            login_newuser = authenticate(username = user.email , password = loggedin_user.password)
-            login(request,login_newuser)
+            # user = User.objects.get(username =loggedin_user.email)
+            # user.username = farmer_user.email
+            # user.email = farmer_user.email
+            # user.save()
+            # login_newuser = authenticate(username = user.email , password = loggedin_user.password)
+            # login(request,login_newuser)
             return redirect('Warehouse_profile')
         
         else:
             context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors}
-    return render(request,'warehouse/editprofile.html',context)
+    return render(request,'Warehouse/editprofile.html',context)
 
 @login_required()
 def warehouses(request, id):
@@ -81,7 +82,7 @@ def units(request, id):
     # warehouse = Warehouse.objects.get(id = id)
     units = Warehouse.objects.get(id = id).unit_set.all()
     # print(units)
-    context = {'units':units}
+    context = {'units':units, 'warehouse_id':id}
     return render(request,'warehouse/units.html',context)
 
 def index(request):
@@ -128,6 +129,7 @@ def removeunit(request, id):
 
 @login_required()
 def addwarehouse(request):
+    
     if request.method == 'POST':
         name = request.POST.get('name')
         address = request.POST.get('address')
@@ -141,6 +143,20 @@ def addwarehouse(request):
         user = Warehouse(name = name, address = address, city = city, state = state, poc_name = poc_name , poc_phone_no=phone_no,owner = warehouse_owner)
         user.save()
     context = {
-        'user_id':request.user.id
+        'user_id':request.user.id,'cancel_url':self.get_success_url()
     }
     return render(request,'warehouse/add_warehouse.html',context)
+
+def removewarehouse(request, id):
+    print(id)
+    context = {}
+    if request.method == "POST":
+        del_warehouse = Warehouse.objects.get(id=id)
+        print(del_warehouse)
+        del_warehouse.delete()
+        return redirect('index')
+    
+
+    # print(units.count())
+    context = {}
+    return render(request, 'warehouse/remove_warehouse.html', context)

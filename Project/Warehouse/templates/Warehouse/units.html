@@ -14,8 +14,8 @@
   <div class="container mt-2">
       <div class="Upper">
         <h1>Units</h1> 
-        <a class="new_unit" href="">Add Unit</a>
-        <a class="new_unit" href="">Remove Unit</a>
+        <a class="new_unit" href=" {% url 'addunit' warehouse_id %}">Add Unit</a>
+        <a class="new_unit" href="{% url 'removeunit' warehouse_id %}">Remove Unit</a>
       </div>
 
       <div class="filter">

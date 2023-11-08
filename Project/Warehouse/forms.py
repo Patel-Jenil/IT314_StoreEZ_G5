@@ -9,22 +9,15 @@ from django.contrib.auth.models import User
 class EditProfile(forms.ModelForm):
     class Meta:
         model = EditProfile
-        fields = ("first_name", "last_name", "email", "phone_no","loggedin_userid")
-        
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        id = self.cleaned_data.get('loggedin_userid')
-        if User.objects.filter(email=email).exclude(id=id).count():
-            raise forms.ValidationError('This email address is already in use. Please enter a different email address.')
-        return email      
+        fields = ('first_name', 'last_name', 'phone_no', 'image')     
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['first_name'].widget.attrs['placeholder'] = 'Enter first name'
-        self.fields['email'].widget.attrs['placeholder'] = 'Enter Email'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Enter Last name'
         self.fields['phone_no'].widget.attrs['placeholder'] = 'Enter Phone number'
+        self.fields['image'].widget.attrs['placeholder'] = 'Enter image'
         
 
         
