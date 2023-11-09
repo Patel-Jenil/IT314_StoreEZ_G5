@@ -1,10 +1,10 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.models import User
-from mainapp.models import Farmer
+from mainapp.models import Farmer,Warehouse
 from farmer.forms import EditProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
+from django.core.paginator import Paginator
 
 @login_required()
 def farmer_profile(request):
@@ -49,6 +49,34 @@ def editprofile(request):
     return render(request,'farmer/editprofile.html',context)
 
 
+def currentbooking(request):
+    contact_list = Warehouse.objects.all()
+    paginator = Paginator(contact_list, 2)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    count=Warehouse.objects.count()
+    nums= "." *page_obj.paginator.num_pages
+
+
+    context={
+        "data": page_obj,
+        'nums':nums,
+    }
+    return render(request, 'farmer/currentbooking.html', context)
+
+
+def previousbooking(request):
+    contact_list = Warehouse.objects.all()
+    paginator = Paginator(contact_list, 2)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    count=Warehouse.objects.count()
+    nums= "." *page_obj.paginator.num_pages
+    context={
+        "data": page_obj,
+        'nums':nums,
+    }
+    return render(request, 'farmer/previousbooking.html', context)   
     # if request.POST:
     #     first_name = request.POST.get('first_name')
     #     last_name = request.POST.get('last_name')

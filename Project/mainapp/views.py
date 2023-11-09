@@ -29,7 +29,7 @@ def loginUser(request):
                 # return HttpResponse("Warehouse")
                 return redirect("Warehouse_profile")
                 
-            return redirect("farmer_profile")
+            return redirect("farmer_currentbooking")
         else : 
             print("Invalid usrname or password") 
         

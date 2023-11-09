@@ -35,7 +35,7 @@
     {% endblock %}
 </head>
 
-<body>  
+<body style="background-color: #90bc79; background-image: url({%static 'img/bg.png' %});" >  
     <!-- Navbar Start -->
     <div class="container-fluid sticky-top bg-primary">
         <div class="container ">
@@ -57,8 +57,9 @@
                         <a href="product.html" class="nav-item nav-link">My Profile</a>
                         <a href="{% url 'aboutus' %}" class="nav-item nav-link">About Us</a>
 
-                        {% else %}
+                        
 
+                        {% else %}
                         {% endif %}
                         
                     </div>
