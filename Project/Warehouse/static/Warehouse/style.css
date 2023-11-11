@@ -1,6 +1,6 @@
 body {
   --background-color: #90BC79;
-  background: url("/Media/bg.png");
+  background: url("{% static 'Warehouse/bg.png' %}");
   --text-color: #A1A1AA;
   /* --card-background-color: #808080; */
   /* --card-border-color: rgba(241, 13, 13, 0.1); */
@@ -11,7 +11,11 @@ body {
 }
 
 
-
+/* .bsearch
+{
+  width: 100px;
+  background-color: red;
+} */
 
 
 .search-container {
@@ -151,4 +155,19 @@ body {
 
 .dropdown-menu{
   width:78%;
+}
+
+.container
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.bsearch{
+  width: 80%;
+}
+
+.bdate_input
+{
+  width: 40%;
 }

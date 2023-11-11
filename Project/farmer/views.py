@@ -100,3 +100,15 @@ def previousbooking(request):
     #     print(request)
     # return render(request,"farmer/edit.html")
     #  return HttpResponse("Hiii:")
+    
+    
+@login_required
+def book(request,id):
+    warehouse = Warehouse.objects.get(id=id)
+    units = warehouse.unit_set.all()
+    # print(warehouse,"--", units)
+    context = {
+        'warehouse':warehouse,
+        'units':units
+    }
+    return render(request,'farmer/book.html',context)

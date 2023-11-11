@@ -143,7 +143,7 @@ def addwarehouse(request):
         user = Warehouse(name = name, address = address, city = city, state = state, poc_name = poc_name , poc_phone_no=phone_no,owner = warehouse_owner)
         user.save()
     context = {
-        'user_id':request.user.id,'cancel_url':self.get_success_url()
+        'user_id':request.user.id
     }
     return render(request,'warehouse/add_warehouse.html',context)
 
