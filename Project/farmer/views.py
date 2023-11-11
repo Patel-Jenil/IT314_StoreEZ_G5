@@ -1,3 +1,4 @@
+from turtle import st
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.models import User
 from mainapp.models import Farmer,Warehouse
@@ -5,7 +6,7 @@ from farmer.forms import EditProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-
+from datetime import datetime,date,time
 @login_required()
 def farmer_profile(request):
     user=request.user
@@ -102,6 +103,32 @@ def previousbooking(request):
     #  return HttpResponse("Hiii:")
     
     
+def search(request):
+    
+    warehouses = Warehouse.objects.all()
+    print(warehouses)
+    context = {
+        'warehouses':warehouses
+    }
+    
+    if request.method == "POST":
+        startdate = request.POST.get('startdate')     
+        enddate = request.POST.get('enddate')  
+        # error_message = ""
+        # date_format = '%Y-%m-%d'
+        # start = datetime.strptime(startdate, date_format)
+        # end = datetime.strptime(enddate, date_format)
+        # if enddate<startdate or start<date.today() :
+        #     error_message = "Invalid date"
+        context = {
+            'warehouses':warehouses,
+            'startdate': startdate,
+            'enddate': enddate,
+            # "error_message":error_message
+        }
+    return render(request,'farmer/search.html',context)
+
+
 @login_required
 def book(request,id):
     warehouse = Warehouse.objects.get(id=id)
@@ -109,6 +136,7 @@ def book(request,id):
     # print(warehouse,"--", units)
     context = {
         'warehouse':warehouse,
-        'units':units
+        'units':units,
     }
     return render(request,'farmer/book.html',context)
+

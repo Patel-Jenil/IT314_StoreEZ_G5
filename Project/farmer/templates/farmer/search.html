@@ -1,0 +1,16 @@
+hello<br>
+
+<form action = "" method = "post">
+    {% csrf_token %}
+    <input type="date" id = "startdate" name = "startdate">
+    <input type="date" id = "enddate" name = "enddate">
+    <input type="submit">
+</form>
+
+{{startdate}}<br>
+{{enddate}}<br>
+
+{{error_message}}
+{% for warehouse in warehouses %}
+<a href="{% url 'book' warehouse.id%}">{{warehouse.id}}</a><br>
+{% endfor %}
