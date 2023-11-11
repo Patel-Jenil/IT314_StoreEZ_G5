@@ -85,12 +85,37 @@ def units(request, id):
     context = {'units':units, 'warehouse_id':id}
     return render(request,'warehouse/units.html',context)
 
+# def index(request):
+#     user = request.user
+#     warehouses = Warehouse_owner.objects.get(email = user.email).warehouse_set.all()
+#     print(user.email, warehouses)
+#     context = {
+#         'warehouses':warehouses
+#     }
+#     return render(request,'warehouse/index.html',context)
+
 def index(request):
+    search_query = ''
+    
+    if request.GET.get('search_query'):
+        search_query = request.GET.get('search_query')
+        
     user = request.user
-    warehouses = Warehouse_owner.objects.get(email = user.email).warehouse_set.all()
-    print(user.email, warehouses)
+    all_warehouses = Warehouse_owner.objects.get(email = user.email).warehouse_set.all()
+
+    filtered_warehouse = all_warehouses.filter(name__icontains = search_query)
+    warehouses = ''
+    if not filtered_warehouse:
+        print("empty")
+        warehouses = all_warehouses
+        print(warehouses)
+    else:
+        print("not ")
+        warehouses = filtered_warehouse
+    
+    # print(user.email, warehouses)
     context = {
-        'warehouses':warehouses
+        'warehouses':warehouses, 
     }
     return render(request,'warehouse/index.html',context)
 

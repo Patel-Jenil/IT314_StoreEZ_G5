@@ -43,16 +43,20 @@ def register(request):
         pass2 = request.POST.get('password2')
         flag = request.POST.get('user')
         
-        my_user = User.objects.create_user(username=email, email=email, password=pass1)
-        login(request, my_user)
-        # print(email, pass1, pass2, flag)
-        # return HttpResponse("Warehouse Owner created !!!")
-        if flag == "1":
-            owner = Warehouse_owner.objects.create(email = my_user.email)
-            return redirect('warehouse_editprofile')
-        else :
-            farmer = Farmer.objects.create(email = my_user.email)
-            return redirect('farmer_editprofile')
+        if pass1 == pass2:
+            my_user = User.objects.create_user(username=email, email=email, password=pass1)
+            login(request, my_user)
+            # print(email, pass1, pass2, flag)
+            # return HttpResponse("Warehouse Owner created !!!")
+            if flag == "1":
+                owner = Warehouse_owner.objects.create(email = my_user.email)
+                return redirect('warehouse_editprofile')
+            else :
+                farmer = Farmer.objects.create(email = my_user.email)
+                return redirect('farmer_editprofile')
+            
+        else:
+            print("Passwords do not match")
         
     context = {
         'page':"register"
