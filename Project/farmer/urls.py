@@ -7,6 +7,6 @@ urlpatterns = [
     path("farmer/editprofile",views.editprofile,name='farmer_editprofile'),
     path("farmer/currentbooking",views.currentbooking,name='farmer_currentbooking'),
     path("farmer/previousbooking",views.previousbooking,name='farmer_previousbooking'),
-    path("farmer/book/<int:id>",views.book,name='book'),
+    path("farmer/book/<int:id>/<str:start>/<str:end>",views.book,name='book'),
     path("farmer/search",views.search,name='search'),
 ]

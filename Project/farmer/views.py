@@ -1,7 +1,7 @@
 from turtle import st
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.models import User
-from mainapp.models import Farmer,Warehouse
+from mainapp.models import Farmer,Warehouse, Booking, Unit
 from farmer.forms import EditProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -104,39 +104,63 @@ def previousbooking(request):
     
     
 def search(request):
+    search_query = {}
+    context = {}
+    # unit = Booking.objects.all()
     
-    warehouses = Warehouse.objects.all()
-    print(warehouses)
-    context = {
-        'warehouses':warehouses
-    }
-    
-    if request.method == "POST":
-        startdate = request.POST.get('startdate')     
-        enddate = request.POST.get('enddate')  
-        # error_message = ""
-        # date_format = '%Y-%m-%d'
-        # start = datetime.strptime(startdate, date_format)
-        # end = datetime.strptime(enddate, date_format)
-        # if enddate<startdate or start<date.today() :
-        #     error_message = "Invalid date"
-        context = {
-            'warehouses':warehouses,
-            'startdate': startdate,
-            'enddate': enddate,
-            # "error_message":error_message
-        }
+    if request.method == 'POST':
+        start_date = request.POST.get('startdate')
+        end_date = request.POST.get('enddate')
+        
+        booked_units = Booking.objects.filter(start_date__range=[start_date, end_date], end_date__range=[start_date, end_date])\
+                               .values_list('unit', flat=True)
+        print(booked_units)
+        # warehouses = Warehouse.objects.values_list('name', 'id')
+        warehouses = Warehouse.objects.all()
+        
+        warehouses_with_unit = []
+        for warehouse in warehouses:
+            # units = warehouse.unit_set.all()
+            units = warehouse.unit_set.exclude(id__in=booked_units.values_list('unit'))
+            warehouses_with_unit.append({'warehouse': warehouse, 'units': units})
+            print(units)
+        context = {'warehouses_with_unit': warehouses_with_unit, 'startdate':start_date, 'enddate':end_date}
+        # print(warehouses)
+        
     return render(request,'farmer/search.html',context)
 
 
 @login_required
-def book(request,id):
+def book(request,id, start, end):
+
+    
+    # Getting warehouse according to the url id
     warehouse = Warehouse.objects.get(id=id)
-    units = warehouse.unit_set.all()
-    # print(warehouse,"--", units)
-    context = {
-        'warehouse':warehouse,
-        'units':units,
-    }
+    
+    #  Gettinng all the units of that warehouse
+    all_units = warehouse.unit_set.all()
+    
+    # Getting all the 
+    booked_units = Booking.objects.filter(start_date__range=[start, end], end_date__range=[start, end])\
+                               .values_list('unit', flat=True)
+    
+    #  Excluding all the units that have been blocked
+    unbooked_units = all_units.exclude(id__in=booked_units.values_list('unit'))
+    
+    # Taking the value from user-Which units are selected by user
+    if request.method == 'POST':
+        selected_unit = request.POST.getlist('checkbox') # Will have id of the unit as we return id as value from HTML
+        description = request.POST.get('description')
+        user = request.user
+        myfarmer = get_object_or_404(Farmer, email=user.email)
+
+        booking = Booking(start_date=start, end_date=end, description=description, farmer=myfarmer)
+        booking.save()
+        
+        booking.unit.set(selected_unit) # Whenever there is many to many feild we have to .set method
+        
+        return HttpResponse("I am booking") # redirect to current booking. This is done temporarily
+    
+    context = {'startdate':start, 'enddate':end, 'units':unbooked_units}
     return render(request,'farmer/book.html',context)
 

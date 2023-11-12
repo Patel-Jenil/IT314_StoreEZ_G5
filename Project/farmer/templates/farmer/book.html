@@ -10,25 +10,34 @@
 
     {{startdate}}<br>
 {{enddate}}<br>
-    <div class="container">
 
-      {% for unit in units %}
-      {% comment %} <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
-          <label class="form-check-label" for="flexCheckDisabled">
-              Disabled checkbox
-          </label>
-          </div> {% endcomment %}
+    <form action="" method="POST">
+      {% csrf_token %}
+      <h3>Select units to Book</h3>
+      <div class="container">
 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-          <label class="form-check-label" for="flexCheckChecked">
-            Checked checkbox
-          </label>
-          
-        </div>
-      {% endfor %}
-    </div>
+        {% for unit in units %}
+        {% comment %} <div class="form-check">
+            <input class="form-check-input" name="cheackbox" type="checkbox" value="" id="flexCheckDisabled" disabled>
+            <label class="form-check-label" for="flexCheckDisabled">
+                Disabled checkbox
+            </label>
+            </div> {% endcomment %}
+  
+          <div class="form-check">
+              Unit 
+            <input class="form-check-input" name="checkbox" type="checkbox" value="{{ unit.id }}" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+              Unit {{ unit.id }}
+            </label>
+            
+          </div>
+        {% endfor %}
+      </div>
+      <input type="text" name="description">
+      <input type="submit" >
+    </form>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>
