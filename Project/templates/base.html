@@ -34,8 +34,8 @@
 
     {% endblock %}
 </head>
-
-<body style="background-color: #90bc79; background-image: url({%static 'img/bg.png' %});" >  
+<!-- style="background-color: #90bc79; background-image: url({%static 'img/bg.png' %}); -->
+<body>  
     <!-- Navbar Start -->
     <div class="container-fluid sticky-top bg-primary">
         <div class="container ">
@@ -53,13 +53,15 @@
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'homepage' %}" class="nav-item nav-link text-black">Home</a>
 
-                        <a href="{% url 'index' %}" class="nav-item nav-link">Warehouse</a>
+                        <a href="{% url 'warehouses' %}" class="nav-item nav-link">Warehouse</a>
                         <a href="product.html" class="nav-item nav-link">My Profile</a>
                         <a href="{% url 'aboutus' %}" class="nav-item nav-link">About Us</a>
 
                         
 
                         {% else %}
+                        <a href="{% url 'homepage' %}" class="nav-item nav-link text-black">Home</a>
+                        <a href="{% url 'aboutus' %}" class="nav-item nav-link">About Us</a>
                         {% endif %}
                         
                     </div>

@@ -134,7 +134,7 @@ img.animated.pulse {
     margin-top: -85px;
     padding-top: 12rem;
     padding-bottom: 6rem;
-    background: url(../img/bg.png) center center no-repeat;
+    /* background: url(../img/bg.png) center center no-repeat; */
     background-size: cover;
 }
 

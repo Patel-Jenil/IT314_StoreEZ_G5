@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<p>
+    Warehouse associated : {{ warehouse.name }}
+</p>
+<p>
+    Unit type : {{ unit.type }}
+</p>
+<p>
+    Unit capacity : {{ unit.capacity }}
+</p>
+<p>
+    Unit price : {{ unit.price }}
+</p>
+<p>
+    <a href="">Edit unit</a>
+</p>
+
+<h1>Current Booking </h1>
+
+{% for booking in current_booking %}
+<div>
+    <h4>Booking reference No. {{booking.id}}</h4>
+    <p>Start date: {{ booking.start_date}}</p>
+    <p>Endd date: {{ booking.end_date}}</p>
+    <p>Description : {{ booking.description}}</p>
+    <a href="">{{ booking.farmer}}</a>
+    <p></p>
+    <p></p>
+</div>
+{% endfor %}
+
+<h1>Previous Booking </h1>
+
+{% for booking in prev_booking %}
+<div>
+    <h4>Booking reference No. {{booking.id}}</h4>
+    <p>Start date: {{ booking.start_date}}</p>
+    <p>Endd date: {{ booking.end_date}}</p>
+    <p>Description : {{ booking.description}}</p>
+    <a href="">{{ booking.farmer}}</a>
+    <p></p>
+    <p></p>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from mainapp.models import Warehouse, Warehouse_owner, Unit
+from mainapp.models import Warehouse, Warehouse_owner, Unit, Booking
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from Warehouse.forms import EditProfile
+from django.utils import timezone
 # Create your views here.
 
-@login_required()
+@login_required(login_url='login')  
 def Warehouse_Profile(request):
     user = request.user
     # warehouse_user = Warehouse_owner.objects.get(email = user.email)
@@ -18,29 +19,6 @@ def Warehouse_Profile(request):
         "warehouse_user":warehouse_user
     }
     return render(request,'warehouse/profile.html',context)
-
-
-
-# @login_required()
-# def editprofile(request):
-#     if request.POST:
-#         first_name = request.POST.get('first_name')
-#         last_name = request.POST.get('last_name')
-#         email = request.POST.get('email')
-#         mobile = request.POST.get('mobile')
-#         user = request.user
-#         # if email and User.objects.filter(email=email).exclude(email=user.email).count():
-#         #     raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
-#         warehouse_user = get_object_or_404(Warehouse_owner, email=user.email)
-#         warehouse_user.first_name = first_name
-#         warehouse_user.last_name = last_name
-#         warehouse_user.email = email
-#         warehouse_user.phone_no = mobile
-#         warehouse_user.save()
-#         return redirect('Warehouse_profile')
-#     context = {}
-#     return render(request,'warehouse/editprofile.html',context)
-
 
 
 def editprofile(request):
@@ -78,23 +56,30 @@ def warehouses(request, id):
     return render(request,'warehouse/warehouse.html',context)
 
 
-def units(request, id):
+def all_units(request, id):
     # warehouse = Warehouse.objects.get(id = id)
     units = Warehouse.objects.get(id = id).unit_set.all()
     # print(units)
     context = {'units':units, 'warehouse_id':id}
-    return render(request,'warehouse/units.html',context)
+    return render(request,'warehouse/all_units.html',context)
 
-# def index(request):
-#     user = request.user
-#     warehouses = Warehouse_owner.objects.get(email = user.email).warehouse_set.all()
-#     print(user.email, warehouses)
-#     context = {
-#         'warehouses':warehouses
-#     }
-#     return render(request,'warehouse/index.html',context)
 
-def index(request):
+def unit(request, id, id1):
+    warehouse = Warehouse.objects.get(id=id)
+    unit = Unit.objects.get(id=id1)
+    
+    all_bookings = Booking.objects.filter(unit=id1)
+    print("booking :",all_bookings)
+    
+    current_date = timezone.now().date()
+    
+    current_booking = all_bookings.filter(end_date__gte=current_date)
+    prev_booking = all_bookings.filter(end_date__lte=current_date)
+    print(prev_booking)
+    context = {'warehouse':warehouse, 'unit':unit, 'current_booking':current_booking, 'prev_booking': prev_booking}
+    return render(request, 'warehouse/unit.html', context)
+
+def warehouses(request):
     search_query = ''
     
     if request.GET.get('search_query'):
@@ -117,7 +102,7 @@ def index(request):
     context = {
         'warehouses':warehouses, 
     }
-    return render(request,'warehouse/index.html',context)
+    return render(request,'warehouse/warehouses.html',context)
 
 @login_required()
 def addunit(request, id):
@@ -152,6 +137,9 @@ def removeunit(request, id):
     context = {'units': units}
     return render(request, 'warehouse/removeunit.html', context)
 
+def editunit(request, id, id1):
+    return render(request, 'warehouse/editunit.html')
+
 @login_required()
 def addwarehouse(request):
     
@@ -167,6 +155,7 @@ def addwarehouse(request):
         print(warehouse_owner)
         user = Warehouse(name = name, address = address, city = city, state = state, poc_name = poc_name , poc_phone_no=phone_no,owner = warehouse_owner)
         user.save()
+        return redirect('warehouses')
     context = {
         'user_id':request.user.id
     }
@@ -179,7 +168,7 @@ def removewarehouse(request, id):
         del_warehouse = Warehouse.objects.get(id=id)
         print(del_warehouse)
         del_warehouse.delete()
-        return redirect('index')
+        return redirect('warehouses')
     
 
     # print(units.count())

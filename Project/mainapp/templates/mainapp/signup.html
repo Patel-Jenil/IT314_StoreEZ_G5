@@ -8,14 +8,33 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
    <body>
-      {% if messages %}
-      <ul class="messages">
+      
+<!-- For Aler messages -->
+      {% if messages %}    
          {% for message in messages %}
-         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+               <h3>Success Alert Message</h3>
+               <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+               <h3>{{message}}</h3>
+               <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+               <h3>Warning Alert Message</h3>
+               <a class="close">&times;</a>
+            </div>
+            {% endif %}
+
          {% endfor %}
-      </ul>
       {% endif %}
+
       <div class="wrapper">
+         <!-- For Title -->
         {% if page == 'register' %}
          <div class="title-text">
             <div class="title signup">
@@ -29,7 +48,9 @@
             </div>
          </div>
          {% endif %}
+
          <div class="form-container">
+            <!-- Logo -->
             <div class="logo" style="text-align:center;">
                <img src="{% static 'img/logo.jpg' %}">
             </div>
@@ -66,7 +87,7 @@
                 </form>
 
             {% else %}
-                <form action="#" class="login" method="POST">
+                <form action="" class="login" method="POST">
                 {% csrf_token %}
                   <div class="field">
                      <input type="email" placeholder="Email Address" name="username" required>
@@ -96,5 +117,7 @@
             </div>
          </div>
       </div>
+      <script src="{% static 'js/signup.js'%}"></script>
    </body>
+   
 </html>

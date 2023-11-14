@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css%}
+<link rel="stylesheet" href="{% static 'Warehouse/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+	<div class="search-row">
+		<div class="search-date">
+			<div class="search">
+				<form action="" method="get">
+					<div class="search-container">
+						<input type="search" id="search" name="search_query" class="search-box" placeholder="Search Warehouse">
+						<div class = "button">
+							<img src="/Media/searchicon.png" alt="Search Icon" class="search-icon">
+						</div>
+					</div>
+				</form>
+			</div>
+			
+
+			<div class="calendar">
+				<form action="">
+					<input type="date" id="date" name="date" class="date">
+				</form>
+			</div>
+			
+			<script>
+				// Get the current date in the "YYYY-MM-DD" format
+				var today = new Date().toISOString().split('T')[0];
+			
+				// Set the max attribute to the current date
+				document.getElementById('date').setAttribute('max', today);
+			</script>
+		
+	
+		</div>
+	</div>
+	
+
+	{% for warehouse in warehouses %}
+	<div class="dropdown">
+		<button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			<p>
+				{{warehouse.name}}
+			</p>
+		</button>
+		<a href="{% url 'all_units' warehouse.id %}">Show all unit</a>
+		<a href="{% url 'remove_warehouse' warehouse.id %}">Delete warehouse</a>
+	</div>
+	{% endfor %}
+
+{% endblock%}
+

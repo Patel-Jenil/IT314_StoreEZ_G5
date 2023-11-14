@@ -53,7 +53,7 @@
 
                         {% if request.user.is_authenticated %}
                         
-                        
+                        <a href="{% url 'search' %}" class="nav-item nav-link">Warehouse</a>
                         <a href="{% url 'farmer_currentbooking' %}" class="nav-item nav-link">Bookings</a>
                         <a href="{% url 'farmer_profile' %}" class="nav-item nav-link">My Profile</a>
                         <a href="{% url 'aboutus' %}" class="nav-item nav-link">About Us</a>

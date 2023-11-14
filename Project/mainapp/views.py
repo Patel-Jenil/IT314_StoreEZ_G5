@@ -27,10 +27,12 @@ def loginUser(request):
                 Farmer.objects.get(email=my_user.email)
             except Farmer.DoesNotExist:
                 # return HttpResponse("Warehouse")
-                return redirect("Warehouse_profile")
-                
+                return redirect("Warehouse_profile") 
+            # messages.success(request, "You have succesfully Logged In")  
             return redirect("farmer_currentbooking")
+
         else : 
+            messages.error(request, "Invalid usrname or password")
             print("Invalid usrname or password") 
         
 

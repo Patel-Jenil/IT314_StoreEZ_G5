@@ -2,6 +2,7 @@ from django.db import models
 from datetime import date
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
+from django.conf import settings
 
     
 class Warehouse_owner(models.Model):
@@ -46,6 +47,14 @@ class Farmer(models.Model):
     image = models.ImageField(default="images/default_user_image.jpg",upload_to="images/farmer/",blank=True,null=True)
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
+    
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = settings.STATIC_URL + 'profile-img.avif'
+        return url
     
     
 class Booking(models.Model):

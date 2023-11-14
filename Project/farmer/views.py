@@ -7,7 +7,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from datetime import datetime,date,time
-@login_required()
+
+
+@login_required(login_url='login')
 def farmer_profile(request):
     user=request.user
     print(user.email)
@@ -19,12 +21,14 @@ def farmer_profile(request):
     return render(request,"farmer/profile.html",context)
     # return HttpResponse('Hi')
 
-@login_required()
+@login_required(login_url='login')
 def editprofile(request):
-    editprofile = EditProfile()
+    user=request.user
+    farmer=get_object_or_404(Farmer,email=user.email)
+    editprofile = EditProfile(instance=farmer)
     context = {'editprofile': editprofile,'user':request.user}
     if request.method == "POST":
-        editprofile  = EditProfile(request.POST)
+        editprofile  = EditProfile(request.POST, request.FILES, instance=farmer)
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
             loggedin_user = request.user
@@ -36,20 +40,12 @@ def editprofile(request):
             farmer_user.state = user.state
             farmer_user.image = user.image
             farmer_user.save()
-            
-            # user = User.objects.get(username =loggedin_user.email)
-            # user.username = farmer_user.email
-            # user.email = farmer_user.email
-            # user.save()
-            # login_newuser = authenticate(username = user.email , password = loggedin_user.password)
-            # login(request,login_newuser)
             return redirect('farmer_profile')
-        
         else:
             context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors}
     return render(request,'farmer/editprofile.html',context)
 
-
+@login_required(login_url='login')
 def currentbooking(request):
     contact_list = Warehouse.objects.all()
     paginator = Paginator(contact_list, 2)  # Show 25 contacts per page.
@@ -65,7 +61,7 @@ def currentbooking(request):
     }
     return render(request, 'farmer/currentbooking.html', context)
 
-
+@login_required(login_url='login')
 def previousbooking(request):
     contact_list = Warehouse.objects.all()
     paginator = Paginator(contact_list, 2)  # Show 25 contacts per page.
@@ -102,9 +98,8 @@ def previousbooking(request):
     # return render(request,"farmer/edit.html")
     #  return HttpResponse("Hiii:")
     
-    
+@login_required(login_url='login')  
 def search(request):
-    search_query = {}
     context = {}
     # unit = Booking.objects.all()
     
