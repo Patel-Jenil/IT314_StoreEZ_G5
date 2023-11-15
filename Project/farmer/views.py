@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from datetime import datetime,date,time
+from django.db.models import Sum
 
 
 @login_required(login_url='login')
@@ -47,8 +48,23 @@ def editprofile(request):
 
 @login_required(login_url='login')
 def currentbooking(request):
-    contact_list = Warehouse.objects.all()
-    paginator = Paginator(contact_list, 2)  # Show 25 contacts per page.
+    data_list = []
+    current_user = request.user
+    current_farmer = Farmer.objects.get(email=current_user.email)
+    farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__gte = date.today()).order_by("-end_date")
+    for booking in farmer_current_bookings: # selecting individual bookings and finding it's corresponding warehouse
+        print(booking)
+        price = 0
+        all_booked_units = booking.unit.all()
+        one_booked_unit = all_booked_units[0]
+        # per_day_price = all_booked_units.aggregate(sum(price))
+        # print(per_day_price)
+        print(one_booked_unit)
+        booked_warehouse = one_booked_unit.warehouse
+        print(booked_warehouse)
+        data_list.append((booking,booked_warehouse, price))
+    print(data_list)
+    paginator = Paginator(data_list, 2)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     count=Warehouse.objects.count()
@@ -63,8 +79,23 @@ def currentbooking(request):
 
 @login_required(login_url='login')
 def previousbooking(request):
-    contact_list = Warehouse.objects.all()
-    paginator = Paginator(contact_list, 2)  # Show 25 contacts per page.
+    data_list = []
+    current_user = request.user
+    current_farmer = Farmer.objects.get(email=current_user.email)
+    farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__lt = date.today()).order_by("-end_date")
+    for booking in farmer_current_bookings: # selecting individual bookings and finding it's corresponding warehouse
+        print(booking)
+        price = 0
+        all_booked_units = booking.unit.all()
+        one_booked_unit = all_booked_units[0]
+        # per_day_price = all_booked_units.aggregate(sum(price))
+        # print(per_day_price)
+        print(one_booked_unit)
+        booked_warehouse = one_booked_unit.warehouse
+        print(booked_warehouse)
+        data_list.append((booking,booked_warehouse, price))
+    print(data_list)
+    paginator = Paginator(data_list, 2)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     count=Warehouse.objects.count()

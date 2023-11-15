@@ -16,7 +16,7 @@ Template Stylesheet
   <a href="{% url 'farmer_currentbooking' %}"><button type="button"class="btn btn-dark btn-lg mx-5">Current Bookings</button></a>
   <a href="{% url 'farmer_previousbooking'%}"><button type="button" class="btn btn-light btn-lg mx-5">Previous Bookings</button></a>
 </div>
-{% for obj in data %}
+{% for booking, warehouse, price in data %}
 <div class="table-layout">
   <table class="table table-hover table-striped" style="border-radius:20px;  background-image: url({%static 'farmer/bg.png' %});">
     <thead>
@@ -26,15 +26,17 @@ Template Stylesheet
         <th scope="col">End Date</th>
         <th scope="col">Warehouse</th>
         <th scope="col">Location</th>
+        <th scope="col">Price</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row">Booking {{obj.id}}</th>
-        <td>23/12/2021</td>
-        <td>11/12/2021</td>
-        <td> {{obj.name}}</td>
-        <td>{{obj.city}}</td>
+        <th scope="row">Booking {{booking.id}}</th>
+        <td>{{booking.start_date}}</td>
+        <td>{{booking.end_date}}</td>
+        <td> {{warehouse.name}}</td>
+        <td>{{warehouse.city}}</td>
+        <td>{{price}}</td>        
       </tr>
     </tbody>
   </table>
