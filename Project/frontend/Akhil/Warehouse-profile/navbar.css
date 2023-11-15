@@ -1,0 +1,21 @@
+.cont{
+  border-bottom:solid;
+  margin:0;
+  padding:0;
+  width:95%;
+  align-self: center;
+  padding-top:20px;
+  padding-bottom:20px;
+  border-bottom-color:white;
+}
+
+.cont nav{
+  position:relative;
+  animation: mymove 2s;
+  animation-timing-function: linear;
+}
+
+@keyframes mymove {
+  from {left:-100%;}
+  to {left:0;}
+}
