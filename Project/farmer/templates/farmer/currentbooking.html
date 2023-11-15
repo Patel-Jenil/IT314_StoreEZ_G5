@@ -1,4 +1,4 @@
-{% extends 'farmerbase.html' %}
+{% extends 'farmerbase.html' %} 
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'farmer/styleprev.css' %}">
@@ -6,12 +6,10 @@
 Template Stylesheet
 <link href="styleprev.css" rel="stylesheet">
 
-
 {%block content%}
 <div class="container-fluid py-3">
   <h1 class="text-center ff" style="font-size: 310%; text-decoration-line: underline;">Current Bookings</h1>
 </div>
-
 
 
 <div class="container-fluid d-flex justify-content-center mt-5">
@@ -19,41 +17,27 @@ Template Stylesheet
   <a href="{% url 'farmer_previousbooking'%}"><button type="button" class="btn btn-light btn-lg mx-5">Previous Bookings</button></a>
 </div>
 {% for obj in data %}
-<div class="container-fluid p-5">
-  <div class=" container p-2 p-md-3 text-white rounded-4 ab"
-    style="background-image: url({%static 'farmer/bg.png' %})">
-    <h1 class="display-6 text-white fitalic ff">Booking {{obj.id}}</h1>
-
-    <div class="row px-3">
-      <div class="col-md-3 px-0">
-
-        <p class="lead my-3 ff  "> {{obj.name}}</p>
-        <hr>
-      </div>
-
-      <div class="col-md-3 px-0">
-        <p class="lead my-3 ff">Start Date : 1-4-23</p>
-        <hr>
-      </div>
-
-
-
-      <div class="col-md-3 px-0">
-
-        <p class="lead my-3 ff">End Date : 3-4-23</p>
-        <hr>
-      </div>
-
-      <div class="col-md-3 px-0">
-
-        <p class="lead my-3 ff">Location : {{obj.city}}</p>
-        <hr>
-      </div>
-
-    </div>
-
-  </div>
-
+<div class="table-layout">
+  <table class="table table-hover table-striped" style="border-radius:20px;  background-image: url({%static 'farmer/bg.png' %});">
+    <thead>
+      <tr>
+        <th scope="col">Booking Reference No.</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Warehouse</th>
+        <th scope="col">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Booking {{obj.id}}</th>
+        <td>23/12/2021</td>
+        <td>11/12/2021</td>
+        <td> {{obj.name}}</td>
+        <td>{{obj.city}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 {% endfor %}
 
@@ -116,6 +100,7 @@ Current page {{data.number}}
 Number of pages {{data.paginator.num_pages}}
 <hr>
 <br> -->
+
 <nav aria-label="..."style="color: blue;">
   <ul class="pagination pagination-sm justify-content-center" ">
     {% if data.has_previous %}
@@ -134,8 +119,8 @@ Number of pages {{data.paginator.num_pages}}
 
   </ul>
 </nav>
-
-<!-- <nav aria-label="...">
+<!-- 
+<nav aria-label="...">
         <ul class="pagination">
             {% if data.has_previous %}
           <li class="page-item disabled">
@@ -155,8 +140,8 @@ Number of pages {{data.paginator.num_pages}}
           {% if data.has_next %}
           <li class="page-item">
             <a class="page-link" href="/currentbooking/?page={{data.next_page_number}}">Next</a>
-          </li>
-          {% endif %}
+          </li> -->
+          <!-- {% endif %}
         </ul>
       </nav> -->
 

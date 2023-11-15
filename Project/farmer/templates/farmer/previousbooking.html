@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'farmerbase.html' %}
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'farmer/styleprev.css' %}">
@@ -19,41 +19,27 @@ Template Stylesheet
     <a href="{% url 'farmer_previousbooking'%}"><button type="button" class="btn btn-dark btn-lg mx-5">Previous Bookings</button></a>
 </div>
 {% for obj in data %}
-<div class="container-fluid p-5">
-  <div class=" container p-2 p-md-3 text-white rounded-4 ab"
-    style="background-image: url({%static 'farmer/bg.png' %})">
-    <h1 class="display-6 text-white fitalic ff">Booking {{obj.id}}</h1>
-
-    <div class="row px-3">
-      <div class="col-md-3 px-0">
-
-        <p class="lead my-3 ff  "> {{obj.name}}</p>
-        <hr>
-      </div>
-
-      <div class="col-md-3 px-0">
-        <p class="lead my-3 ff">Start Date : 1-4-23</p>
-        <hr>
-      </div>
-
-
-
-      <div class="col-md-3 px-0">
-
-        <p class="lead my-3 ff">End Date : 3-4-23</p>
-        <hr>
-      </div>
-
-      <div class="col-md-3 px-0">
-
-        <p class="lead my-3 ff">Location : {{obj.city}}</p>
-        <hr>
-      </div>
-
-    </div>
-
-  </div>
-
+<div class="table-layout">
+  <table class="table table-hover table-striped" style="border-radius:20px;  background-image: url({%static 'farmer/bg.png' %});">
+    <thead>
+      <tr>
+        <th scope="col">Booking Reference No.</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Warehouse</th>
+        <th scope="col">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Booking {{obj.id}}</th>
+        <td>23/12/2021</td>
+        <td>11/12/2021</td>
+        <td> {{obj.name}}</td>
+        <td>{{obj.city}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 {% endfor %}
 
