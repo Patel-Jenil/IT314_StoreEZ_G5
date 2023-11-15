@@ -6,7 +6,7 @@ from farmer.forms import EditProfile
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from datetime import datetime,date,time
+from datetime import datetime,date, timedelta
 from django.db.models import Sum
 
 
@@ -53,17 +53,21 @@ def currentbooking(request):
     current_farmer = Farmer.objects.get(email=current_user.email)
     farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__gte = date.today()).order_by("-end_date")
     for booking in farmer_current_bookings: # selecting individual bookings and finding it's corresponding warehouse
-        print(booking)
-        price = 0
+        print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
+        print('all_booked_units:',all_booked_units)
         one_booked_unit = all_booked_units[0]
-        # per_day_price = all_booked_units.aggregate(sum(price))
-        # print(per_day_price)
-        print(one_booked_unit)
+        print('one_booked_unit:',one_booked_unit)
+        per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
+        print("Price per day:",per_day_price)
+        total_days = (booking.end_date - booking.start_date).days + 1
+        print("Total Days:",total_days)
+        price = total_days * per_day_price
+        print('price:',price)
         booked_warehouse = one_booked_unit.warehouse
-        print(booked_warehouse)
+        print('booked_warehouse:',booked_warehouse)
         data_list.append((booking,booked_warehouse, price))
-    print(data_list)
+    print('==>',data_list)
     paginator = Paginator(data_list, 2)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -84,17 +88,21 @@ def previousbooking(request):
     current_farmer = Farmer.objects.get(email=current_user.email)
     farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__lt = date.today()).order_by("-end_date")
     for booking in farmer_current_bookings: # selecting individual bookings and finding it's corresponding warehouse
-        print(booking)
-        price = 0
+        print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
+        print('all_booked_units:',all_booked_units)
         one_booked_unit = all_booked_units[0]
-        # per_day_price = all_booked_units.aggregate(sum(price))
-        # print(per_day_price)
-        print(one_booked_unit)
+        print('one_booked_unit:',one_booked_unit)
+        per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
+        print("Price per day:",per_day_price)
+        total_days = (booking.end_date - booking.start_date).days + 1
+        print("Total Days:",total_days)
+        price = total_days * per_day_price
+        print('price:',price)
         booked_warehouse = one_booked_unit.warehouse
-        print(booked_warehouse)
+        print('booked_warehouse:',booked_warehouse)
         data_list.append((booking,booked_warehouse, price))
-    print(data_list)
+    print('==>',data_list)
     paginator = Paginator(data_list, 2)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -105,6 +113,30 @@ def previousbooking(request):
         'nums':nums,
     }
     return render(request, 'farmer/previousbooking.html', context)   
+
+
+@login_required(login_url='login') 
+def booking(request,id):
+    user = request.user
+    farmer = get_object_or_404(Farmer,email=user.email)
+    booking = get_object_or_404(Booking,id=id)
+    all_booked_units = booking.unit.all()
+    print('all_booked_units:',all_booked_units)
+    total_units = len(all_booked_units)
+    print(total_units)
+    one_booked_unit = all_booked_units[0]
+    print('one_booked_unit:',one_booked_unit)
+    per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
+    print("Price per day:",per_day_price)
+    total_days = (booking.end_date - booking.start_date).days + 1
+    print("Total Days:",total_days)
+    price = total_days * per_day_price
+    print('price:',price)
+    warehouse = one_booked_unit.warehouse
+    print('warehouse:',warehouse)
+    context = {'farmer':farmer,'booking':booking,'all_booked_units':all_booked_units, 'per_day_price':per_day_price,
+               'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units}
+    return render(request, 'farmer/booking.html', context)
     # if request.POST:
     #     first_name = request.POST.get('first_name')
     #     last_name = request.POST.get('last_name')
@@ -156,7 +188,7 @@ def search(request):
     return render(request,'farmer/search.html',context)
 
 
-@login_required
+@login_required(login_url='login')
 def book(request,id, start, end):
 
     

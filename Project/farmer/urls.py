@@ -9,4 +9,5 @@ urlpatterns = [
     path("farmer/previousbooking",views.previousbooking,name='farmer_previousbooking'),
     path("farmer/book/<int:id>/<str:start>/<str:end>",views.book,name='book'),
     path("farmer/search",views.search,name='search'),
+    path("farmer/booking/<int:id>",views.booking,name='farmer_booking'),
 ]

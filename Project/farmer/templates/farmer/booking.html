@@ -1,0 +1,32 @@
+<p> Farmer: {{farmer}} </p>
+<p> Booking id: {{booking.id}} </p>
+<p> Start Date: {{booking.start_date}} </p>
+<p> End Date: {{booking.end_date}}  </p>
+<p> Warehouse: {{warehouse.name}}, {{warehouse.city}}, {{warehouse.state}}</p>
+<p> Warehouse Address:  {{warehouse.address}}</p>
+<p> Point of contact: {{warehouse.poc_name}}, Phone no: {{warehouse.poc_phone_no}} </p>
+<p> Total Units Booked: {{total_units}}</p>
+<table>
+    <thead>
+        <tr>
+            <th>Unit ID</th>
+            <th>Capacity</th>
+            <th>Type</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    {% for unit in all_booked_units %}
+    <tbody>
+            <tr>
+                <td>{{unit.id}}</td>
+                <td>{{unit.capacity}}</td>
+                <td>{{unit.type}}</td>
+                <td>{{unit.price}}</td>
+            </tr>
+        </tbody>
+    {% endfor %}
+<table>
+
+<p>Total Days: {{total_days}}</p>
+<p>Price per day: {{per_day_price}}</p>
+<p><b>Total Price: {{price}} </b><P>
