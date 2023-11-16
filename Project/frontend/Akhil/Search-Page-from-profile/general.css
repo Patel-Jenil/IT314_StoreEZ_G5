@@ -1,0 +1,18 @@
+body{
+  margin: 20px !important;
+}
+
+
+html, body {margin: 0; height: auto; overflow:auto}
+
+body{
+  font-family:'Roboto';
+  display:flex;
+  flex-direction:column;
+  background:url('bg.png');
+  background-color: #90bc79 !important;
+}
+
+body div{
+  flex:1;
+}

@@ -1,0 +1,27 @@
+.type-search-div{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top:10px;
+}
+
+.type-search-div div{
+  text-align:center;
+}
+
+.type-search-div input{
+  border-radius:5px;
+
+}
+
+.type-search-div button{
+  background-color: black;
+  color:white;
+  border-radius:7px;
+  font-weight: 700;
+  width:100px;
+  height:30px;
+  text-align: center;
+  align-items: center;
+}
