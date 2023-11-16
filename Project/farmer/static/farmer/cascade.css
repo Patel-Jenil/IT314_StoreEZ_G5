@@ -1,0 +1,35 @@
+.bg-dgreen{
+    background-color: #435334;
+}
+
+.bg-green{
+    background-color: #9EB384;
+}       
+
+.bg-grey{
+    background-color: #FAF1E4;
+}
+
+.flex-end{
+    align-self: flex-end;
+}
+
+.font-large{
+    color: white;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.border-none{
+    border: none;
+}
+
+.spacing-none{
+    margin:0;
+    padding:0;
+}
+
+.rempad{
+    border-radius: 50%;
+}
+
