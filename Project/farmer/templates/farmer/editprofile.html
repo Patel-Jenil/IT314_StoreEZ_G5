@@ -10,7 +10,7 @@
   <div style="flex:1">
   </div>
   <div class="main-form">
-    <form class="fill-form" method = "post">
+    <form class="fill-form" method = "post" enctype="multipart/form-data"> <!-- enctype is needed here for image upload-->
       {% csrf_token %}
       <div class="title">
         <p>
@@ -18,7 +18,7 @@
         </p>
       </div>
       <div style="text-align:center;">
-        <img class="profile-img" src="{% static 'farmer/profile-img.avif' %}">
+        <img class="profile-img" src="{{farmer_image.url}}">
       </div>
       <div class="namee" style="display:flex;
       flex-direction: row; margin:0;">

@@ -2,7 +2,7 @@ from turtle import st
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.models import User
 from mainapp.models import Farmer,Warehouse, Booking, Unit
-from farmer.forms import EditProfile
+from farmer.forms import EditProfileForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -26,10 +26,10 @@ def farmer_profile(request):
 def editprofile(request):
     user=request.user
     farmer=get_object_or_404(Farmer,email=user.email)
-    editprofile = EditProfile(instance=farmer)
-    context = {'editprofile': editprofile,'user':request.user}
+    editprofile = EditProfileForm(instance=farmer)
+    context = {'editprofile': editprofile,'user':request.user, 'farmer_image':farmer.image}
     if request.method == "POST":
-        editprofile  = EditProfile(request.POST, request.FILES, instance=farmer)
+        editprofile  = EditProfileForm(request.POST, request.FILES, instance=farmer)
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
             loggedin_user = request.user
@@ -40,10 +40,13 @@ def editprofile(request):
             farmer_user.city = user.city
             farmer_user.state = user.state
             farmer_user.image = user.image
+            print(user.image)
+            if farmer_user.image == "":
+                farmer_user.image = Farmer().image 
             farmer_user.save()
             return redirect('farmer_profile')
         else:
-            context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors}
+            context = {'editprofile': editprofile,'user_id':request.user.id ,'farmer_image':farmer.image ,'errors':editprofile.errors}
     return render(request,'farmer/editprofile.html',context)
 
 @login_required(login_url='login')

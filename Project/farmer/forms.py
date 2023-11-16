@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class EditProfile(forms.ModelForm):
+class EditProfileForm(forms.ModelForm):
     class Meta:
         model = EditProfile
         fields = ("first_name", "last_name", "phone_no","city", "state", "image")
@@ -19,7 +19,7 @@ class EditProfile(forms.ModelForm):
     #     return email      
     
     def __init__(self, *args, **kwargs):
-        super(EditProfile, self).__init__(*args, **kwargs)
+        super(EditProfileForm, self).__init__(*args, **kwargs)
 
         self.fields['first_name'].widget.attrs['placeholder'] = 'Enter first name'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Enter Last name'
