@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class EditProfile(forms.ModelForm):
+class EditProfileForm(forms.ModelForm):
     class Meta:
         model = EditProfile
         fields = ('first_name', 'last_name', 'phone_no', 'image')     

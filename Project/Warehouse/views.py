@@ -5,7 +5,7 @@ from mainapp.models import Warehouse, Warehouse_owner, Unit, Booking
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from Warehouse.forms import EditProfile
+from Warehouse.forms import EditProfileForm
 from django.utils import timezone
 # Create your views here.
 
@@ -21,19 +21,22 @@ def Warehouse_Profile(request):
     return render(request,'warehouse/profile.html',context)
 
 
+@login_required(login_url='login')  
 def editprofile(request):
-    editprofile = EditProfile()
-    context = {'editprofile': editprofile,'user':request.user}
+    loggedin_user = request.user
+    warehouse_owner = get_object_or_404(Warehouse_owner, email=loggedin_user.email)
+    editprofile = EditProfileForm(instance=warehouse_owner)
+    context = {'editprofile': editprofile,'user':request.user, 'warehouse_owner_image':warehouse_owner.image}
     if request.method == "POST":
-        editprofile  = EditProfile(request.POST)
+        editprofile  = EditProfileForm(request.POST, request.FILES, instance=warehouse_owner)
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
-            loggedin_user = request.user
-            warehouse_owner = get_object_or_404(Warehouse_owner, email=loggedin_user.email)
             warehouse_owner.first_name = user.first_name
             warehouse_owner.last_name = user.last_name
             warehouse_owner.phone_no = user.phone_no
             warehouse_owner.image = user.image
+            if warehouse_owner.image == "": # If owner clears him image then set default value
+                warehouse_owner.image = Warehouse_owner().image # default image in model
             print(user.phone_no, user.image, user.first_name, user.last_name)
             warehouse_owner.save()
             
@@ -46,16 +49,16 @@ def editprofile(request):
             return redirect('Warehouse_profile')
         
         else:
-            context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors}
+            context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors, 'warehouse_owner_image':warehouse_owner.image}
     return render(request,'Warehouse/editprofile.html',context)
 
-@login_required()
+@login_required(login_url='login')  
 def warehouses(request, id):
     warehouse = Warehouse.objects.get(id = id)
     context = {'warehouse':warehouse}
     return render(request,'warehouse/warehouse.html',context)
 
-
+@login_required(login_url='login')  
 def all_units(request, id):
     # warehouse = Warehouse.objects.get(id = id)
     units = Warehouse.objects.get(id = id).unit_set.all()
@@ -63,7 +66,7 @@ def all_units(request, id):
     context = {'units':units, 'warehouse_id':id}
     return render(request,'warehouse/all_units.html',context)
 
-
+@login_required(login_url='login')  
 def unit(request, id, id1):
     warehouse = Warehouse.objects.get(id=id)
     unit = Unit.objects.get(id=id1)
@@ -79,6 +82,8 @@ def unit(request, id, id1):
     context = {'warehouse':warehouse, 'unit':unit, 'current_booking':current_booking, 'prev_booking': prev_booking}
     return render(request, 'warehouse/unit.html', context)
 
+
+@login_required(login_url='login')  
 def warehouses(request):
     search_query = ''
     
@@ -104,7 +109,7 @@ def warehouses(request):
     }
     return render(request,'warehouse/warehouses.html',context)
 
-@login_required()
+@login_required(login_url='login')  
 def addunit(request, id):
     # print(id)
     if request.method == "POST":
@@ -122,6 +127,8 @@ def addunit(request, id):
     context = {'id': id}
     return render(request, 'warehouse/add_units.html', context)
 
+
+@login_required(login_url='login')  
 def removeunit(request, id):
     context = {}
     if request.method == "POST":
@@ -137,10 +144,12 @@ def removeunit(request, id):
     context = {'units': units}
     return render(request, 'warehouse/removeunit.html', context)
 
+
+@login_required(login_url='login')  
 def editunit(request, id, id1):
     return render(request, 'warehouse/editunit.html')
 
-@login_required()
+@login_required(login_url='login')  
 def addwarehouse(request):
     
     if request.method == 'POST':
@@ -161,6 +170,7 @@ def addwarehouse(request):
     }
     return render(request,'warehouse/add_warehouse.html',context)
 
+@login_required(login_url='login')  
 def removewarehouse(request, id):
     print(id)
     context = {}
