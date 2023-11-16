@@ -72,13 +72,13 @@ def unit(request, id, id1):
     unit = Unit.objects.get(id=id1)
     
     all_bookings = Booking.objects.filter(unit=id1)
-    print("booking :",all_bookings)
+    # print("booking :",all_bookings)
     
     current_date = timezone.now().date()
     
     current_booking = all_bookings.filter(end_date__gte=current_date)
     prev_booking = all_bookings.filter(end_date__lte=current_date)
-    print(prev_booking)
+    # print(prev_booking)
     context = {'warehouse':warehouse, 'unit':unit, 'current_booking':current_booking, 'prev_booking': prev_booking}
     return render(request, 'warehouse/unit.html', context)
 
@@ -121,7 +121,7 @@ def addunit(request, id):
         
         unit = Unit(type=type, capacity=capacity, price=price, warehouse=warehouse)
         unit.save()
-        return redirect('units', id=id)
+        return redirect('all_units', id=id)
         # print(type, capacity, price, warehouse)
     # print("id:",id)   
     context = {'id': id}
@@ -137,7 +137,7 @@ def removeunit(request, id):
         del_unit = Unit.objects.get(id=unit)
         print(del_unit)
         del_unit.delete()
-        return redirect('units', id=id)
+        return redirect('all_units', id=id)
     
     units = Warehouse.objects.get(id = id).unit_set.all()   
     # print(units.count())

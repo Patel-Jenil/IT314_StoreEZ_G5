@@ -7,7 +7,20 @@ from .models import Farmer, Warehouse_owner
 # from django.contrib.auth.forms import UserCreationForm
 
 def homepage(request):
-    context = {}
+    # context = {}
+    # flag = 2
+    # my_user = request.user
+    # print(my_user)
+    # if not request.user.is_anonymous:
+        
+    #     if Farmer.objects.get(email=my_user.email) is None:
+    #         flag = 0   # warehouse owner
+    #         print("Heloo")
+    #     else:
+    #         flag = 1
+    #         print("Bye")
+    # print(flag)
+    # context = {'flag': flag}
     return render(request, 'homepage.html')
 
 def loginUser(request):
@@ -15,7 +28,7 @@ def loginUser(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print(username, password)
+        # print(username, password)
         
         try:
             my_user = User.objects.get(username=username)

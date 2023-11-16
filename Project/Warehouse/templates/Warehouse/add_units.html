@@ -1,16 +1,65 @@
 {% extends 'base.html' %}
-
-{% block content %}
-
-<form action="" method="POST">
-    {% csrf_token %}
-    <p> <input type="text" placeholder="type" name="type"> </p>
-    
-    <p><input type="text" placeholder="Capacity" name="capacity"> </p>
-    <p><input type="text" placeholder="Price" name="price"> </p>
-    
-    
-    <input type="submit">
-</form>
-
+{% load static %}
+{% block css %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{% static 'Warehouse/css/addunits.css' %}">
 {% endblock %}
+
+ {% block content %}
+  <div class="body">
+    <div style="flex:1">
+    </div>
+    <div class="main-form">
+        <div class="title">
+            <p style="font-size:30px;">
+              Add Unit
+            </p>
+        </div>
+      <form class="fill-form" method = "POST">
+        {% csrf_token %}
+        
+        <div class="namee">
+            <label for="unit-type">Unit Type</label><br>
+            <select id="type" name="type">
+              <option value="Hot">Hot</option>
+              <option value="Cold" >Cold</option>
+            </select>
+          
+        </div>
+        
+        <div id="div2">
+          <label for="capacity">Capacity</label><br>
+          <input type="text" placeholder="Capacity" name="capacity">
+        </div>
+        
+        <div id="div6">
+          <label for="price">Price</label><br>
+          <input type="number" placeholder="Price" name="price">
+        </div>
+
+        <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
+          <div style="flex:1;">
+            <a href="{% url 'all_units' id %}"></a>
+            <button class="cancel-button">
+              Cancel
+            </button>
+          </div>
+          <div style="flex:1;">
+            <button class="save-button">
+                Add unit
+            </button>
+            <!-- <input type="submit"> -->
+          </div>
+          
+        </div>
+      </form>
+    </div>
+      
+    <div style="flex:1;">
+    </div>
+  </div>
+
+
+  {% endblock %}
