@@ -17,24 +17,25 @@ def loginUser(request):
         password = request.POST.get('password')
         print(username, password)
         
-        my_user = User.objects.get(username=username)
-        my_user = authenticate(request, username=username, password=password)
+        try:
+            my_user = User.objects.get(username=username)
+            my_user = authenticate(request, username=username, password=password)
 
-        if my_user is not None:
-            login(request, my_user)
-            
-            try:
-                Farmer.objects.get(email=my_user.email)
-            except Farmer.DoesNotExist:
-                # return HttpResponse("Warehouse")
-                return redirect("Warehouse_profile") 
-            # messages.success(request, "You have succesfully Logged In")  
-            return redirect("farmer_currentbooking")
+            if my_user is not None:
+                login(request, my_user)
+                
+                try:
+                    Farmer.objects.get(email=my_user.email)
+                except Farmer.DoesNotExist:
+                    return redirect("Warehouse_profile") 
+                # messages.success(request, "You have succesfully Logged In")  
+                return redirect("farmer_currentbooking")
 
-        else : 
-            messages.error(request, "Invalid usrname or password")
-            print("Invalid usrname or password") 
-        
+            else : 
+                messages.error(request, "Invalid username or password")
+                print("Invalid username or password") 
+        except:
+            messages.error(request, "Invalid username or password")
 
     return render(request, 'mainapp/signup.html')
 
@@ -46,7 +47,14 @@ def register(request):
         flag = request.POST.get('user')
         
         if pass1 == pass2:
-            my_user = User.objects.create_user(username=email, email=email, password=pass1)
+            try:
+                my_user = User.objects.create_user(username=email, email=email, password=pass1)
+            except:
+                messages.error(request, "User already exists with same email.")
+                context = {
+                    'page':"register"
+                }
+                return render(request, 'mainapp/signup.html',context)
             login(request, my_user)
             # print(email, pass1, pass2, flag)
             # return HttpResponse("Warehouse Owner created !!!")
@@ -59,6 +67,8 @@ def register(request):
             
         else:
             print("Passwords do not match")
+            messages.error(request, "Passwords do not match")
+            
         
     context = {
         'page':"register"
