@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<head>
+  <title>Search</title>
+  <link rel="stylesheet" href="date-select.css">  
+  <link rel="stylesheet" href="type-search.css">
+  <link rel="stylesheet" href="card.css">
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="general.css"> 
+  <link rel="stylesheet" href="show-warehouse.css"> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+</head>
+<body>
+
+  <div class="cont" style="height:100px;">
+    <nav class="navbar navbar-expand-lg navbar-light p-0">
+        <a href="index.html" class="navbar-brand">
+            <h2 class="text-white"><b>Store-EZ</b></h2>
+        </a>
+        <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto">
+                <a href="index.html" class="nav-item nav-link active text-white">Home</a>
+                <a href="about.html" class="nav-item nav-link">Farmer</a>
+                <a href="product.html" class="nav-item nav-link">Warehouse</a>
+            </div>
+            <a href="" class="btn btn-dark py-2 px-4 d-none d-lg-inline-block">Bookings</a>
+        </div>
+    </nav>
+  </div>
+
+  <div style="text-align:center;">
+    <h1>
+      Select Your Time Slots Here:
+    </h1>
+  </div>
+  <div class="date-select-layout">
+    <div>
+      <label name="start-date">Select Start Date:</label>
+      <input id="start-date" type="date" min="YYYY-01-01" max="YYYY-12-31">
+    </div>
+  
+    <div>
+      <label name="end-date">Select End Date:</label>
+      <input id="end-date" type="date" min="YYYY-01-01" max="YYYY-12-31">
+    </div>
+
+    <script src="date-change.js"></script>
+  </div>
+
+  <div>
+    <h3 style="text-align: center;">No. of Units Needed:</h3>
+  </div>
+
+  <div class="type-search-div">
+    <div>
+      Hot: 
+      <input type="text" id="hot-units">
+    </div>
+    <div>
+      <!-- <form id="storageForm">
+        <label for="storageType">Select Storage Type</label>
+        <select id="storageType" name="storageType">
+            <option value="hot">Hot</option>
+            <option value="cold">Cold</option>
+        </select>
+      </form>  -->
+      Cold: 
+      <input type="text" id="cold-units">
+    </div>  
+    <div class="search-button-div">
+      <button type="submit" id="searchButton-js">Search</button>
+    </div> 
+  </div>
+
+  <div class="search-result-js">
+
+  </div>
+
+  
+
+  <div class="show-warehouse-row">
+    <div>
+      <div class="solution_card">
+        <div class="hover_color_bubble"></div>
+        <div class="so_top_icon">
+          
+        </div>
+        <div class="warehouse-name">
+          <h3>Warehouse_Name</h3>
+        </div>
+        <div class="solu_description">
+          <p>
+            City: 
+          </p>
+          <p>
+            State:
+          </p>
+          <p>
+            No. of units:
+          </p>
+          <button type="button" class="read_more_btn">Read More</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="solution_card">
+        <div class="hover_color_bubble"></div>
+        <div class="so_top_icon">
+          
+        </div>
+        <div class="warehouse-name">
+          <h3>Warehouse_Name</h3>
+        </div>
+        <div class="solu_description">
+          <p>
+            City: 
+          </p>
+          <p>
+            State:
+          </p>
+          <p>
+            No. of units:
+          </p>
+          <button type="button" class="read_more_btn">Read More</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="solution_card">
+        <div class="hover_color_bubble"></div>
+        <div class="so_top_icon">
+          
+        </div>
+        <div class="warehouse-name">
+          <h3>Warehouse_Name</h3>
+        </div>
+        <div class="solu_description">
+          <p>
+            City: 
+          </p>
+          <p>
+            State:
+          </p>
+          <p>
+            No. of units:
+          </p>
+          <button type="button" class="read_more_btn">Read More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="search-results.js"></script>
+  <script src="storage-type.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
