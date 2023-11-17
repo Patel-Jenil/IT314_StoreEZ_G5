@@ -427,3 +427,54 @@ img.animated.pulse {
     padding-right: 0;
     border-right: none;
 }
+
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+h3{
+    font-family:Quicksand;
+}
+.alert{
+  width:50%;
+  margin:20px auto;
+  padding:20px;
+  position:relative;
+  border-radius:5px;
+  /* box-shadow:0 0 15px 5px #ccc; */
+}
+.close{
+  position:absolute;
+  width:30px;
+  height:30px;
+  border-width:1px;
+  border-radius:50%;
+  right:15px;
+  top: 14px;
+  text-align:center;
+  font-size:1.6em;
+  cursor:pointer;
+}
+
+/* @mixin alert($name,$bgColor){
+  $accentColor:darken($bgColor,50);
+  .#{$name}{
+    background-color:#{$bgColor};
+    border-left:5px solid $accentColor;
+    .close{
+      border-color:$accentColor;
+      color:$accentColor;
+    }
+  }
+} */
+
+.success-alert{
+  background-color: #4A7C71
+}
+
+.danger-alert{
+  background-color: #FF7D7D
+}

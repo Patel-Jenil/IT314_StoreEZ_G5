@@ -53,7 +53,7 @@
 
    <h4>Start Date</h4> {{startdate}} <br>
    <h4>End Date</h4>{{enddate}} <br>
-<div class="">
+    <div class="">
     <div class="row mb-5">
         {% for warehouse_data in warehouses_with_unit %}
         <div class="card col-xl-2 col-9 mx-auto my-2 bg-green px-0" >
@@ -63,36 +63,30 @@
              <a href="{% url 'book' id=warehouse_data.warehouse.id start=startdate end=enddate %}">{{warehouse_data.warehouse.name}}</a></h4> 
               <!-- <p class="card-text">Location: iska to muje malum nai pan lamba hi hoga, isliye garbage text daala hai baaki tum log dekh lena thank you</p> -->
               <!-- <p class="card-text">Rating: Gandi</p> -->
-              <h5 class="card-text">
-                {% for unit in warehouse_data.units %}
-                <a href="">{{ unit.id }}</a>
-                {% endfor %}
-            </h5>
+
+                <table>
+                    <tr>
+                        <th class="th-heading">Type </th>
+                        <th class="th-heading">Units </th>
+                        <th class="th-heading">Capacity</th>
+                    </tr>
+                    <tr>
+                        <td>Standard</th>
+                        <td class="td-value">{{warehouse_data.hot_units}}</th>
+                        <td class="td-value">{{warehouse_data.hot_capacity}}</th>
+                    </tr>
+                    <tr>
+                        <td>Climate-controlled </th>
+                        <td class="td-value">{{warehouse_data.cold_units}}</th>
+                        <td class="td-value">{{warehouse_data.cold_capacity}}</th>
+                    </tr>
+                </table>
+
             </div>
         </div>
         {% endfor %}
-        </div>
     </div>
-<!-- 
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>
-  const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en';
-</script>
-<script src="datepicker.js"></script>
-<script>
-    (function($) {
-        $(function() {
-            const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.userLanguage || navigator.language || navigator.browserLanguage || 'en';
-            $(".datepicker")
-                .filter(function() {
-                    return !this.disabled && !this.readOnly;
-                })
-                .datepicker({ gainFocusOnConstruction: false, markup: 'bootstrap4' });
-           $('#date13').datepicker('next', '#date14');
-        });
-    })(this.jQuery);
-</script> -->
+    </div>
+
+    
  {% endblock %}
-</body>
-</html>
