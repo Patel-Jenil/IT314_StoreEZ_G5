@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Warehouse | Remove Unit{% endblock title %}
 {% block content %}
 
 <form action="" method="POST">
@@ -8,7 +9,7 @@
         <select name="unit">
 
             {% for unit in  units %}
-            <option value="{{unit.id}}">{{forloop.counter}}</option>
+            <option value="{{unit.id}}">{{unit.id}}</option>
             {% endfor %}
             
         </select>

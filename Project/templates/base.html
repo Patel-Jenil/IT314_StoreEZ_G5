@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Store-EZ</title>
+    <title> {% block title %} Store-EZ {% endblock title %}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -53,7 +53,7 @@
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'homepage' %}" class="nav-item nav-link text-black">Home</a>
 
-                        <a href="{% url 'warehouses' %}" class="nav-item nav-link">Warehouse</a>
+                        <a href="{% url 'warehouses' %}" class="nav-item nav-link">My Warehouses</a>
                         <a href="{% url 'Warehouse_profile' %}" class="nav-item nav-link">My Profile</a>
                         <a href="{% url 'aboutus' %}" class="nav-item nav-link">About Us</a>
 

@@ -60,10 +60,10 @@ def warehouses(request, id):
 
 @login_required(login_url='login')  
 def all_units(request, id):
-    # warehouse = Warehouse.objects.get(id = id)
-    units = Warehouse.objects.get(id = id).unit_set.all()
+    warehouse = Warehouse.objects.get(id = id)
+    units = warehouse.unit_set.all()
     # print(units)
-    context = {'units':units, 'warehouse_id':id}
+    context = {'units':units, 'warehouse':warehouse}
     return render(request,'warehouse/all_units.html',context)
 
 @login_required(login_url='login')  
@@ -76,8 +76,8 @@ def unit(request, id, id1):
     
     current_date = timezone.now().date()
     
-    current_booking = all_bookings.filter(end_date__gte=current_date)
-    prev_booking = all_bookings.filter(end_date__lte=current_date)
+    current_booking = all_bookings.filter(end_date__gte=current_date).order_by('-end_date')
+    prev_booking = all_bookings.filter(end_date__lt=current_date).order_by('-end_date')
     # print(prev_booking)
     context = {'warehouse':warehouse, 'unit':unit, 'current_booking':current_booking, 'prev_booking': prev_booking}
     return render(request, 'warehouse/unit.html', context)
@@ -89,7 +89,7 @@ def warehouses(request):
     
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
-        
+    print(search_query)
     user = request.user
     all_warehouses = Warehouse_owner.objects.get(email = user.email).warehouse_set.all()
 
@@ -102,7 +102,7 @@ def warehouses(request):
     else:
         print("not ")
         warehouses = filtered_warehouse
-    
+    print(warehouses)
     # print(user.email, warehouses)
     context = {
         'warehouses':warehouses, 
@@ -182,5 +182,5 @@ def removewarehouse(request, id):
     
 
     # print(units.count())
-    context = {}
+    context = {'id':id}
     return render(request, 'warehouse/remove_warehouse.html', context)

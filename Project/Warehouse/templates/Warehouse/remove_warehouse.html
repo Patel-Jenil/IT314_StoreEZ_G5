@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}StoreEZ| Remove Warehouse {% endblock title %}
 {% block content %}
 
 <form action="" method="POST">
@@ -7,4 +8,5 @@
     {% comment %} <input type="hidden" value = '{{id}}'> {% endcomment %}
     <input type="submit" value = "confirm">
 </form>
+    <p> <a href="{% url 'warehouses' %}"> <b>Cancel</b> </a> </p>
 {% endblock %}

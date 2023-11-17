@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}Warehouse | Add Unit{% endblock title %}
 {% block css %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,10 +42,9 @@
 
         <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
           <div style="flex:1;">
-            <a href="{% url 'all_units' id %}"></a>
-            <button class="cancel-button">
-              Cancel
-            </button>
+            <a href="{% url 'all_units' id %}" style="color:black">
+              <b>Cancel</b>
+            </a>
           </div>
           <div style="flex:1;">
             <button class="save-button">

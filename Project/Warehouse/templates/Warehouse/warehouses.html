@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %}StoreEZ | Warehouse{% endblock title %}
 {% block css%}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -16,7 +16,7 @@
         <div class="row mx-5">
             <div class="col-3 my-auto">
                 <form class=" col-lg-auto" role="search">
-                    <input type="search" class="form-control" placeholder="Search Warehouse" aria-label="Search">
+                    <input type="search" class="form-control" placeholder="Search Warehouse" name="search_query" aria-label="Search">
                 </form>
             </div>
             <div class="col-1 my-2">
@@ -42,7 +42,7 @@
 
         <div class="row mx-5 mt-5" style="background-color:#546C47;">
             <div class="col-3 my-auto border border-dark ">
-                <p style="color: white;">NAME</p>
+                <p style="color: white;">ID | NAME</p>
             </div>
             <div class="col-3 my-auto border border-dark">
                 <p style="color: white;">LOCATION</p>
@@ -59,7 +59,7 @@
 		{% if forloop.counter|divisibleby:2 %}
         <div class="row mx-5" style="background-color:#546C47;">
             <div class="col-3 my-auto border border-dark ">
-                <p style="color: white;">{{warehouse.name}}</p>
+                <p style="color: white;">{{warehouse.id}} {{warehouse.name}}</p>
             </div>
             <div class="col-3 my-auto border border-dark">
                 <p style="color: white;">{{warehouse.address}}</p>
@@ -74,7 +74,7 @@
 		{% else %}
 		<div class="row mx-5" style="background-color: #CEE1C4">
             <div class="col-3 my-auto border border-dark ">
-                <p>{{warehouse.name}}</p>
+                <p>{{warehouse.id}} {{warehouse.name}}</p>
             </div>
             <div class="col-3 my-auto border border-dark">
                 <p>{{warehouse.address}}</p>
