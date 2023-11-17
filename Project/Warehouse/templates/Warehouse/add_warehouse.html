@@ -1,27 +1,89 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}StoreEZ | Add Warehouse{% endblock title %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'Warehouse/body-form.css' %}">
+{% endblock css%}
 {% block content %}
 
-<form action="{% url 'add_warehouse' %}"  method="post">
+
+<div class="body">
+  <div style="flex:1">
+  </div>
+  <div class="main-form">
+    <form class="fill-form" method = "post" {# enctype="multipart/form-data" #}> <!-- enctype is needed here for image upload-->
+      {% csrf_token %}
+      <div class="title">
+        <p style="font-size:30px;">
+          Add Warehouse
+        </p>
+      </div>
+      <div style="text-align:center;">
+        <img class="profile-img"; src="{{warehouse_image.url}}" alt="."; style="width:180px !important">
+      </div>
+      <div class="namee" style="display:flex;
+      flex-direction: row; margin:0;">
+        <div id="div1">
+          <label for="fname"> Warehouse name:</label><br>
+          <input type="text" id="name" name="name" required><br>
+        </div>
+        
+      </div>
+      <div id="div2-1">
+        <label for="city">City</label><br>
+        <input type="text" id="city" name="city" required><br>
+      </div>
+      <div id="div2-2">
+        <label for="state">State</label><br>
+        <input type="text" id="state" name="state" required><br>
+      </div>
+      <div id="div3">
+        <label for="address">Address</label><br>
+<input type="text" id="address" name="address" required><br>
+      </div>
+      <div id="div4">
+        <label for="poc_name">Point of contact Person name:</label><br>
+        <input type="text" id="poc_name" name="poc_name" required><br>
+      </div>
+      
+      {% comment %} <div id="div5">
+        <label for="image">Upload an Image (Skip to unchange)</label><br>
+        {{editprofile.image}}
+      </div>
+       {% endcomment %}
+      
+      <div id="div6">
+        <label for="phone_no">Phone no.</label><br>
+  <input type="text" id="phone_no" name="phone_no" required><br>
+  
+      </div>
+
+      <div class="error-show" style="background-color: rgb(226, 87, 114);">
+        
+      </div>
+
+      <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
+        <div style="flex:1;">
+          <input type="submit" value="Confirm" />
+        </div>
+        <div style="flex:1;">
+          {% comment %} <a href="{% url 'Warehouse_profile' %}" class="btn btn-default">Cancel</a> {% endcomment %}
+          <button style="border-width:0.8px;border-color:rgb(144, 188, 121);
+          font-family:Roboto;font-size:16px;block-size:35px;margin-block-start:8px;display:inline-block;
+          font-weight:400" onclick="location.href='{% url 'warehouses' %}'" type='button'> Cancel </button>
+        </div>
+      </div>
+      <div class="error-show" style="background-color: rgb(226, 87, 114);">
+        {{errors}}
+      </div>
+    </form>
+  </div>
+{% comment %} <form action="{% url 'add_warehouse' %}"  method="post">
     {% csrf_token %}
-    <label for="fname"> name:</label><br>
-  <input type="text" id="name" name="name" required><br><br>
+     {% endcomment %}
 
-  <label for="address">address</label><br>
-  <input type="text" id="address" name="address" required><br><br>
+  
 
-  <label for="city">city</label><br>
-  <input type="text" id="city" name="city" required><br><br>
-
-
-  <label for="state">state</label><br>
-  <input type="text" id="state" name="state" required><br><br>
-
-  <label for="poc_name">poc_name</label><br>
-  <input type="text" id="poc_name" name="poc_name" required><br><br>
-
-  <label for="phone_no">phone_no</label><br>
-  <input type="text" id="phone_no" name="phone_no" required><br><br>
   
 
   {% comment %} <label for="image">image</label><br>
@@ -30,8 +92,8 @@
   {% comment %} <input type="hidden" id="owner" name="id" value = "{{user_id}}"> {% endcomment %}
 
 
-
+{% comment %} 
     <input type="submit">
-</form>
+</form> {% endcomment %}
 
 {% endblock %}

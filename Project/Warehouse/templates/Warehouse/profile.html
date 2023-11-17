@@ -12,7 +12,7 @@
       <!-- Profile widget -->
       <div class="bg-white shadow rounded overflow-hidden bg-wwhite">
         <div class="px-4 pt-0 pb-4 bgg">
-          <div class="media align-items-end profile-head">
+          <div class="pb-3 media align-items-end profile-head">
             <div class="profile mr-3">
               <img
                 src="{{warehouse_user.image.url}}"
@@ -25,7 +25,7 @@
             <div class="media-body mb-5 text-white">
               <h4 class="mt-0 mb-0">{{warehouse_user.first_name | capfirst}} {{warehouse_user.last_name | capfirst}}</h4>
               <p class="small mb-4">
-                <i class="fas  mr-2"></i>Warehouse Owner
+                <i class="fas  mr-2"></i> Warehouse Owner {{warehouse_user.id}}
               </p>
             </div>
           </div>

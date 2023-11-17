@@ -42,17 +42,14 @@
 
         <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
           <div style="flex:1;">
-            <a href="{% url 'all_units' id %}" style="color:black">
-              <b>Cancel</b>
-            </a>
-          </div>
-          <div style="flex:1;">
             <button class="save-button">
                 Add unit
             </button>
             <!-- <input type="submit"> -->
           </div>
-          
+          <div style="flex:1;">
+            <button style="border-color:rgb(75, 124, 114)" onclick="location.href='{% url 'all_units' id %}'" type='button'> Cancel </button>
+          </div>
         </div>
       </form>
     </div>

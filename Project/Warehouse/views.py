@@ -79,7 +79,7 @@ def unit(request, id, id1):
     current_booking = all_bookings.filter(end_date__gte=current_date).order_by('-end_date')
     prev_booking = all_bookings.filter(end_date__lt=current_date).order_by('-end_date')
     # print(prev_booking)
-    context = {'warehouse':warehouse, 'unit':unit, 'current_booking':current_booking, 'prev_booking': prev_booking}
+    context = {'warehouse':warehouse, 'unit':unit, 'current_booking':current_booking, 'prev_booking': prev_booking, 'id':id}
     return render(request, 'warehouse/unit.html', context)
 
 
@@ -130,7 +130,6 @@ def addunit(request, id):
 
 @login_required(login_url='login')  
 def removeunit(request, id):
-    context = {}
     if request.method == "POST":
         unit = request.POST.get('unit')
         # print("id: ",unit)
@@ -141,7 +140,7 @@ def removeunit(request, id):
     
     units = Warehouse.objects.get(id = id).unit_set.all()   
     # print(units.count())
-    context = {'units': units}
+    context = {'units': units,'id':id}
     return render(request, 'warehouse/removeunit.html', context)
 
 
@@ -151,7 +150,8 @@ def editunit(request, id, id1):
 
 @login_required(login_url='login')  
 def addwarehouse(request):
-    
+    warehouse_image = Warehouse().image
+    print(warehouse_image)
     if request.method == 'POST':
         name = request.POST.get('name')
         address = request.POST.get('address')
@@ -166,14 +166,15 @@ def addwarehouse(request):
         user.save()
         return redirect('warehouses')
     context = {
-        'user_id':request.user.id
+        'user_id':request.user.id,
+        'warehouse_image':warehouse_image
     }
     return render(request,'warehouse/add_warehouse.html',context)
 
 @login_required(login_url='login')  
 def removewarehouse(request, id):
     print(id)
-    context = {}
+    context = {'id':id}
     if request.method == "POST":
         del_warehouse = Warehouse.objects.get(id=id)
         print(del_warehouse)

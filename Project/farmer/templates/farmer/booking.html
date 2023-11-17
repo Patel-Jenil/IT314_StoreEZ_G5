@@ -1,5 +1,8 @@
 <p> Farmer: {{farmer}} </p>
+<p> Farmer Phone no: {{farmer.phone_no}}
 <p> Booking id: {{booking.id}} </p>
+<p> Farmer ID: {{farmer.id}} | Warehouse ID: {{warehouse.id}} </p>
+<p> Date of booking: {{booking.date}}</p>
 <p> Start Date: {{booking.start_date}} </p>
 <p> End Date: {{booking.end_date}}  </p>
 <p> Warehouse: {{warehouse.name}}, {{warehouse.city}}, {{warehouse.state}}</p>
@@ -30,3 +33,4 @@
 <p>Total Days: {{total_days}}</p>
 <p>Price per day: {{per_day_price}}</p>
 <p><b>Total Price: {{price}} </b><P>
+    <button onclick="location.href='{% url 'farmer_currentbooking' %}'" type='button'> Back </button>

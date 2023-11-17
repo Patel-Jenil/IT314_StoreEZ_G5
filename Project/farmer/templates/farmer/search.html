@@ -1,5 +1,6 @@
 {% extends 'farmerbase.html' %}
 {% load static %}
+{% block title %} StoreEZ | Search Warehouse {% endblock title %}
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,18 +52,46 @@
         </div>
     </div>
 
-   <h4>Start Date</h4> {{startdate}} <br>
-   <h4>End Date</h4>{{enddate}} <br>
+    {% if messages %}
+        <script>
+            function closeAlert(element) {
+                var alert = element.parentElement;
+                alert.style.display = 'none';
+            }
+        </script>
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+                <h3>Success Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+                <h3>{{message}}</h3>
+                <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+                <h3>Warning Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+    <h4>Start Date</h4> {{startdate}} <br>
+    <h4>End Date</h4>{{enddate}} <br>
     <div class="">
     <div class="row mb-5">
         {% for warehouse_data in warehouses_with_unit %}
         <div class="card col-xl-2 col-9 mx-auto my-2 bg-green px-0" >
-          
+
             <div class="card-body">
-              <h4 class="card-title">
-             <a href="{% url 'book' id=warehouse_data.warehouse.id start=startdate end=enddate %}">{{warehouse_data.warehouse.name}}</a></h4> 
-              <!-- <p class="card-text">Location: iska to muje malum nai pan lamba hi hoga, isliye garbage text daala hai baaki tum log dekh lena thank you</p> -->
-              <!-- <p class="card-text">Rating: Gandi</p> -->
+                <h4 class="card-title">
+                <a href="{% url 'book' id=warehouse_data.warehouse.id start=startdate end=enddate %}">{{warehouse_data.warehouse.name}}</a></h4> 
+                <!-- <p class="card-text">Location: iska to muje malum nai pan lamba hi hoga, isliye garbage text daala hai baaki tum log dekh lena thank you</p> -->
+                <!-- <p class="card-text">Rating: Gandi</p> -->
 
                 <table>
                     <tr>
@@ -89,4 +118,4 @@
     </div>
 
     
- {% endblock %}
+{% endblock %}

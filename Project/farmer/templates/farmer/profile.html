@@ -1,5 +1,6 @@
 {% extends 'farmerbase.html' %}
 {% load static %}
+{% block title %} Farmer | Profile {% endblock title %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'Warehouse/profile.css' %}">
 {% endblock %}
@@ -10,7 +11,7 @@
       <!-- Profile widget -->
       <div class="bg-white shadow rounded overflow-hidden bg-wwhite">
         <div class="px-4 pt-0 pb-4 bgg">
-          <div class="media align-items-end profile-head">
+          <div class="pb-3 media align-items-end profile-head">
             <div class="profile mr-3">
               <img
                 src="{{farmer.image.url}}"
@@ -23,7 +24,7 @@
             <div class="media-body mb-5 text-white">
               <h4 class="mt-0 mb-0">{{farmer.first_name | capfirst}} {{farmer.last_name | capfirst}}</h4>
               <p class="small mb-4">
-                <i class="fas  mr-2"></i>
+                <i class="fas  mr-2"></i> Farmer {{farmer.id}}
               </p>
             </div>
           </div>

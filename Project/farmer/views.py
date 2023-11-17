@@ -9,7 +9,8 @@ from django.core.paginator import Paginator
 from datetime import datetime,date, timedelta
 from django.db.models import Q
 from django.db.models import Sum
-from django.contrib import messages 
+from django.contrib import messages
+from django.urls import reverse
 
 
 @login_required(login_url='login')
@@ -61,6 +62,8 @@ def currentbooking(request):
         print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
         print('all_booked_units:',all_booked_units)
+        if len(all_booked_units) == 0:
+            continue
         one_booked_unit = all_booked_units[0]
         print('one_booked_unit:',one_booked_unit)
         per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
@@ -96,6 +99,8 @@ def previousbooking(request):
         print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
         print('all_booked_units:',all_booked_units)
+        if len(all_booked_units) == 0:
+            continue
         one_booked_unit = all_booked_units[0]
         print('one_booked_unit:',one_booked_unit)
         per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
@@ -175,8 +180,8 @@ def search(request):
         start_date = request.POST.get('startdate')
         end_date = request.POST.get('enddate')
         
-        if not start_date or not end_date:
-            messages.error(request, "Invalid username or password")
+        if not start_date or not end_date or start_date>end_date:
+            messages.error(request, "Invalid Dates")
             # return redirect('search')
             
         else:
@@ -246,7 +251,7 @@ def book(request,id, start, end):
         
         booking.unit.set(selected_unit) # Whenever there is many to many feild we have to .set method
         
-        return HttpResponse("I am booking") # redirect to current booking. This is done temporarily
+        return redirect(reverse('farmer_booking', args=(booking.id,))) # redirect to current booking. This is done temporarily
     
     context = {'startdate':start, 'enddate':end, 'units':unbooked_units}
     return render(request,'farmer/book.html',context)

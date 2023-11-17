@@ -64,5 +64,6 @@ class Booking(models.Model):
     description = models.TextField()
     unit = models.ManyToManyField(Unit)
     farmer = models.ForeignKey(Farmer,on_delete=models.CASCADE, null=True)
+    date = models.DateTimeField(auto_now_add=True)
     def __str__(self) -> str:
         return f"{self.id} {self.start_date}-{self.end_date}"

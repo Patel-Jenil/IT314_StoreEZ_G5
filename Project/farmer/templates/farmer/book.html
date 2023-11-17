@@ -1,5 +1,6 @@
 {% extends 'farmerbase.html' %} 
 {% load static %}
+{% block title %} StoreEZ | Book {% endblock title %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'farmer/tableunit.css' %}">
 <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" /> -->
@@ -48,7 +49,7 @@
           {% for unit in units %}
           <tbody>
             <tr>
-              <th><input class="form-check-input" name="checkbox" type="checkbox" value="">
+              <th><input class="form-check-input" name="checkbox" type="checkbox" value="{{unit.id}}">
                 <label class="form-check-label ff" for="defaultCheck1" style="font-size: 138%;">
                   Unit {{unit.id}}
                 </label></th>
@@ -78,6 +79,8 @@
         </div>
 
         <input type="submit" class="btn btn-light btn-lg mg m-2 pb-2">
+        {% comment %} <a href="{% url 'search' %}"> <b>Cancel</b></a> {% endcomment %}
+        <button class="btn btn-light btn-lg mg m-2 pb-2" onclick="location.href='{% url 'search' %}'" type='button'> Cancel </button>
         {% comment %} <button type="button" class="btn btn-light btn-lg ">Submit</button> {% endcomment %}
 
       </form>

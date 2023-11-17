@@ -1,5 +1,6 @@
 {% extends 'farmerbase.html' %}
 {% load static %}
+{% block title %} Farmer | EditProfile {% endblock title %}
 {% block css %}
   <link rel="stylesheet" href="{% static 'farmer/body-form.css' %}">
 {% endblock%}
@@ -66,11 +67,14 @@
 
       <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
         <div style="flex:1;">
-          <a href="{% url 'farmer_profile' %}" class="btn btn-default">Cancel</a>
-        </div>
-        <div style="flex:1;">
           <input type="submit" value="Confirm" />
         </div>
+        <div style="flex:1;">
+          <button style="border-width:0.8px;border-color:rgb(144, 188, 121);
+          font-family:Roboto;font-size:16px;block-size:35px;margin-block-start:8px;display:inline-block;
+          font-weight:400" onclick="location.href='{% url 'farmer_profile' %}'" type='button'> Cancel </button>
+        </div>
+        
         
       </div>
       <div class="error-show" style="background-color: rgb(226, 87, 114);">

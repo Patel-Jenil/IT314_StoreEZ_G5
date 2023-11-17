@@ -1,6 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Warehouse | Remove Unit{% endblock title %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'Warehouse/body-form.css' %}">
+{% endblock css%}
 {% block content %}
+
+<div class="body">
+    <div style="flex:1">
+    </div>
+    <div class="main-form">
+      <form class="fill-form" method = "post" {# enctype="multipart/form-data" #}> <!-- enctype is needed here for image upload-->
+        {% csrf_token %}
+        <div class="title">
+          <p style="font-size:30px;">
+            Remove A Unit from Warehouse {{id}}
+          </p>
+        </div>
+        <div style="text-align:center;">
+          {% comment %} <img class="profile-img"; src="{{warehouse_image.url}}" alt="."; style="width:180px !important"> {% endcomment %}
+        </div>
+        <div class="namee" style="display:flex;
+        flex-direction: row; margin:0;">
+          
+  
+        <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
+          
+          <div class="div1" style="flex:1;">
+          <label for="units">Select a unit to delete</label>
+        <select name="unit">
+
+            {% for unit in  units %}
+            <option value="{{unit.id}}">{{unit.id}}</option> </br>
+            {% endfor %}
+            
+        </select>
+        </div>
+    </br>
+        <div style="flex:1;">
+            <input type="submit" value="Confirm" />
+          </div>
+          <div style="flex:1;">
+            {% comment %} <a href="{% url 'Warehouse_profile' %}" class="btn btn-default">Cancel</a> {% endcomment %}
+            <button style="border-width:0.8px;border-color:rgb(144, 188, 121);
+            font-family:Roboto;font-size:16px;block-size:35px;margin-block-start:8px;display:inline-block;
+            font-weight:400" onclick="location.href='{% url 'all_units' id=id %}'" type='button'> Cancel </button>
+          </div>
+        </div>
+      </form>
+
+
+{% endblock content %}
 
 <form action="" method="POST">
     {% csrf_token %}
@@ -16,5 +66,3 @@
     </p>
     
     <input type="submit">
-</form>
-{% endblock %}
