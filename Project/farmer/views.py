@@ -59,6 +59,8 @@ def currentbooking(request):
         print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
         print('all_booked_units:',all_booked_units)
+        if len(all_booked_units) == 0:
+            continue
         one_booked_unit = all_booked_units[0]
         print('one_booked_unit:',one_booked_unit)
         per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
@@ -94,6 +96,8 @@ def previousbooking(request):
         print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
         print('all_booked_units:',all_booked_units)
+        if len(all_booked_units) == 0:
+            continue
         one_booked_unit = all_booked_units[0]
         print('one_booked_unit:',one_booked_unit)
         per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
