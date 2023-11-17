@@ -83,9 +83,9 @@ body {
 
 .date{
   display: flex;
-  background-color: #c5f1c5;
+  background-color: #198754;
   border: none;
-  border-color: #28bc18;
+  border-color: #198754;
   box-shadow: 5px 5px 5px;
   height: 30px;
   border-radius: 10px;
@@ -170,4 +170,22 @@ body {
 .bdate_input
 {
   width: 40%;
+}
+
+.dash-table {
+  background-color: #198754;
+}
+
+.dash-margin
+{
+    margin-left: 3%;
+}
+
+.dash {
+  /* border-radius: 25px; */
+  min-height: 92vh;
+  width: 85vw;
+  background-color: var(--background-color2);
+  border-radius: 20px;
+  /* border-top-left-radius: 20px; */
 }
