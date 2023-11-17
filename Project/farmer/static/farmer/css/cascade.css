@@ -1,3 +1,13 @@
+.outer-box{
+    /* width: 100%; */
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.bg-primary{
+    background-color: black;
+}
+
 .bg-dgreen{
     background-color: #435334;
 }
@@ -27,6 +37,10 @@
 .spacing-none{
     margin:0;
     padding:0;
+}
+
+.bg.primary{
+    background-color: aqua;
 }
 
 .rempad{

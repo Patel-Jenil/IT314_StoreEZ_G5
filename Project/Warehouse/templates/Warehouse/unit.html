@@ -1,48 +1,73 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'Warehouse/css/singleunit.css'%}">
+{% endblock %}
 {% block content %}
 
-<p>
-    Warehouse associated : {{ warehouse.name }}
-</p>
-<p>
-    Unit type : {{ unit.type }}
-</p>
-<p>
-    Unit capacity : {{ unit.capacity }}
-</p>
-<p>
-    Unit price : {{ unit.price }}
-</p>
-<p>
-    <a href="">Edit unit</a>
-</p>
+<div class="info-row">
+    <div class="ab">
+      <div class="ind-row">
+        <b>
+          Warehouse Associated: 
+        </b> {{ warehouse.name }}
+        
+      </div>
+      <div class="ind-row">
+        <b>
+          Unit Type: 
+        </b> {{ unit.type }}
+      </div>
+      <div class="ind-row">
+        <b>
+          Unit Capacity: 
+        </b> {{ unit.capacity }}
+      </div>
+      <div class="ind-row">
+        <b>
+          Unit Price: 
+        </b> ₹{{ unit.price }}
+      </div>
+    </div>
+  </div>
 
-<h1>Current Booking </h1>
 
-{% for booking in current_booking %}
-<div>
-    <h4>Booking reference No. {{booking.id}}</h4>
-    <p>Start date: {{ booking.start_date}}</p>
-    <p>Endd date: {{ booking.end_date}}</p>
-    <p>Description : {{ booking.description}}</p>
-    <a href="">{{ booking.farmer}}</a>
-    <p></p>
-    <p></p>
-</div>
-{% endfor %}
+  <div class="wrapperr">
+    <div class="table-container">
+      <table>
+        <tr class="table-heading">
+          <th>Booking Reference No.</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Description</th>
+          <th>Booked by</th>
+          <th>Booking Status</th>
+        </tr>
+        {% for booking in current_booking %}
+        <tr class="not-heading">
+          <td data-cell="Booking Number" style="width:15%;"> {{booking.id}} </td>
+          <td data-cell="Start Date">{{ booking.start_date}}</td>
+          <td data-cell="End Date">{{ booking.end_date}}</td>
+          <td data-cell="Description" style="width:40%;">{{ booking.description}}</td>
+          <td data-cell="Booked By">{{ booking.farmer}}</td>
+          <td class="on-going" data-cell="Booked Status" class="on-going"><b>On going</b></td>
+        </tr>
+        {% endfor %}
+        
 
-<h1>Previous Booking </h1>
+        {% for booking in prev_booking %}
+        <tr>
+          <td data-cell="Booking Number" style="width:15%;"> {{booking.id}} </td>
+          <td data-cell="Start Date">{{ booking.start_date}}</td>
+          <td data-cell="End Date">{{ booking.end_date}}</td>
+          <td data-cell="Description" style="width:40%;">{{ booking.description}}</td>
+          <td data-cell="Booked By">{{ booking.farmer}}</td>
+          <td class="completed" data-cell="Booked Status"><b>Completed</b></td>
+        </tr>
+        {% endfor %}
 
-{% for booking in prev_booking %}
-<div>
-    <h4>Booking reference No. {{booking.id}}</h4>
-    <p>Start date: {{ booking.start_date}}</p>
-    <p>Endd date: {{ booking.end_date}}</p>
-    <p>Description : {{ booking.description}}</p>
-    <a href="">{{ booking.farmer}}</a>
-    <p></p>
-    <p></p>
-</div>
-{% endfor %}
+      </table>
+    </div>
+  </div>
 
 {% endblock %}

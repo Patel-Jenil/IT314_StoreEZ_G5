@@ -119,8 +119,7 @@ div.datepicker-calendar table.datepicker-grid.rtl {
 div.datepicker-calendar table.datepicker-grid:focus {
 	outline: none;
 }
-div.datepicker-calendar table.datepicker-weekdays {
-}
+
 div.datepicker-calendar table.datepicker-grid th,
 div.datepicker-calendar table.datepicker-grid td{
 	text-align: center;

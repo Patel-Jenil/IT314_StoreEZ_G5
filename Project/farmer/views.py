@@ -175,7 +175,7 @@ def search(request):
         
         booked_units = Booking.objects.filter(start_date__range=[start_date, end_date], end_date__range=[start_date, end_date])\
                                .values_list('unit', flat=True)
-        print(booked_units)
+        # print(booked_units)
         # warehouses = Warehouse.objects.values_list('name', 'id')
         warehouses = Warehouse.objects.all()
         
@@ -183,8 +183,10 @@ def search(request):
         for warehouse in warehouses:
             # units = warehouse.unit_set.all()
             units = warehouse.unit_set.exclude(id__in=booked_units.values_list('unit'))
-            warehouses_with_unit.append({'warehouse': warehouse, 'units': units})
-            print(units)
+            if len(units) > 0:
+                warehouses_with_unit.append({'warehouse': warehouse, 'units': units})
+            # print(units)
+        print(warehouses_with_unit)
         context = {'warehouses_with_unit': warehouses_with_unit, 'startdate':start_date, 'enddate':end_date}
         # print(warehouses)
         
