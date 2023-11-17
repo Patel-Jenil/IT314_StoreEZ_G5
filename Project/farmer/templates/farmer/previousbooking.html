@@ -2,15 +2,24 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'farmer/styleprev.css' %}">
+<link rel="stylesheet" href="{% static 'farmer/css/cascade.css' %}" />
+
 {% endblock %}
 Template Stylesheet
 <link href="styleprev.css" rel="stylesheet">
 
 
 {%block content%}
-<div class="container-fluid py-3">
-  <h1 class="text-center ff" style="font-size: 310%; text-decoration-line: underline;">Previous Bookings</h1>
-</div>
+<div class="outer-box container-fluid " >
+  <div class="bg-dgreen">
+      <div class="bg-dgreen py-4 d-flex flex-column justify-content-end align-items-center mb-4 rempad">
+          <div class="font-large py-5"> <h1 class="text-center ff" style="font-size: 130%; text-decoration-line:none; -webkit-text-fill-color: white;">Previous Bookings</h1></div>
+          <div class="w-100">
+          </div>
+          
+        </div>
+    </div>
+
 
 
 
@@ -33,7 +42,7 @@ Template Stylesheet
     {% for booking, warehouse,price in data %}
     <tbody>
       <tr>
-        <th scope="row"><a href="{% url 'farmer_booking' booking.id %}">Booking {{booking.id}}</a></th>
+        <th scope="row"><a href="{% url 'farmer_booking' booking.id %}"><p>Booking-{{booking.id}}</p></a></th>
         <td>{{booking.start_date}}</td>
         <td>{{booking.end_date}}</td>
         <td>{{warehouse.name}}</td>
