@@ -1,53 +1,84 @@
-<!DOCTYPE html>
+{% extends 'farmerbase.html' %} 
 {% load static %}
-<html lang="en">
+{% block css %}
+<link rel="stylesheet" href="{% static 'farmer/tableunit.css' %}">
+<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" /> -->
+<link rel="stylesheet" href="{% static 'farmer/style5.css' %}">
+<link rel="stylesheet" href="{% static 'farmer/css/cascade.css' %}" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StoreEZ | book</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-
-  <link rel="stylesheet" href="{% static 'farmer/style5.css' %}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+{% endblock %}
 
 
 
-</head>
-
-<body style="background-color: #90bc79; background-image: url('{% static "farmer/bg.png" %}');">
+{%block content%}
 
 
-  <div class="container rounded-4 text-white my-5" style="background-color: #25381b; background-image: url('{% static "farmer/bg.png" %}');">
-    <div class="container mx-5 p-5">
+<div class="outer-box container-fluid " >
+  <div class="bg-dgreen">
+      <div class="bg-dgreen py-4 d-flex flex-column justify-content-end align-items-center mb-4 rempad">
+          <div class="font-large py-5"> <h1 class="text-center ff" style="font-size: 100%; text-decoration-line:none; -webkit-text-fill-color: white;">Select Number of Units to be Booked</h1></div>
+          <div class="w-100">
+          </div>
+          
+        </div>
+    </div>
+
+<!-- <body style="background-color: #90bc79; background-image: url('{% static "farmer/bg.png" %}');"> -->
+
+
+  <!-- <div class="container rounded-4 text-white my-5" style="background-color: #25381b; background-image: url('{% static "farmer/bg.png" %}');">
+    <div class="container mx-5 p-5"> -->
       <form action="" method="post">
         {% csrf_token %}
-        <div class="container-fluid py-3">
+        <!-- <div class="table-layout">
           <h1 class="text-center ff" style="font-size: 210%">Select Number of Units to be Booked</h1>
+        </div> -->
+
+        <div class="table-layout">
+        <table class="table table-hover table-striped" style="border-radius:20px;  background-image: url({%static 'farmer/bg.png' %})">
+          <thead>
+            <tr>
+              <th scope="col">Units</th>
+              <th scope="col">Type</th>
+              <th scope="col">Capacity</th>
+              <th scope="col">Price</th>
+              
+            </tr>
+          </thead>
+          {% for unit in units %}
+          <tbody>
+            <tr>
+              <th><input class="form-check-input" name="checkbox" type="checkbox" value="">
+                <label class="form-check-label ff" for="defaultCheck1" style="font-size: 138%;">
+                  Unit {{unit.id}}
+                </label></th>
+                <td>{{unit.type}}</td>
+              <td>{{unit.capacity}}</td>
+              <td>{{unit.price}}</td>
+            </tr>
+          </tbody>
+          {% endfor %}
+          </table>
         </div>
 
-      {% for unit in units %}
+      <!-- {% for unit in units %}
         <div class="form-check py-3">
           <input class="form-check-input" name="checkbox" type="checkbox" value="">
           <label class="form-check-label ff" for="defaultCheck1" style="font-size: 160%;">
             Unit {{unit.id}}
           </label>
         </div>
-      {% endfor %}
+      {% endfor %} -->
 
 
         <div class="form-group py-5 redw">
-          <label class="py-3 ff" for="formGroupExampleInput" style="font-size: 160%;">Descriptor</label>
+          <label class="py-3 ff m-2 pb-2" for="formGroupExampleInput" style="font-size: 160%;">Description</label>
           <input type="text" class="form-control"  name="description" id="formGroupExampleInput"
             placeholder="Provide description for your warehouse">
         </div>
 
-        <input type="submit" class="btn btn-light btn-lg">
-        {% comment %} <button type="button" class="btn btn-light btn-lg">Submit</button> {% endcomment %}
+        <input type="submit" class="btn btn-light btn-lg mg m-2 pb-2">
+        {% comment %} <button type="button" class="btn btn-light btn-lg ">Submit</button> {% endcomment %}
 
       </form>
     </div>
@@ -60,6 +91,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
-</body>
-
-</html>
+{% endblock %}
