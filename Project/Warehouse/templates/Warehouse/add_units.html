@@ -9,6 +9,36 @@
 {% endblock %}
 
  {% block content %}
+
+ {% if messages %}
+        <script>
+            function closeAlert(element) {
+                var alert = element.parentElement;
+                alert.style.display = 'none';
+            }
+        </script>
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+                <h3>Success Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+                <h3>{{message}}</h3>
+                <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+                <h3>Warning Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
   <div class="body">
     <div style="flex:1">
     </div>
@@ -32,12 +62,12 @@
         
         <div id="div2">
           <label for="capacity">Capacity</label><br>
-          <input type="text" placeholder="Capacity" name="capacity">
+          <input type="number" placeholder="Capacity" name="capacity" min="1" required>  
         </div>
         
         <div id="div6">
           <label for="price">Price</label><br>
-          <input type="number" placeholder="Price" name="price">
+          <input type="number" required placeholder="Price" name="price" step=".01" min="0.01"> 
         </div>
 
         <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">

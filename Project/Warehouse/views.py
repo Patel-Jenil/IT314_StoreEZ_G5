@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from Warehouse.forms import EditProfileForm
+from django.contrib import messages
 from django.utils import timezone
 # Create your views here.
 
@@ -112,10 +113,21 @@ def warehouses(request):
 @login_required(login_url='login')  
 def addunit(request, id):
     # print(id)
-    if request.method == "POST":
+    if request.POST:
         type = request.POST.get('type')
         capacity = request.POST.get('capacity')
         price = request.POST.get('price')
+        flag = False
+        if capacity == "" or int(capacity) <= 0:
+            messages.error(request, "Invalid Capacity")
+            flag = True
+        
+        if price == "" or int(price) <= 0:
+            messages.error(request, "Invalid Price")
+            flag = True
+            
+        if flag:
+            return render(request, 'warehouse/add_units.html', {'id':id})
         warehouse = Warehouse.objects.get(id = id)
         
         

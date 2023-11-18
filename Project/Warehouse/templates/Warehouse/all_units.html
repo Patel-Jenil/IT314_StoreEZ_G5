@@ -17,8 +17,8 @@
         <a class="new_unit" href=" {% url 'addunit' warehouse.id %}">Add Unit</a>
         <a class="new_unit" href="{% url 'removeunit' warehouse.id %}">Remove Unit</a>
         <div> 
-          Warehouse details: </br>
-          {{warehouse.name}} - {{warehouse.city}}, {{warehouse.state}}
+          <h5>Warehouse {{warehouse.id}} details: </br>
+          {{warehouse.name}} - {{warehouse.city}}, {{warehouse.state}}</h5>
         </div>
       {% comment %}
       </div>

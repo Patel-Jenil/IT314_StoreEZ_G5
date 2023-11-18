@@ -186,9 +186,11 @@ def search(request):
             
         else:
             # booked_units = Booking.objects.filter(start_date__lte=end_date, end_date__gte=start_date)
-            booked_units = Booking.objects.filter(Q(start_date__lte=end_date) & Q(end_date__gte=end_date) | Q(start_date__lte=start_date) & Q(end_date__gte=start_date))\
-                                .values_list('unit', flat=True)
-            # print(booked_units)
+            # booked_units = Booking.objects.filter(Q(Q(start_date__lte=end_date) & Q(end_date__gte=end_date)) | Q(Q(start_date__lte=start_date) & Q(end_date__gte=start_date)))\
+            #                     .values_list('unit', flat=True)
+            booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=end_date) | Booking.objects.filter(start_date__lte=start_date,end_date__gte=start_date)
+            print(booked_units)
+            booked_units = booked_units.values_list('unit', flat=True).exclude(unit=None)
             print("Booked_units: ",booked_units)
             # warehouses = Warehouse.objects.values_list('name', 'id')
             warehouses = Warehouse.objects.all()

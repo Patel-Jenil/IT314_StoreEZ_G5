@@ -15,7 +15,7 @@
             <th>Unit ID</th>
             <th>Capacity</th>
             <th>Type</th>
-            <th>Price</th>
+            <th>Price/day</th>
         </tr>
     </thead>
     {% for unit in all_booked_units %}
@@ -29,8 +29,8 @@
         </tbody>
     {% endfor %}
 <table>
-
+<p>Description: {{booking.description}} </p>
 <p>Total Days: {{total_days}}</p>
-<p>Price per day: {{per_day_price}}</p>
+<p>Total Price per day: {{per_day_price}}</p>
 <p><b>Total Price: {{price}} </b><P>
     <button onclick="location.href='{% url 'farmer_currentbooking' %}'" type='button'> Back </button>
