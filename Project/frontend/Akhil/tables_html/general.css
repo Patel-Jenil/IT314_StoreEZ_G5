@@ -1,0 +1,20 @@
+html{color-scheme:light}
+
+body{
+  color:#000;
+  font-size:1.1.25rem;
+  font-family:system-ui;
+  line-height:1.5;
+  background: url('bg.png') ;
+  background-color: #9cbd8a;
+}
+
+.wrapper{
+  display:flex;
+  flex-direction: column;
+  
+  border:solid;
+  border-width:1px;
+  border-color:#90bc79;
+  border-radius:20px;
+}

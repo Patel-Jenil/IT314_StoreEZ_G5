@@ -1,0 +1,41 @@
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:20px;
+}
+
+
+
+.info-row button{
+  background-color:white;
+  border:none;
+  height:50px;
+  width:100px;
+  border-radius:10px;
+  cursor:pointer;
+  color:#000000;
+  font-weight: 700;
+  font-size:larger;
+}
+
+.info-row button:hover{
+  background:#eee;
+  /* border-radius:20px;
+  transition-timing-function:ease-out;
+  transition-duration: 0.2s;
+  transition-property: inherit; */
+}
+
+
+.info-row .ab{
+  flex:2;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.info-row .ab div{
+  flex:2;
+  padding-bottom:10px;
+}

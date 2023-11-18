@@ -1,0 +1,99 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background:url('bg.png');
+  background-color: #90bc79;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
+.outer-bg{
+  padding:30px;
+  background-color: hsl(98, 63%, 83% );
+  border-radius:8px;
+}
+
+.container {
+  background-color: hsl(98, 63%, 93%);
+  padding-bottom: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.button-row{
+  margin-top:20px;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.delete-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #b5eb98;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+  transition:0.5s;
+}
+
+.cancel-button{
+  padding: 8.4px;
+  font-size: 16px;
+  background-color: #ffffff;
+  color: #000000;
+  border: solid;
+  border-width: 2px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover,.delete-button:hover {animation: shaking 0.2s infinite;}
+@keyframes shaking {
+  0% {transform: rotate(0deg);}
+  20% {transform: rotate(-4deg);}
+  50% {transform: rotate(0deg);}
+  70% {transform: rotate(4deg);}
+  100% {transform: rotate(0deg);}
+}
+
+.cancel-button:hover{
+  background-color: #000;
+  color: #fff;
+  border: solid;
+  border-width:2px;
+  border-color:white;
+  transition: 0.5s;
+}
+
+
+@media (max-width:440px){
+  .button-row{
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+    align-items:center;
+  }
+
+  .button-row .cancel-button{
+    margin-top:10px;
+  }
+}
