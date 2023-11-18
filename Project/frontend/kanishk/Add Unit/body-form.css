@@ -1,0 +1,158 @@
+
+html, body {margin: 0; height: auto; overflow:auto}
+
+body{
+  font-family:'Roboto';
+  display:flex;
+  flex-direction:column;
+  background:url('bg.png');
+}
+
+.body{
+  flex:1;
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  padding-right:100px;
+  padding-left:100px;
+  padding-bottom:20px;
+  
+}
+
+body div{
+  flex:1;
+}
+
+.title{
+  border-bottom:solid;
+  text-align: center;
+}
+
+.main-form{
+  flex:4;
+  margin-top:100px;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+  width:100%;
+  border-width:1px;
+  padding:3px;
+  color:black;
+  background-color:#d9ead0;
+  box-shadow:3px 3px 10px;
+  border-radius:10px;
+}
+
+.fill-form div{
+  flex:2;
+  margin-left:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+}
+
+
+.profile-img{
+  width:40%;
+  border-radius:100%;
+  
+}
+
+.fill-form select{
+  margin-top:8px;
+  width:100%;
+  height:35px;
+  border:solid;
+  border-width:1.2px;
+  border-color:#90bc79;
+  border-radius:5px;
+  background-color: #fff;
+  border-color: none;
+  color:black;
+}
+
+.fill-form input{
+  margin-top:8px;
+  width:100%;
+  height:35px;
+  border:solid;
+  border-width:1.2px;
+  border-color:#90bc79;
+  border-radius:5px;
+  background-color: #fff;
+  border-color: none;
+  color:black;
+}
+.fill-form input::placeholder{
+  font-size:15px;
+  opacity:0.9;
+  padding-left:2px;
+  color:#000;
+}
+.main-form{
+  position: relative;
+  animation-name:move-form;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes move-form{
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.fill-form{
+  margin:2px;
+  border:solid;
+  border-radius: 10px;
+  background-color: #fcfcfc;
+}
+
+button{
+  width:100%;
+  height: 40px;
+  display: block;
+  
+  background: none;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  border: solid;
+  
+  border-radius: 5px;
+  transition: .2s ease-in;
+  cursor: pointer;
+}
+
+.save-button{
+  color: black;
+  border-color:#7bb959;
+}
+
+.save-button:hover{
+  background: #7bb959;
+  color:#000000;
+}
+
+.cancel-button{
+  color: #000;
+  border-color:#000;
+}
+
+.cancel-button:hover{
+  background: #000;
+  color:white;
+}
+
+
+footer{
+  flex:1;
+  padding-top:20px;
+  border-top:3px solid white;
+  text-align:center;
+}
+
+footer p{
+  margin:0;
+  padding-bottom:20px;
+}
