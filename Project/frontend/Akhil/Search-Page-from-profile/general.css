@@ -9,10 +9,6 @@ body{
   font-family:'Roboto';
   display:flex;
   flex-direction:column;
-  background:url('bg.png');
+  background: url('bg.png');
   background-color: #90bc79 !important;
-}
-
-body div{
-  flex:1;
 }

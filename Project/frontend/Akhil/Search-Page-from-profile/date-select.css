@@ -4,8 +4,37 @@
   justify-content: space-between;
   align-items: center;
   margin-top:10px;
+  
 }
 
-.date-select-layout div{
-  text-align: center;
+.selection-layout{
+  
+  background: url('bg-3.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: lighten;
+  background-color: #ccefb9;
+  border-radius:5px;
+  padding:20px;
+  margin-top:20px;
+}
+.date-select-layout .end-date-div{
+  text-align:end;
+}
+
+.date-select-layout div label{
+  font-weight:400;
+  font-size: 30px;
+  margin-right:10px;
+}
+
+.date-select-layout div input{
+  height:40px;
+  border:none;
+  border-radius:10px;
+  box-shadow:inset 0px -0px 2px;
+  font-size:larger;
+  font-weight: 500;
+  text-transform:uppercase;
+  width:200px;
 }

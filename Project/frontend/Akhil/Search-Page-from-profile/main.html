@@ -33,57 +33,59 @@
     </nav>
   </div>
 
-  <div style="text-align:center;">
-    <h1>
-      Select Your Time Slots Here:
-    </h1>
-  </div>
-  <div class="date-select-layout">
-    <div>
-      <label name="start-date">Select Start Date:</label>
-      <input id="start-date" type="date" min="YYYY-01-01" max="YYYY-12-31">
+  
+  <div class="selection-layout">
+    <div style="padding:10px;">
+      <div style="text-align:left;">
+        <p style="font-weight:100; font-size: 50px;">
+          Select Your Time Slots Here:
+        </p>
+      </div>
+      <div class="date-select-layout">
+        <div class="start-date-div">
+          <label name="start-date">Start Date:</label>
+          <input id="start-date" type="date" min="YYYY-01-01" max="YYYY-12-31">
+        </div>
+      
+        <div class="end-date-div">
+          <label name="end-date">End Date:</label>
+          <input id="end-date" type="date" min="YYYY-01-01" max="YYYY-12-31">
+        </div>
+    
+        <script src="date-change.js"></script>
+      </div>
     </div>
   
-    <div>
-      <label name="end-date">Select End Date:</label>
-      <input id="end-date" type="date" min="YYYY-01-01" max="YYYY-12-31">
+    <div class="hot-cold-layout">
+      <div>
+        <p style="text-align: left; font-weight:100; font-size:50px;">No. of Units Needed:</p>
+      </div>
+
+      <div class="hot-cold-button-div">
+        <div style="flex:1;">
+          <label name="hot-unit" for="hot-unit">Hot:</label>
+          <input type="text" id="hot-units">
+        </div>
+        <div style="flex:1; text-align:end">
+          <!-- <form id="storageForm">
+            <label for="storageType">Select Storage Type</label>
+            <select id="storageType" name="storageType">
+                <option value="hot">Hot</option>
+                <option value="cold">Cold</option>
+            </select>
+          </form>  -->
+          <label name="cold-unit" for="cold-unit" >Cold:</label>
+          <input type="text" id="cold-units">
+        </div>  
+      </div>
+      
     </div>
-
-    <script src="date-change.js"></script>
-  </div>
-
-  <div>
-    <h3 style="text-align: center;">No. of Units Needed:</h3>
-  </div>
-
-  <div class="type-search-div">
-    <div>
-      Hot: 
-      <input type="text" id="hot-units">
-    </div>
-    <div>
-      <!-- <form id="storageForm">
-        <label for="storageType">Select Storage Type</label>
-        <select id="storageType" name="storageType">
-            <option value="hot">Hot</option>
-            <option value="cold">Cold</option>
-        </select>
-      </form>  -->
-      Cold: 
-      <input type="text" id="cold-units">
-    </div>  
     <div class="search-button-div">
       <button type="submit" id="searchButton-js">Search</button>
-    </div> 
+    </div>
   </div>
 
-  <div class="search-result-js">
-
-  </div>
-
-  
-
-  <div class="show-warehouse-row">
+  <!-- <div class="show-warehouse-row">
     <div>
       <div class="solution_card">
         <div class="hover_color_bubble"></div>
@@ -155,7 +157,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <script src="search-results.js"></script>
   <script src="storage-type.js"></script>
