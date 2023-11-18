@@ -21,7 +21,13 @@ def homepage(request):
     #         print("Bye")
     # print(flag)
     # context = {'flag': flag}
-    return render(request, 'homepage.html')
+    
+    # As we have farmerbase.html for farmer URLs we only need to see for homepage is it is a farmer or not 
+    user_email = request.user.email if request.user.is_authenticated else None
+    # For Homepage when farmer is logged in
+    is_farmer = Farmer.objects.filter(email=user_email).exists()
+    context= {'is_farmer': is_farmer}
+    return render(request, 'homepage.html', context)
 
 def loginUser(request):
 
