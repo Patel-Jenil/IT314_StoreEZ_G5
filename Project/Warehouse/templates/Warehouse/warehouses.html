@@ -17,10 +17,14 @@
             <div class="col-3 my-auto">
                 <form class=" col-lg-auto" role="search">
                     <input type="search" class="form-control" placeholder="Search Warehouse" name="search_query" aria-label="Search">
+                    <!-- <div class="col-1 my-2">
+                        <input  type="submit" value="Search" /> 
+                    </div> -->
                 </form>
             </div>
             <div class="col-1 my-2">
-                <a href="#" style="color: black;">
+                <!-- <input class="btn btn--sub btn--lg" type="submit" value="Search" /> -->
+                <a href="{% url 'warehouses' %}" style="color: black;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-search" viewBox="0 0 16 16">
                         <path

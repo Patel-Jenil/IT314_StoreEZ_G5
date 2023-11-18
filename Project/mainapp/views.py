@@ -92,6 +92,9 @@ def register(request):
 def aboutus(request):
     return render(request, 'mainapp/about_us.html')
 
+def about_us(request):
+    return render(request, 'mainapp/farmer_about_us.html')
+
 def logoutUser(request):
     logout(request)
     return redirect('homepage')
