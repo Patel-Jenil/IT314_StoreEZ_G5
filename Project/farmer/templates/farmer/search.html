@@ -15,6 +15,14 @@
 {% block css %}
     <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" /> -->
     <link rel="stylesheet" href="{% static 'farmer/css/cascade.css' %}" />
+    <style>
+        #my_card_title{
+            color:green;
+        }
+        #my_card_title:hover{
+            color:rgb(67, 83, 52);
+        }
+    </style>
 {% endblock %}
 
 <!-- <body class="bg-grey"> -->
@@ -22,23 +30,23 @@
 <div class="outer-box container-fluid " >
     <div class="bg-dgreen">
         <div class="bg-dgreen py4 d-flex flex-column justify-content-end align-items-center mb-4 rempad">
-            <div class="font-large py-5">The Warehouses you want, We will provide</div>
+            <div class="font-large py-1">Select Date Range and warehouse you wish to book</div>
             <div class="w-100">
                 <form method="POST" action="" class="card card-body bg-dgreen border-none">     
                 {% csrf_token %}
                 <div class="form-group row">
                     
-                        <div class="input-group col-md-5 mx-auto text-center">
+                        <div class="input-group col-md-5 mx-auto text-center" style="display:flex; justify-content:space-between;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="date13-label">From:</span>
                             </div>
-                            <input type="date" name="startdate" id="startdate" class="form-control datepicker">
-                        </div>
-                        <div class="input-group col-md-5 mx-auto text-center">
+                            <input type="date" name="startdate" id="startdate" class="form-control datepicker" value="{{startdate}}">
+                        {% comment %} </div>
+                        <div class="input-group col-md-5 mx-auto text-center"> {% endcomment %}
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="date14-label">To:</span>
                             </div>
-                            <input  type="date" name="enddate" id="startdate" class="form-control datepicker" aria-labelledby="date14-label">
+                            <input  type="date" name="enddate" id="startdate" class="form-control datepicker" value="{{enddate}}" aria-labelledby="date14-label">
                         </div>
                         <div class="input-group col-md-2 mx-auto text-center">
                             <input type="submit">
@@ -52,7 +60,12 @@
         </div>
     </div>
 
-    {% if messages %}
+    <div style="display:flex; flex-direction:row; justify-content:space-between;">
+        <div><h4 style="display:inline">Start Date:</h4> <h4 style="display:inline; color:rgb(101, 101, 101)"> {{startdate}}</h4> </div>
+        <div><h4 style="display:inline">End Date:</h4><h4 style="display:inline; color:rgb(101, 101, 101)"> {{enddate}}</h4> </div>
+    </div>
+
+        {% if messages %}
         <script>
             function closeAlert(element) {
                 var alert = element.parentElement;
@@ -80,39 +93,39 @@
 
         {% endfor %}
     {% endif %}
-    <h4>Start Date</h4> {{startdate}} <br>
-    <h4>End Date</h4>{{enddate}} <br>
+
     <div class="">
-    <div class="row mb-5">
+    <div class="row m-0">
         {% for warehouse_data in warehouses_with_unit %}
-        <div class="card col-xl-2 col-9 mx-auto my-2 bg-green px-0" >
+            <div class="card col-xl-2 col-9 mx-auto my-3 bg-green px-0" style="width:300px">
 
-            <div class="card-body">
-                <h4 class="card-title">
-                <a href="{% url 'book' id=warehouse_data.warehouse.id start=startdate end=enddate %}">{{warehouse_data.warehouse.name}}-{{warehouse_data.warehouse.id}}</a></h4> 
-                <!-- <p class="card-text">Location: iska to muje malum nai pan lamba hi hoga, isliye garbage text daala hai baaki tum log dekh lena thank you</p> -->
-                <!-- <p class="card-text">Rating: Gandi</p> -->
+                <div class="card-body">
+                    <h4 class="card-title">
+                    <a id="my_card_title" href="{% url 'book' id=warehouse_data.warehouse.id start=startdate end=enddate %}">{{warehouse_data.warehouse.name}}-{{warehouse_data.warehouse.id}}</a></h4> 
+                    <!-- <p class="card-text">Location: iska to muje malum nai pan lamba hi hoga, isliye garbage text daala hai baaki tum log dekh lena thank you</p> -->
+                    <!-- <p class="card-text">Rating: Gandi</p> -->
 
-                <table>
-                    <tr>
-                        <th class="th-heading">Type </th>
-                        <th class="th-heading">Units </th>
-                        <th class="th-heading">Capacity</th>
-                    </tr>
-                    <tr>
-                        <td>Standard</th>
-                        <td class="td-value">{{warehouse_data.hot_units}}</th>
-                        <td class="td-value">{{warehouse_data.hot_capacity}}</th>
-                    </tr>
-                    <tr>
-                        <td>Climate-controlled </th>
-                        <td class="td-value">{{warehouse_data.cold_units}}</th>
-                        <td class="td-value">{{warehouse_data.cold_capacity}}</th>
-                    </tr>
-                </table>
-
+                    <table>
+                        <tr>
+                            <th class="th-heading" style="text-align:center">Type </th>
+                            <th class="th-heading" style="text-align:center">Units </th>
+                            <th class="th-heading" style="text-align:center">Capacity</th>
+                        </tr>
+                        <tr style="padding-bottom:15px;">
+                            <td>Standard</th>
+                            <td class="td-value" style="text-align:center">{{warehouse_data.hot_units}}</th>
+                            <td class="td-value" style="text-align:center">{{warehouse_data.hot_capacity}}</th>
+                        </tr>
+                        <tr>
+                            <td>Climate-controlled </th>
+                            <td class="td-value" style="text-align:center">{{warehouse_data.cold_units}}</th>
+                            <td class="td-value" style="text-align:center">{{warehouse_data.cold_capacity}}</th>
+                        </tr>
+                    </table>
+                    
+                </div>
             </div>
-        </div>
+            
         {% endfor %}
     </div>
     </div>

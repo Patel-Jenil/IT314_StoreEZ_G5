@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login
 from Warehouse.forms import EditProfileForm
 from django.contrib import messages
 from django.utils import timezone
+from django.urls import reverse
 # Create your views here.
 
 @login_required(login_url='login')  
@@ -126,9 +127,9 @@ def addunit(request, id):
             messages.error(request, "Invalid Price")
             flag = True
             
-        if flag:
-            return render(request, 'warehouse/add_units.html', {'id':id})
         warehouse = Warehouse.objects.get(id = id)
+        if flag:
+            return redirect('addunit', id=id )
         
         
         unit = Unit(type=type, capacity=capacity, price=price, warehouse=warehouse)

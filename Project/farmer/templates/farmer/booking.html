@@ -1,3 +1,38 @@
+{% extends 'farmerbase.html' %}
+{% load static %}
+{% block title %} Farmer | Booking {% if booking.id %}{{booking.id}}{% else %}???{% endif %} {% endblock title %}
+
+{% block content %}
+{% if messages %}
+        <script>
+            function closeAlert(element) {
+                var alert = element.parentElement;
+                alert.style.display = 'none';
+            }
+        </script>
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+                <h3>Success Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+                <h3>{{message}}</h3>
+                <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+                <h3>Warning Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+{% else %}
+
+
 <p> Farmer: {{farmer}} </p>
 <p> Farmer Phone no: {{farmer.phone_no}}
 <p> Booking id: {{booking.id}} </p>
@@ -24,7 +59,7 @@
                 <td>{{unit.id}}</td>
                 <td>{{unit.capacity}}</td>
                 <td>{{unit.type}}</td>
-                <td>{{unit.price}}</td>
+                <td>₹{{unit.price}}</td>
             </tr>
         </tbody>
     {% endfor %}
@@ -33,4 +68,8 @@
 <p>Total Days: {{total_days}}</p>
 <p>Total Price per day: {{per_day_price}}</p>
 <p><b>Total Price: {{price}} </b><P>
-    <button onclick="location.href='{% url 'farmer_currentbooking' %}'" type='button'> Back </button>
+    
+    {% endif %}
+<button onclick="location.href='{% url 'farmer_currentbooking' %}'" type='button'> Back </button>
+
+{% endblock %}

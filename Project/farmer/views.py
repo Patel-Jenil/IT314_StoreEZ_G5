@@ -6,7 +6,7 @@ from farmer.forms import EditProfileForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from datetime import datetime,date, timedelta
+from datetime import datetime,date
 from django.db.models import Q
 from django.db.models import Sum
 from django.contrib import messages
@@ -134,7 +134,11 @@ def booking(request,id):
     print('all_booked_units:',all_booked_units)
     total_units = len(all_booked_units)
     print(total_units)
-    one_booked_unit = all_booked_units[0]
+    if total_units:
+        one_booked_unit = all_booked_units[0]
+    else:
+        messages.error(request,"No units are booked for this period.")
+        return render(request, 'farmer/booking.html', {})
     print('one_booked_unit:',one_booked_unit)
     per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
     print("Price per day:",per_day_price)
@@ -173,7 +177,7 @@ def booking(request,id):
     
 @login_required(login_url='login')  
 def search(request):
-    context = {}
+    context = {'startdate':date.today().strftime('%Y-%m-%d'), 'enddate':date.today().strftime('%Y-%m-%d')}
     # unit = Booking.objects.all()
     
     if request.method == 'POST':
@@ -182,15 +186,15 @@ def search(request):
         
         if not start_date or not end_date or start_date>end_date:
             messages.error(request, "Invalid Dates")
-            # return redirect('search')
+            return redirect('search')
             
         else:
             # booked_units = Booking.objects.filter(start_date__lte=end_date, end_date__gte=start_date)
             # booked_units = Booking.objects.filter(Q(Q(start_date__lte=end_date) & Q(end_date__gte=end_date)) | Q(Q(start_date__lte=start_date) & Q(end_date__gte=start_date)))\
             #                     .values_list('unit', flat=True)
-            booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=end_date) | Booking.objects.filter(start_date__lte=start_date,end_date__gte=start_date)
-            print(booked_units)
-            booked_units = booked_units.values_list('unit', flat=True).exclude(unit=None)
+            booked_units = Booking.objects.filter(Q(start_date__lte=end_date,end_date__gte=end_date) | Q(start_date__lte=start_date,end_date__gte=start_date)). \
+                values_list('unit', flat=True).exclude(unit=None)
+            # print(booked_units)
             print("Booked_units: ",booked_units)
             # warehouses = Warehouse.objects.values_list('name', 'id')
             warehouses = Warehouse.objects.all()
@@ -235,11 +239,21 @@ def book(request,id, start, end):
     # Getting all the 
     # booked_units = Booking.objects.filter(start_date__range=[start, end], end_date__range=[start, end])\
     #                            .values_list('unit', flat=True)
-    booked_units = Booking.objects.filter(Q(start_date__lte=end) & Q(end_date__gte=end) | Q(start_date__lte=start) & Q(end_date__gte=start))\
-                               .values_list('unit', flat=True)
+    # booked_units = Booking.objects.filter(Q(start_date__lte=end) & Q(end_date__gte=end) | Q(start_date__lte=start) & Q(end_date__gte=start))\
+    #                            .values_list('unit', flat=True)
+    booked_units = Booking.objects.filter(Q(start_date__lte=end,end_date__gte=end) | Q(start_date__lte=start,end_date__gte=start)). \
+                values_list('unit', flat=True).exclude(unit=None)
+    # print(booked_units)
+    print("Booked_units: ",booked_units)
     #  Excluding all the units that have been blocked
     unbooked_units = all_units.exclude(id__in=booked_units.values_list('unit'))
-    
+    # Total Days
+    end_date = datetime.strptime(end, '%Y-%m-%d').date()
+    start_date = datetime.strptime(start, '%Y-%m-%d').date()
+    total_days = (end_date - start_date).days + 1
+    print("Start Date:", start_date)
+    print("End Date:", end_date)
+    print("Total:",total_days,"Days")
     # Taking the value from user-Which units are selected by user
     if request.method == 'POST':
         selected_unit = request.POST.getlist('checkbox') # Will have id of the unit as we return id as value from HTML
@@ -255,6 +269,6 @@ def book(request,id, start, end):
         
         return redirect(reverse('farmer_booking', args=(booking.id,))) # redirect to current booking. This is done temporarily
     
-    context = {'startdate':start, 'enddate':end, 'units':unbooked_units}
+    context = {'startdate':start, 'enddate':end, 'units':unbooked_units, 'total_days':total_days,'id':warehouse.id}
     return render(request,'farmer/book.html',context)
 
