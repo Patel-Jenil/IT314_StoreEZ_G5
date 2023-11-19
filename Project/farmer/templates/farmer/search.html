@@ -22,6 +22,17 @@
         #my_card_title:hover{
             color:rgb(67, 83, 52);
         }
+        .input-group-prepend{
+            background-color: black;
+            width: 70px;
+            margin-right:10px;
+        }
+        
+        .fwidth{
+            width: 640px;
+            display:flex;
+            margin-top:10px;
+        }
     </style>
 {% endblock %}
 
@@ -37,18 +48,22 @@
                 <div class="form-group row">
                     
                         <div class="input-group col-md-5 mx-auto text-center" style="display:flex; justify-content:space-between;">
+                            <div class="fwidth">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="date13-label">From:</span>
                             </div>
                             <input type="date" name="startdate" id="startdate" class="form-control datepicker" value="{{startdate}}">
+                        </div>
                         {% comment %} </div>
                         <div class="input-group col-md-5 mx-auto text-center"> {% endcomment %}
+                            <div class="fwidth">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="date14-label">To:</span>
                             </div>
                             <input  type="date" name="enddate" id="startdate" class="form-control datepicker" value="{{enddate}}" aria-labelledby="date14-label">
                         </div>
-                        <div class="input-group col-md-2 mx-auto text-center">
+                        </div>
+                        <div class="input-group col-md-2 mx-auto text-center mt-3">
                             <input type="submit">
                         </div>
                     
