@@ -18,9 +18,12 @@
                 alt="..."
                 width="130"
                 class="rounded mb-2 img-thumbnail"
-              /><a href="{%url 'farmer_editprofile' %}" class="btn btn-outline-dark btn-sm btn-block"
-                >Edit profile</a>
+              />
+              
             </div>
+            <a href="{%url 'farmer_editprofile' %}" class="btn btn-outline-dark btn-sm btn-block"
+                >Edit profile</a>
+                
             <div class="media-body mb-5 text-white">
               <h4 class="mt-0 mb-0">{{farmer.first_name | capfirst}} {{farmer.last_name | capfirst}}</h4>
               <p class="small mb-4">

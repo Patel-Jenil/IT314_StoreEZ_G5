@@ -150,7 +150,7 @@ def booking(request,id):
     print('warehouse:',warehouse)
     context = {'farmer':farmer,'booking':booking,'all_booked_units':all_booked_units, 'per_day_price':per_day_price,
                'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units}
-    return render(request, 'farmer/booking.html', context)
+    return render(request, 'farmer/invoice.html', context)
     # if request.POST:
     #     first_name = request.POST.get('first_name')
     #     last_name = request.POST.get('last_name')
