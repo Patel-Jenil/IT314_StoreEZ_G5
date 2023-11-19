@@ -3,14 +3,14 @@
 {% block title %}Owner | Profile{% endblock title %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'Warehouse/profile.css' %}">
+<link rel="stylesheet" href="{% static 'Warehouse/css/profile.css' %}">
 {% endblock %}
 
 {%block content%}
 <div class="row py-5 px-4 bgg2">
     <div class="col-md-5 mx-auto bg-wwhite">
       <!-- Profile widget -->
-      <div class="bg-white shadow rounded overflow-hidden bg-wwhite">
+      <div class="">
         <div class="px-4 pt-0 pb-4 bgg">
           <div class="pb-3 media align-items-end profile-head">
             <div class="profile mr-3">
@@ -19,19 +19,14 @@
                 alt="..."
                 width="130"
                 class="rounded mb-2 img-thumbnail"
-              /><a href="{% url 'warehouse_editprofile' %}" class="btn btn-outline-dark btn-sm btn-block"
-                >Edit profile</a>
+              />
+              <h4 class="name">{{warehouse_user.first_name | capfirst}} {{warehouse_user.last_name | capfirst}}</h4>
             </div>
             <div class="media-body mb-5 text-white">
-              <h4 class="mt-0 mb-0">{{warehouse_user.first_name | capfirst}} {{warehouse_user.last_name | capfirst}}</h4>
-              <p class="small mb-4">
-                <i class="fas  mr-2"></i> Warehouse Owner {{warehouse_user.id}}
-              </p>
+              <a href="{% url 'warehouse_editprofile' %}" class="btn btn-outline-dark btn-sm btn-block edit-profile"
+                >Edit profile</a>
             </div>
           </div>
-        </div>
-        <div class="p-4 d-flex justify-content-end text-center bg-wwhite">
-      
         </div>
         <div class="px-4 py-3 bg-wwhite">
           <h5 class="mb-0 pb-2 pt-2">Details</h5>
@@ -40,7 +35,7 @@
             <p class=" mb-0">Phone number : {{warehouse_user.phone_no}}</p>
           </div>
         </div>
-        <div class="py-4 px-4 bg-wwhite">
+        <!-- <div class="py-4 px-4 bg-wwhite">
           <div class="d-flex align-items-center justify-content-between mb-3">
             <h5 class="mb-0">Recent photos</h5>
             <a href="#" class="btn btn-link text-muted">Show all</a>
@@ -75,7 +70,7 @@
               />
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

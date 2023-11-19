@@ -9,11 +9,19 @@
 }
 
 body {
-    background:white;
+    background:#90bc79;
     /* background: #654ea3;
     background: linear-gradient(to right, #e96443, #904e95); */
     min-height: 100vh;
     overflow-x:hidden;
+}
+.name{
+    color: #fff;
+}
+.edit-profile{
+    background-color: #fff;
+    border: none;
+    color: #4F6F52;
 }
 
 .bg-green{
@@ -22,6 +30,7 @@ body {
 
 .bg-wwhite{
     background-color: #eae9e2;
+    padding-top: 10px;
 }
 
 /* .bg-green2{
@@ -34,9 +43,7 @@ body {
 }
 
 .bgg{
-    /* background: radial-gradient(to right, #eae9e2, #066c40); */
-    /* background: radial-gradient(759px at 14% 22.3%, rgb(10, 64, 88) 0%, rgb(15, 164, 102) 90%); */
-    background-color: rgb(10, 64, 88);
+    background-color: #4F6F52;
 }
 .txts{
     font-weight: bold;

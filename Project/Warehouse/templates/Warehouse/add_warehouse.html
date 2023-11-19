@@ -2,14 +2,12 @@
 {% load static %}
 {% block title %}StoreEZ | Add Warehouse{% endblock title %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'Warehouse/body-form.css' %}">
+  <link rel="stylesheet" href="{% static 'Warehouse/css/add_warehouse.css' %}">
 {% endblock css%}
 {% block content %}
 
 
-<div class="body">
-  <div style="flex:1">
-  </div>
+<div class="wrapper">
   <div class="main-form">
     <form class="fill-form" method = "post" {# enctype="multipart/form-data" #}> <!-- enctype is needed here for image upload-->
       {% csrf_token %}
@@ -30,16 +28,17 @@
         
       </div>
       <div id="div2-1">
-        <label for="city">City</label><br>
-        <input type="text" id="city" name="city" required><br>
+        <label for="address">Address</label><br>
+        <input type="text" id="address" name="address" required><br>
       </div>
       <div id="div2-2">
-        <label for="state">State</label><br>
-        <input type="text" id="state" name="state" required><br>
+        <label for="city">City</label><br>
+        <input type="text" id="city" name="city" required><br>
+        
       </div>
       <div id="div3">
-        <label for="address">Address</label><br>
-<input type="text" id="address" name="address" required><br>
+        <label for="state">State</label><br>
+        <input type="text" id="state" name="state" required><br>
       </div>
       <div id="div4">
         <label for="poc_name">Point of contact Person name:</label><br>
@@ -64,13 +63,13 @@
 
       <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
         <div style="flex:1;">
-          <input type="submit" value="Confirm" />
-        </div>
-        <div style="flex:1;">
           {% comment %} <a href="{% url 'Warehouse_profile' %}" class="btn btn-default">Cancel</a> {% endcomment %}
           <button style="border-width:0.8px;border-color:rgb(144, 188, 121);
           font-family:Roboto;font-size:16px;block-size:35px;margin-block-start:8px;display:inline-block;
           font-weight:400" onclick="location.href='{% url 'warehouses' %}'" type='button'> Cancel </button>
+        </div>
+        <div style="flex:1;">
+          <input type="submit" value="Confirm" style="background-color: #4F6F52;"/>
         </div>
       </div>
       <div class="error-show" style="background-color: rgb(226, 87, 114);">

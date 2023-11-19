@@ -54,31 +54,30 @@
         <div class="namee">
             <label for="unit-type">Unit Type</label><br>
             <select id="type" name="type">
-              <option value="Hot">Hot</option>
-              <option value="Cold" >Cold</option>
+              <option value="Hot">Standard</option>
+              <option value="Cold" >Temperature Controlled</option>
             </select>
           
         </div>
         
         <div id="div2">
-          <label for="capacity">Capacity</label><br>
+          <label for="capacity">Capacity(m<sup>3</sup>)</label><br>
           <input type="number" placeholder="Capacity" name="capacity" min="1" required>  
         </div>
         
         <div id="div6">
-          <label for="price">Price</label><br>
+          <label for="price">Price(₹ per day)</label><br>
           <input type="number" required placeholder="Price" name="price" step=".01" min="0.01"> 
         </div>
 
         <div id="div7" style="display:flex; flex-direction:row; justify-content:space-around; align-items: center;">
           <div style="flex:1;">
-            <button class="save-button">
-                Add unit
-            </button>
-            <!-- <input type="submit"> -->
+            <button class="save-button" onclick="location.href='{% url 'all_units' id %}'" type='button'> Cancel </button>
           </div>
           <div style="flex:1;">
-            <button style="border-color:rgb(75, 124, 114)" onclick="location.href='{% url 'all_units' id %}'" type='button'> Cancel </button>
+            <button class="save-button">
+              Add unit
+            </button>
           </div>
         </div>
       </form>

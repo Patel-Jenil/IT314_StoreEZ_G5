@@ -1,11 +1,8 @@
 
-html, body {margin: 0; height: auto; overflow:auto}
-
 body{
   font-family:'Roboto';
   display:flex;
   flex-direction:column;
-  background:url('bg.png');
 }
 
 .body{
@@ -21,10 +18,6 @@ body{
   
 }
 
-body div{
-  flex:1;
-}
-
 .title{
   text-align: center;
 }
@@ -38,8 +31,8 @@ body div{
   width:100%;
   border-width:1px;
   padding:3px;
-  color:black;
-  background-color:#d9ead0;
+  color:#fff;
+  background-color:#4F6F52;
   box-shadow:3px 3px 10px;
   border-radius:10px;
 }
@@ -69,7 +62,8 @@ body div{
   border-radius:5px;
   background-color: #fff;
   border-color: none;
-  color:black;
+  /* color:#848486; */
+  /* color:black; */
 }
 
 .fill-form input{
@@ -88,7 +82,7 @@ body div{
   font-size:15px;
   opacity:0.9;
   padding-left:2px;
-  color:#000;
+  color:#848486;
 }
 .main-form{
   position: relative;
@@ -115,7 +109,7 @@ button{
   font-size: 1em;
   font-weight: bold;
   outline: none;
-  border: solid;
+  border: none;
   
   border-radius: 5px;
   transition: .2s ease-in;
@@ -123,32 +117,11 @@ button{
 }
 
 .save-button{
-  border-color:#4b7c72;
+  background-color:#fff;
+  color: #4F6F52;
 }
 
 .save-button:hover{
-  background: #4b7c72;
-}
-
-.cancel-button{
-  color: #000;
-  border-color:#000;
-}
-
-.cancel-button:hover{
-  background: #000;
-  color:white;
-}
-
-
-footer{
-  flex:1;
-  padding-top:20px;
-  border-top:3px solid white;
-  text-align:center;
-}
-
-footer p{
-  margin:0;
-  padding-bottom:20px;
+  background-color: #4b7c72;
+  color: #fff;
 }

@@ -11,29 +11,35 @@
 {% block content %}
 
 {% comment %} {{units}} {% endcomment %}
-  <div class="container mt-2">
-      <div class="Upper">
-        <h1>Units</h1> 
-        <a class="new_unit" href=" {% url 'addunit' warehouse.id %}">Add Unit</a>
-        <a class="new_unit" href="{% url 'removeunit' warehouse.id %}">Remove Unit</a>
-        <div> 
-          <h5>Warehouse {{warehouse.id}} details: </br>
-          {{warehouse.name}} - {{warehouse.city}}, {{warehouse.state}}</h5>
-        </div>
-      {% comment %}
+  <div class="box">
+    <div class="top-box">
+      <div> 
+        <h2>{{warehouse.name|title}} details: </h5>
+        <h6 >Location - {{warehouse.city|title}}, {{warehouse.state|title}}</h6>
+        <h6>Standard: </h6>
+        <h6>Temp-controlled: </h6>
       </div>
-
-       <div class="filter">
-        <form action="" method = 'post'>
-        <label for="">Start-Date:</label>
-        <input type="date" id="birthday" name="birthday">
-
-        <label for="">End-Date:</label>
-        <input type="date" id="birthday" name="birthday">
-        {% csrf_token %}
-        <button>Filter</button>
-      </form> 
-      </div>{% endcomment %}
+    </div>
+  </div>
+  <div class="container mt-2">
+        
+        
+        <div class="midddle-box">
+          <div class="row">
+            <div class="col-xl-8 col-md-4 col-sm-6">
+              <h4> All Units ({{ units.count }})</h5> 
+            </div>
+            <div class="col-xl-2 col-md-4 col-sm-6 ">
+              <a class="unit-header" href=" {% url 'addunit' warehouse.id %}">Add Unit</a>
+            </div>
+            <div class="col-xl-2 col-md-4 col-sm-6 ">
+              <a class="unit-header" href="{% url 'removeunit' warehouse.id %}">Remove Unit</a>
+            </div>
+          
+          </div>
+        </div>
+        
+        
       <div class="row">
         {% for unit in  units%}
         <div class="col-xl-3 col-md-3 col-sm-6 col-6">
@@ -45,17 +51,20 @@
                 Unit {{unit.id}}
               </div>
       
+              {% if unit.type == "Hot" %}
               <div class="ag-courses-item_date-box">
-                Type: {{ unit.type }}
+                Standard
+              </div>
+              {% else %}
+              <div class="ag-courses-item_date-box">
+                Temp-controlled
+              </div>
+              {% endif %}
+              <div class="ag-courses-item_date-box">
+                Capacity: {{ unit.capacity }} m<sup>3</sup>
               </div>
               <div class="ag-courses-item_date-box">
-                Capacity: {{ unit.capacity }}
-                <!-- <span class="ag-courses-item_date">
-                  {{ unit.type }}
-                </span> -->
-              </div>
-              <div class="ag-courses-item_date-box">
-                Price: {{ unit.price }}
+                ₹{{ unit.price }} per day
               </div>
             </a>
           </div>
@@ -63,6 +72,5 @@
         {% endfor %}
       </div>
       
-    </div>
-
+  </div>
 {% endblock content %}
