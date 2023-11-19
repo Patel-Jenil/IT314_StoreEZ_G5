@@ -177,52 +177,68 @@ def booking(request,id):
     
 @login_required(login_url='login')  
 def search(request):
-    context = {'startdate':date.today().strftime('%Y-%m-%d'), 'enddate':date.today().strftime('%Y-%m-%d')}
     # unit = Booking.objects.all()
     
-    if request.method == 'POST':
-        start_date = request.POST.get('startdate')
-        end_date = request.POST.get('enddate')
+    # if request.method == 'POST':
+    start_date = request.GET.get('startdate','')
+    end_date = request.GET.get('enddate', '')
+    
+    if (not start_date and end_date) or (not end_date and start_date) or start_date > end_date:
+        messages.error(request, "Invalid Dates")
+        context = {'startdate':date.today().strftime('%Y-%m-%d'), 'enddate':date.today().strftime('%Y-%m-%d')}
+    else:
+        if start_date == '':
+            start_date = date.today().strftime('%Y-%m-%d')
+        # else:
+            # pass
+            # start_date = datetime.strptime(start_date, '%d-%m-%Y').strftime('%Y-%m-%d')
+        if end_date == '':
+            end_date = date.today().strftime('%Y-%m-%d')
+        # else:
+            # pass
+            # end_date = datetime.strptime(end_date, '%d-%m-%Y').strftime('%Y-%m-%d')
+        # start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+        # end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
         
-        if not start_date or not end_date or start_date>end_date:
-            messages.error(request, "Invalid Dates")
-            return redirect('search')
-            
-        else:
-            # booked_units = Booking.objects.filter(start_date__lte=end_date, end_date__gte=start_date)
-            # booked_units = Booking.objects.filter(Q(Q(start_date__lte=end_date) & Q(end_date__gte=end_date)) | Q(Q(start_date__lte=start_date) & Q(end_date__gte=start_date)))\
-            #                     .values_list('unit', flat=True)
-            booked_units = Booking.objects.filter(Q(start_date__lte=end_date,end_date__gte=end_date) | Q(start_date__lte=start_date,end_date__gte=start_date)). \
-                values_list('unit', flat=True).exclude(unit=None)
-            # print(booked_units)
-            print("Booked_units: ",booked_units)
-            # warehouses = Warehouse.objects.values_list('name', 'id')
-            warehouses = Warehouse.objects.all()
-            
-            warehouses_with_unit = []
-            for warehouse in warehouses:
-                # units = warehouse.unit_set.all()
-                units = warehouse.unit_set.exclude(id__in=booked_units.values_list('unit'))
-                # for x in units:
-                #     print(x.type)
-                hot_units = 0
-                cold_units = 0
-                hot_capacity = 0
-                cold_capacity = 0
-                if len(units) > 0:
-                    for x in units:
-                        if x.type == "Hot":
-                            hot_units += 1
-                            hot_capacity += x.capacity
-                        else:
-                            cold_units += 1
-                            cold_capacity += x.capacity
-                if len(units) > 0:
-                    warehouses_with_unit.append({'warehouse': warehouse, 'hot_units': hot_units, 'hot_capacity':hot_capacity, 'cold_units':cold_units, 'cold_capacity':cold_capacity})
-                # print(units)
-            print(warehouses_with_unit)
-            context = {'warehouses_with_unit': warehouses_with_unit, 'startdate':start_date, 'enddate':end_date}
-        # print(warehouses)
+        # booked_units = Booking.objects.filter(start_date__lte=end_date, end_date__gte=start_date)
+        # booked_units = Booking.objects.filter(Q(Q(start_date__lte=end_date) & Q(end_date__gte=end_date)) | Q(Q(start_date__lte=start_date) & Q(end_date__gte=start_date)))\
+        #                     .values_list('unit', flat=True)
+        # booked_units = Booking.objects.filter(Q(start_date__lte=end_date,end_date__gte=end_date) | Q(start_date__lte=start_date,end_date__gte=start_date)). \
+        
+        # Jenil: booked_units = Booking.objects.filter(Q(start_date__gte=start_date,start_date__lte=end_date) | Q(end_date__gte=start_date,end_date__lte=end_date)). \
+        # Algorithm made by JENIL PATEL (202101074)
+        booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date). \
+            values_list('unit', flat=True).exclude(unit=None).distinct()
+        # print(booked_units)
+        print("Bookings: ",Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date).values_list(flat=True))
+        print("Booked_units: ",booked_units)
+        # warehouses = Warehouse.objects.values_list('name', 'id')
+        warehouses = Warehouse.objects.all()
+        
+        warehouses_with_unit = []
+        for warehouse in warehouses:
+            # units = warehouse.unit_set.all()
+            units = warehouse.unit_set.exclude(id__in=booked_units.values_list('unit'))
+            # for x in units:
+            #     print(x.type)
+            hot_units = 0
+            cold_units = 0
+            hot_capacity = 0
+            cold_capacity = 0
+            if len(units) > 0:
+                for x in units:
+                    if x.type == "Hot":
+                        hot_units += 1
+                        hot_capacity += x.capacity
+                    else:
+                        cold_units += 1
+                        cold_capacity += x.capacity
+            if len(units) > 0:
+                warehouses_with_unit.append({'warehouse': warehouse, 'hot_units': hot_units, 'hot_capacity':hot_capacity, 'cold_units':cold_units, 'cold_capacity':cold_capacity})
+            # print(units)
+        print(warehouses_with_unit)
+        context = {'warehouses_with_unit': warehouses_with_unit, 'startdate':start_date, 'enddate':end_date}
+    # print(warehouses)
         
     return render(request,'farmer/search.html',context)
 
@@ -235,21 +251,24 @@ def book(request,id, start, end):
     
     #  Gettinng all the units of that warehouse
     all_units = warehouse.unit_set.all()
-    
+    end_date = datetime.strptime(end, '%Y-%m-%d').date()
+    start_date = datetime.strptime(start, '%Y-%m-%d').date()
     # Getting all the 
     # booked_units = Booking.objects.filter(start_date__range=[start, end], end_date__range=[start, end])\
     #                            .values_list('unit', flat=True)
-    # booked_units = Booking.objects.filter(Q(start_date__lte=end) & Q(end_date__gte=end) | Q(start_date__lte=start) & Q(end_date__gte=start))\
-    #                            .values_list('unit', flat=True)
-    booked_units = Booking.objects.filter(Q(start_date__lte=end,end_date__gte=end) | Q(start_date__lte=start,end_date__gte=start)). \
-                values_list('unit', flat=True).exclude(unit=None)
+    # Adit: booked_units = Booking.objects.filter(Q(start_date__lte=end) & Q(end_date__gte=end) | Q(start_date__lte=start) & Q(end_date__gte=start))\
+    #                            .values_list('unit', flat=True) This it accepts already booked units also. Contact me to know more
+    # Jenil: booked_units = Booking.objects.filter(Q(start_date__gte=start_date,start_date__lte=end_date) | Q(end_date__gte=start_date,end_date__lte=end_date)). \
+    # Algorithm made by JENIL PATEL (202101074)
+    booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date). \
+            values_list('unit', flat=True).exclude(unit=None).distinct()
     # print(booked_units)
+    print("Bookings: ",Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date))
     print("Booked_units: ",booked_units)
     #  Excluding all the units that have been blocked
     unbooked_units = all_units.exclude(id__in=booked_units.values_list('unit'))
     # Total Days
-    end_date = datetime.strptime(end, '%Y-%m-%d').date()
-    start_date = datetime.strptime(start, '%Y-%m-%d').date()
+    
     total_days = (end_date - start_date).days + 1
     print("Start Date:", start_date)
     print("End Date:", end_date)
