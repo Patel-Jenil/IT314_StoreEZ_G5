@@ -1,0 +1,99 @@
+body{
+    background:url('bg.png');
+    background-color:#90bc79;
+    height:1000px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%; 
+    margin-bottom:10px;
+    
+}
+
+.biggestcard{
+    color: darkgreen ; 
+    font-size: 50px; 
+    text-align:center; 
+    padding-top:30px
+}
+.biggercard{
+    margin-top: 30px;
+    background-color: #3F6844 ;
+    border-radius: 10px
+}
+
+.cardheading{
+    border-radius: 10px;
+    font-size: 30px;
+    text-align: center;
+    color: #90bc79;   
+    background-color:#3F6844 ;
+}
+
+
+.main-body {
+    padding: 15px;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    --background-color: #90bc79;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+    
+div.animated.pulse{
+    animation-duration: 5s;
+}
+
+.dropdown-menu{
+    width: 90%; 
+    background-color:#FAF1CF
+}
+
+.dropdown-items-onbar{
+    flex:1;color:rgb(0, 55, 0);
+
+}
+.dropdown-items-inbar{
+    flex:1; 
+    text-align:center; 
+    color:rgb(0, 55, 0);
+}
+
+.pagify-button{
+    background-color:#90bc79!important; 
+    color:rgb(0, 55, 0)!important; 
+    border-color:#3F6844!important;
+    border-radius: 5px;
+}

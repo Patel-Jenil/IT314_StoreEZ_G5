@@ -1,0 +1,64 @@
+*{
+    color: #febd68;
+    background-color: black;
+
+}
+span{
+    font-weight: 700;
+    background-color: gray;
+}
+
+.navbar1{
+display: flex;
+background-color:gray;
+display: flex;
+width: 100%;
+
+}
+
+body{
+    background-color: black;
+}
+
+.nav-cart{
+    margin-left: 600px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+}
+
+.nav-logo {
+    height: 50px;
+    width: 50px;
+}
+
+.logo{
+    background-image: url("images.jpg");
+    background-size: contain;
+    background-repeat:no-repeat ;
+    margin-top: 1px;
+    height: 50px;
+    width: 100%;
+}
+
+.margtop{
+    padding-top: 80px;
+}
+
+.thumbnail{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:150px;
+  }
+
+  .thumbnail-navbar{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius:35px;
+    width:70px;
+  }
+
