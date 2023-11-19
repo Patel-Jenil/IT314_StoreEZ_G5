@@ -96,7 +96,14 @@ def register(request):
 
 
 def aboutus(request):
-    return render(request, 'mainapp/about_us.html')
+    user = request.user
+    print(user)
+    farmer = Farmer.objects.filter(email=user)
+    if not farmer:
+        return render(request, 'mainapp/about_us.html')
+    else:
+        return render(request, 'mainapp/about_us_farmer.html')
+        
 
 def about_us(request):
     return render(request, 'mainapp/farmer_about_us.html')
