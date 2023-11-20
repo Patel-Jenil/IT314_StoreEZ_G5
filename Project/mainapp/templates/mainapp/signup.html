@@ -98,6 +98,7 @@
                   <div class="pass-link">
                      <a href="{% url 'reset_password' %}">Forgot password?</a>
                   </div>
+                  <input type="hidden" id="next_page" name="next" value="{{next}}">
                   <div class="field btn">
                      <div class="btn-layer"></div>
                      <input type="submit" value="Login">

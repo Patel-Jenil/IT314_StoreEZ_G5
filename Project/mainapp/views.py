@@ -47,20 +47,27 @@ def loginUser(request):
 
             if my_user is not None:
                 login(request, my_user)
-                
+                next_page = request.POST.get('next')
+                print(next_page)
                 try:
                     Farmer.objects.get(email=my_user.email)
                 except Farmer.DoesNotExist:
                     return redirect("Warehouse_profile") 
                 # messages.success(request, "You have succesfully Logged In")  
-                return redirect("farmer_currentbooking")
+                return redirect(next_page) if next_page else redirect("farmer_currentbooking")
 
             else : 
                 messages.error(request, "Invalid username or password")
                 print("Invalid username or password") 
         except:
             messages.error(request, "Invalid username or password")
-
+            
+    # Do not remove elif as it is used for Next Page and validations Error message from POST request will pass through the last render
+    elif request.GET:
+        next_page = request.GET['next']
+        context = {'next':next_page}
+        print(next_page)
+        return render(request, 'mainapp/signup.html',context)
     return render(request, 'mainapp/signup.html')
 
 def register(request):  
