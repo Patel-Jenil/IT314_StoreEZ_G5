@@ -24,6 +24,8 @@ class Warehouse(models.Model):
     poc_phone_no = models.DecimalField(max_digits=10, decimal_places=0)
     owner = models.ForeignKey(Warehouse_owner, on_delete=models.CASCADE)
     image = models.ImageField(default="images/default_warehouse_image.jpg",upload_to="images/warehouse/",blank=True,null=True)
+    latitude = models.FloatField(default=23.1862737352)
+    longitude = models.FloatField(default = 72.6283225558)
     def __str__(self):
         return f'{self.name}'
     

@@ -172,10 +172,13 @@ def addwarehouse(request):
         state = request.POST.get('state')
         poc_name = request.POST.get('poc_name')
         phone_no = request.POST.get('phone_no')
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
+    
         print(request.user.id)
         warehouse_owner = Warehouse_owner.objects.get(email = request.user.email)
         print(warehouse_owner)
-        user = Warehouse(name = name, address = address, city = city, state = state, poc_name = poc_name , poc_phone_no=phone_no,owner = warehouse_owner)
+        user = Warehouse(name = name, address = address, city = city, state = state, poc_name = poc_name , poc_phone_no=phone_no,owner = warehouse_owner , longitude = longitude , latitude = latitude)
         user.save()
         return redirect('warehouses')
     context = {
