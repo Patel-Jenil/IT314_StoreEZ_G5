@@ -44,7 +44,7 @@ Template Stylesheet
     {% for booking, warehouse,price in data %}
     <tbody>
       <tr>
-        <th scope="row"><a href="{% url 'farmer_booking' booking.id %}"><p>Booking {{booking.id}}</p></a></th>
+        <th scope="row"><a href="{% url 'farmer_invoice' booking.id %}?back={{request.build_absolute_uri}}">Booking {{booking.id}}</a></th>
         <td>{{booking.start_date}}</td>
         <td>{{booking.end_date}}</td>
         <td>{{warehouse.name}}</td>

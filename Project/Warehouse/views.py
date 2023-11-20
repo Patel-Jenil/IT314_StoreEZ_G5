@@ -123,7 +123,7 @@ def addunit(request, id):
             messages.error(request, "Invalid Capacity")
             flag = True
         
-        if price == "" or int(price) <= 0:
+        if price == "" or float(price) <= 0:
             messages.error(request, "Invalid Price")
             flag = True
             

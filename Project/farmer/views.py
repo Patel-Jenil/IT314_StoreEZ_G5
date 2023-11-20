@@ -76,7 +76,7 @@ def currentbooking(request):
         print('booked_warehouse:',booked_warehouse)
         data_list.append((booking,booked_warehouse, price))
     print('==>',data_list)
-    paginator = Paginator(data_list, 2)  # Show 25 contacts per page.
+    paginator = Paginator(data_list, 5)  # Show 10 Bookings per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     count=Warehouse.objects.count()
@@ -113,7 +113,7 @@ def previousbooking(request):
         print('booked_warehouse:',booked_warehouse)
         data_list.append((booking,booked_warehouse, price))
     print('==>',data_list)
-    paginator = Paginator(data_list, 2)  # Show 25 contacts per page.
+    paginator = Paginator(data_list, 5)  # Show 10 Bookings per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     count=Warehouse.objects.count()
@@ -126,7 +126,7 @@ def previousbooking(request):
 
 
 @login_required(login_url='login') 
-def booking(request,id):
+def farmer_invoice(request,id):
     user = request.user
     farmer = get_object_or_404(Farmer,email=user.email)
     booking = get_object_or_404(Booking,id=id)
@@ -148,8 +148,9 @@ def booking(request,id):
     print('price:',price)
     warehouse = one_booked_unit.warehouse
     print('warehouse:',warehouse)
+    back_page = request.GET.get('back')
     context = {'farmer':farmer,'booking':booking,'all_booked_units':all_booked_units, 'per_day_price':per_day_price,
-               'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units}
+               'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units, 'back':back_page}
     return render(request, 'farmer/invoice.html', context)
     # if request.POST:
     #     first_name = request.POST.get('first_name')
@@ -286,7 +287,7 @@ def book(request,id, start, end):
         
         booking.unit.set(selected_unit) # Whenever there is many to many feild we have to .set method
         
-        return redirect(reverse('farmer_booking', args=(booking.id,))) # redirect to current booking. This is done temporarily
+        return redirect(reverse('farmer_invoice', args=(booking.id,))) # redirect to current booking. This is done temporarily
     
     context = {'startdate':start, 'enddate':end, 'units':unbooked_units, 'total_days':total_days,'id':warehouse.id}
     return render(request,'farmer/book.html',context)
