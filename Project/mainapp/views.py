@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages 
 from .models import Farmer, Warehouse_owner
+from .utils import send_verification_email
 # from django.contrib.auth.forms import UserCreationForm
 
 def homepage(request):
@@ -28,6 +29,10 @@ def homepage(request):
     is_farmer = Farmer.objects.filter(email=user_email).exists()
     context= {'is_farmer': is_farmer}
     return render(request, 'homepage.html', context)
+
+def activate(request,uidb64, token):
+    return
+
 
 def loginUser(request):
 
@@ -74,7 +79,9 @@ def register(request):
                     'page':"register"
                 }
                 return render(request, 'mainapp/signup.html',context)
+            
             login(request, my_user)
+            send_verification_email(request,my_user)
             # print(email, pass1, pass2, flag)
             # return HttpResponse("Warehouse Owner created !!!")
             if flag == "1":
