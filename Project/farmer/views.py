@@ -11,7 +11,7 @@ from django.db.models import Q
 from django.db.models import Sum
 from django.contrib import messages
 from django.urls import reverse
-
+from math import cos, asin, sqrt, pi
 
 @login_required(login_url='login')
 def farmer_profile(request):
@@ -176,6 +176,16 @@ def farmer_invoice(request,id):
     # return render(request,"farmer/edit.html")
     #  return HttpResponse("Hiii:")
     
+    
+def computeDistance(lat1, lon1, lat2, lon2):
+    p = pi/180
+    a = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p) * cos(lat2*p) * (1-cos((lon2-lon1)*p))/2
+    return 12742 * asin(sqrt(a)) #2*R*asin...
+
+def sortFunc(e):
+    return e['distance']
+
+
 @login_required(login_url='login')  
 def search(request):
     # unit = Booking.objects.all()
@@ -183,6 +193,9 @@ def search(request):
     # if request.method == 'POST':
     start_date = request.GET.get('startdate','')
     end_date = request.GET.get('enddate', '')
+    latitude = request.GET.get('latitude')
+    longitude = request.GET.get('longitude')
+    print("------------------------",type(latitude))
     
     if (not start_date and end_date) or (not end_date and start_date) or start_date > end_date:
         messages.error(request, "Invalid Dates")
@@ -235,9 +248,24 @@ def search(request):
                         cold_units += 1
                         cold_capacity += x.capacity
             if len(units) > 0:
-                warehouses_with_unit.append({'warehouse': warehouse, 'hot_units': hot_units, 'hot_capacity':hot_capacity, 'cold_units':cold_units, 'cold_capacity':cold_capacity})
+                warehouses_with_unit.append({'warehouse': warehouse, 'hot_units': hot_units, 'hot_capacity':hot_capacity, 'cold_units':cold_units, 'cold_capacity':cold_capacity, 'latitude':warehouse.latitude, 'longitude':warehouse.longitude})
             # print(units)
-        print(warehouses_with_unit)
+        # print(warehouses_with_unit,longitude,latitude)
+        
+        
+        nearby_warehouse_list = []
+        
+        if latitude != None:
+            latitude = float(latitude)
+            longitude = float(longitude)
+            for w in warehouses_with_unit:
+                curr_dist = computeDistance(w['latitude'], w['longitude'], latitude, longitude)
+                w['distance'] = round(curr_dist, 2)
+                nearby_warehouse_list.append(w)
+
+            nearby_warehouse_list.sort(key=sortFunc)
+        print(longitude,latitude)
+        print(nearby_warehouse_list)
         context = {'warehouses_with_unit': warehouses_with_unit, 'startdate':start_date, 'enddate':end_date}
     # print(warehouses)
         
