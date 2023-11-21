@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jenil_multiply_tag %}
+{% block title %} Warehouse | Booking {% if booking.id %}{{booking.id}}{% else %}???{% endif %} {% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'warehouse/Invoice.css' %}">
+
+{% endblock %}
+{% block content %}
+
+{% if messages %}
+        <script>
+            function closeAlert(element) {
+                var alert = element.parentElement;
+                alert.style.display = 'none';
+            }
+        </script>
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+                <h3>Success Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+                <h3>{{message}}</h3>
+                <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+                <h3>Warning Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+{% else %}
+
+
+<body>
+
+<section>
+  <div class="invoice">
+    <div class="header">
+      <div class="i_row">
+        <div class="i_logo">
+          <p>StoreEZ</p>
+        </div>
+        <div class="i_title">
+          <h2>INVOICE</h2>
+          <div class="date">
+          <p class="p_title text_right">
+            {{booking.date}}
+          </p>
+        </div>
+        </div>
+      </div>
+      <div class="i_row">
+        <div class="i_number">
+          <p class="farmername">Name: {{farmer}}</p>  
+          <p class="bookingid">Booking ID: {{booking.id}}</p>
+          <p class="mobileno">Phone No: {{farmer.phone_no}}</p>
+        </div>
+        <div class="date_details">
+            <p class="bookedfrom">Start Date: {{booking.start_date}}</p>
+            <p class="booked till">End Date: {{booking.end_date}}</p>
+        </div>
+        <div class="i_address text_right">
+      
+          <p class="p_title">
+           
+            <div class="warehouse name">
+              <div class="address">
+                Warehouse Name:{{warehouse.name}}
+              </div>
+            </div>
+
+
+            <span> [Warehouse ID: {{warehouse.id}} ]</span><br>
+
+            <span>POC Name: {{warehouse.poc_name}}</span> <br>
+            <span>POC no: {{warehouse.poc_phone_no}}</span>
+
+            <div class="address">
+              <p>Address : {{warehouse.address}}</p>
+            </div>
+
+            <span>{{warehouse.city}},</span>
+            <span>{{warehouse.state}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="i_table">
+        <div class="i_table_head">
+          <div class="i_row">
+            <div class="i_col w_20">
+              <p class="p_title">Unit ID</p>
+            </div>
+            <div class="i_col w_20">
+              <p class="p_title">Unit Type</p>
+            </div>
+            
+            <div class="i_col w_20">
+              <p class="p_title">Capacity</p>
+            </div>
+            <div class="i_col w_20">
+              <p class="p_title">Price(₹)/day</p>
+            </div>
+            <div class="i_col w_20">
+                <p class="p_title">Total Days</p>
+              </div>
+            <div class="i_col w_20">
+              <p class="p_title">Total Price(₹)/day</p>
+            </div>
+          </div>
+        </div>
+        {% for unit in all_booked_units %}
+
+        <div class="i_table_body">
+          <div class="i_row">
+            <div class="i_col w_20">
+               
+
+              <p>{{unit.id}}</p>
+            </div>
+            <div class="i_col w_20">
+              <p>{{unit.type}}</p>
+            </div>
+            <div class="i_col w_20">
+              <p>{{unit.capacity}}</p>
+            </div>
+            <div class="i_col w_20">
+              <p>{{unit.price}}</p>
+            </div>
+            <div class="i_col w_20">
+              <p>{{total_days}}</p>
+            </div>
+            <div class="i_col w_20">
+              <p>{{total_days | multiply:unit.price}}</p>
+            </div>
+          </div>
+          
+        </div>
+        {% endfor %}
+        
+        <p style="padding-top:5px">Description: {{booking.description}} </p>
+
+
+
+        <div class="i_table_foot">
+          <div class="i_row grand_total_wrap">
+            <div class="i_col w_50">
+            </div>
+            <div class="i_col w_50 grand_total">
+              <p><span>GRAND TOTAL :</span>
+                <span>{{price}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="i_row">
+        <div class="i_col w_100">
+          <p class="p_title">Payment Method</p>
+          <p>Card/UPI/NetBanking</p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+{%endif%}
+<button class="btn btn-light btn-lg mg m-2 pb-1" onclick="location.href='{% if back %}{{back}}{% else %}{% url 'warehouses' %}{% endif %}'" type='button'> Back </button>
+
+{%endblock%}
+</body>
+</html>

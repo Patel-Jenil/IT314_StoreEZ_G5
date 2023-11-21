@@ -12,5 +12,7 @@ urlpatterns = [
     path("warehouse/<int:id>/units/removeunit/", views.removeunit, name='removeunit'),
     path("warehouse/<int:id>/unit/<int:id1>/editunit", views.editunit, name='editunit'),
     path("warehouse/add", views.addwarehouse, name='add_warehouse'),
-    path("warehouse/<int:id>/remove", views.removewarehouse, name='remove_warehouse')
+    path("warehouse/<int:id>/remove", views.removewarehouse, name='remove_warehouse'),
+    path("warehouse/<int:id>/bookings", views.warehouse_bookings, name='warehouse_bookings'),
+    path("warehouse/invoice/<int:id>",views.warehouse_invoice, name='warehouse_invoice'),
 ]   

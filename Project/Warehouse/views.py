@@ -8,7 +8,9 @@ from django.contrib.auth import authenticate, login
 from Warehouse.forms import EditProfileForm
 from django.contrib import messages
 from django.utils import timezone
+from django.core.paginator import Paginator
 from django.urls import reverse
+from django.db.models import Q, Sum
 # Create your views here.
 
 @login_required(login_url='login')  
@@ -201,3 +203,52 @@ def removewarehouse(request, id):
     # print(units.count())
     context = {'id':id}
     return render(request, 'warehouse/remove_warehouse.html', context)
+
+
+def warehouse_bookings(request,id):
+    warehouse = get_object_or_404(Warehouse,id=id)
+    owner = get_object_or_404(Warehouse_owner,email=request.user.email) 
+    assert(owner == warehouse.owner) # To check if the right owner is accessing this page
+    data_list = []
+    all_bookings = Booking.objects.all().order_by("id")
+    for booking in all_bookings:
+        all_booked_units = booking.unit.all()
+        if len(all_booked_units) == 0:
+            continue
+        one_booked_unit = all_booked_units[0]
+        warehouse_of_booked_unit = one_booked_unit.warehouse
+        if warehouse == warehouse_of_booked_unit:
+            data_list.append((booking,booking.farmer))
+    paginator = Paginator(data_list, 10)  # Show 10 Bookings per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    count=Warehouse.objects.count()
+    nums= "." *page_obj.paginator.num_pages
+    context={'data':page_obj,'warehouse':warehouse,'nums':nums}
+    return render(request, 'warehouse/warehouse_bookings.html',context)
+
+
+def warehouse_invoice(request, id):
+    booking = get_object_or_404(Booking,id=id)
+    farmer = booking.farmer
+    all_booked_units = booking.unit.all()
+    total_units = len(all_booked_units)
+    if total_units:
+        one_booked_unit = all_booked_units[0]
+    else:
+        messages.error(request,"No units are booked for this period.")
+        return render(request, 'warehouse/booking.html', {})
+    per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
+    # print("Price per day:",per_day_price)
+    total_days = (booking.end_date - booking.start_date).days + 1
+    # print("Total Days:",total_days)
+    price = total_days * per_day_price
+    # print('price:',price)
+    warehouse = one_booked_unit.warehouse
+    assert(warehouse.owner.email==request.user.email)
+    # print('warehouse:',warehouse)
+    back_page = request.GET.get('back')
+    
+    context = {'farmer':farmer,'booking':booking,'all_booked_units':all_booked_units, 'per_day_price':per_day_price,
+               'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units, 'back':back_page}
+    return render(request, 'warehouse/invoice.html', context)
