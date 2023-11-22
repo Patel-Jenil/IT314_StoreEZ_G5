@@ -123,6 +123,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hp227406@gmail.com'
 EMAIL_HOST_PASSWORD = 'hgmx hyrt niyy czqi'
+DEFAULT_FROM_EMAIL = 'StoreEZ <hp227406@gmail.com>'
 
 
 # Static files (CSS, JavaScript, Images)
