@@ -5,7 +5,9 @@
       <meta charset="utf-8">
       <title>Login And Sign up form</title>
       <link rel="stylesheet" href="{% static 'signup.css' %}">
+      <script src="https://kit.fontawesome.com/cd6d96a6c5.js" crossorigin="anonymous"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
    </head>
    <body>
       
@@ -63,19 +65,64 @@
                     <div class="field">
                        <input type="email" placeholder="Email Address" name="email" required>
                     </div>
-                    <div class="field">
-                       <input type="password" placeholder="Password" name="password1" required>
-                    </div>
+
+
+                    <div class="input-box">
+                     <div class="password-input--box field">
+                        <input type="password" placeholder="Password" name="password1" class="text--input-box" id = "s-password" required>
+                        {% comment %} <i class="fa-solid fa-eye"></i> {% endcomment %}
+                     </div>
+                  </div>
+                     {% comment %} <div class="field">  
+                       <input type="password" placeholder="Password" name="password1" required class="text--input-box">
+                    </div> {% endcomment %}
+                    {% comment %} </div> {% endcomment %}
+
+
+
                     <div class="field">
                        <input type="password" placeholder="Confirm password" name="password2" required>
                     </div>
-                    <div class="slide-controls">
+                    
+
+                     {% comment %} strong password  {% endcomment %}
+                     <div class="input-box mt-2">
+								<div class="content">
+									<p>Password must contain:</p>
+									<ul class="requirement-list">
+										<li>
+											<i class="fa-solid fa-circle"></i>
+											<span>At least 8 to 12 characters length</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-circle"></i>
+											<span>At least 1 number (0...9)</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-circle"></i>
+											<span>At least 1 lowercase letter (a...z)</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-circle"></i>
+											<span>At least 1 special symbol (!...$)</span>
+										</li>
+										<li>
+											<i class="fa-solid fa-circle"></i>
+											<span>At least 1 uppercase letter (A...Z)</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+
+                     <div class="slide-controls">
                         <input type="radio"  id="farmer" name="user" value="0" checked >
                         <input type="radio"  id="Warehouse_Owner" name="user" value="1">
                         <label for="farmer" class="slide farmer">Farmer</label>
                         <label for="Warehouse_Owner" class="slide Warehouse_Owner">Warehouse Owner</label>
                         <div class="slider-tab"></div>
                     </div>
+
                     <div class="field btn">
                        <div class="btn-layer"></div>
                        <input type="submit" value="Signup">
@@ -119,6 +166,7 @@
          </div>
       </div>
       <script src="{% static 'js/signup.js'%}"></script>
+      <script src="{% static 'js/strong_pass.js'%}"></script>
    </body>
    
 </html>

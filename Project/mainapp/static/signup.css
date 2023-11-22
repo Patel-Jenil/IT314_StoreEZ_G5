@@ -243,3 +243,8 @@ h3{
 .danger-alert{
   background-color: #FF7D7D
 }
+
+.mt-2
+{
+  margin-top: 5px;
+}
