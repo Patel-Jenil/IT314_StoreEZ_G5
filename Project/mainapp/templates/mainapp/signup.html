@@ -86,8 +86,8 @@
                     
 
                      {% comment %} strong password  {% endcomment %}
-                     <div class="input-box mt-2">
-								<div class="content">
+                     <div class="input-box" style="margin-top: 0.5em; ">
+								<div class="content" style="font-size:0.65em;">
 									<p>Password must contain:</p>
 									<ul class="requirement-list">
 										<li>
@@ -115,7 +115,7 @@
 							</div>
 
 
-                     <div class="slide-controls">
+                     <div class="slide-controls" style="margin-top:0.75em">
                         <input type="radio"  id="farmer" name="user" value="0" checked >
                         <input type="radio"  id="Warehouse_Owner" name="user" value="1">
                         <label for="farmer" class="slide farmer">Farmer</label>
@@ -123,11 +123,11 @@
                         <div class="slider-tab"></div>
                     </div>
 
-                    <div class="field btn">
+                    <div class="field btn" style="margin-top:0.75em">
                        <div class="btn-layer"></div>
                        <input type="submit" value="Signup">
                     </div>
-                    <div class="signup-link">
+                    <div class="signup-link" style="margin-top:0.75em">
                         Already a member? <a href="{% url 'login' %}">LogIn now</a>
                      </div>
 
