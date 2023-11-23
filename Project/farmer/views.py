@@ -195,7 +195,7 @@ def search(request):
     end_date = request.GET.get('enddate', '')
     latitude = request.GET.get('latitude')
     longitude = request.GET.get('longitude')
-    print("------------------------",type(latitude))
+    # print("------------------------",type(latitude))
     
     if (not start_date and end_date) or (not end_date and start_date) or start_date > end_date:
         messages.error(request, "Invalid Dates")
@@ -224,8 +224,10 @@ def search(request):
         booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date). \
             values_list('unit', flat=True).exclude(unit=None).distinct()
         # print(booked_units)
-        print("Bookings: ",Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date).values_list(flat=True))
-        print("Booked_units: ",booked_units)
+        # print("Bookings: ",Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date).values_list(flat=True))
+        # print("Booked_units: ",booked_units)
+        
+        
         # warehouses = Warehouse.objects.values_list('name', 'id')
         warehouses = Warehouse.objects.all()
         
@@ -268,6 +270,7 @@ def search(request):
             nearby_warehouse_list = warehouses_with_unit
         # print(longitude,latitude)
         # print(nearby_warehouse_list)
+        print(nearby_warehouse_list)
         context = {'warehouses_with_unit': nearby_warehouse_list, 'startdate':start_date, 'enddate':end_date}
     # print(warehouses)
         
