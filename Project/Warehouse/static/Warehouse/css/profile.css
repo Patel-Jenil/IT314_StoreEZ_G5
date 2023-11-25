@@ -88,7 +88,7 @@ padding: 20px;
 position: relative;
 border: 1px solid #808080; /* Grey border color */
 border-radius: 15px; /* Added border-radius for curved corners */
-;
+margin: 0 10% 0 10%;
 }
 
 .our-team .details h4 {

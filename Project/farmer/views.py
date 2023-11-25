@@ -22,7 +22,7 @@ def farmer_profile(request):
     context={
         "farmer":farmer
     }
-    return render(request,"farmer/profile.html",context)
+    return render(request,"farmer/profile2.html",context)
     # return HttpResponse('Hi')
 
 @login_required(login_url='login')
