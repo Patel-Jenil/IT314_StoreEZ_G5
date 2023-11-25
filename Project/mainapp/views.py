@@ -48,8 +48,9 @@ def activate(request,uidb64, token,flag):
         
     if user != None and default_token_generator.check_token(user,token):
         user.is_active = True
+        # user.is_authenticated = True
         user.save()
-        print(flag, type(flag))
+        # print(flag, type(flag))
         if flag == 1:
             owner = Warehouse_owner.objects.create(email = user.email)
             return redirect('warehouse_editprofile')
@@ -124,8 +125,8 @@ def register(request):
                 return render(request, 'mainapp/signup.html')
             
             else:
-                login(request, my_user)
                 send_verification_email(request,my_user,flag)
+                login(request, my_user)
                 
                 if my_user.is_active == True:
                     # print(email, pass1, pass2, flag)
@@ -138,7 +139,8 @@ def register(request):
                         return redirect('farmer_editprofile')
                     
                 else:
-                    return HttpResponse("Please activate your account using link from mail")
+                    # return HttpResponse("Please activate your account using link from mail")
+                    return render(request, 'mainapp/activate.html')
             
         else:
             print("Passwords do not match")
