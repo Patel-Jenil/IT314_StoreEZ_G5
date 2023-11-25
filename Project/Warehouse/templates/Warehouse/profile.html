@@ -3,74 +3,32 @@
 {% block title %}Owner | Profile{% endblock title %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'Warehouse/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'Warehouse/css/profile.css'%}">
 {% endblock %}
 
-{%block content%}
-<div class="row py-5 px-4 bgg2">
-    <div class="col-md-5 mx-auto bg-wwhite">
-      <!-- Profile widget -->
-      <div class="">
-        <div class="px-4 pt-0 pb-4 bgg">
-          <div class="pb-3 media align-items-end profile-head">
-            <div class="profile mr-3">
-              <img
-                src="{{warehouse_user.image.url}}"
-                alt="..."
-                width="130"
-                class="rounded mb-2 img-thumbnail"
-              />
-              <h4 class="name">{{warehouse_user.first_name | capfirst}} {{warehouse_user.last_name | capfirst}}</h4>
-            </div>
-            <div class="media-body mb-5 text-white">
-              <a href="{% url 'warehouse_editprofile' %}" class="btn btn-outline-dark btn-sm btn-block edit-profile"
-                >Edit profile</a>
+{% block content %}
+<div class="container profile-wrapper">
+    <div class="row">
+      <div class="col-12">
+        <div class="our-team">
+          <div class="picture">
+            <img class="img-fluid" src="{{warehouse_user.image.url}}">
+          </div>
+          <div class="team-content">
+            <h3 class="name">{{warehouse_user.first_name | capfirst}} {{warehouse_user.last_name | capfirst}}</h3>
+            <div class="details">
+              <h4>Details</h4>
+              <p>Email: {{warehouse_user.email}}</p>
+              <p>Phone No: {{warehouse_user.phone_no}}</p>
             </div>
           </div>
+          <a href="{% url 'warehouse_editprofile' %}">
+            <div class="edit"> 
+                <button>Edit Profile</button>
+              </div>
+          </a>
+          
         </div>
-        <div class="px-4 py-3 bg-wwhite">
-          <h5 class="mb-0 pb-2 pt-2">Details</h5>
-          <div class="p-4 rounded shadow-sm ">
-              <p class=" mb-0">Email : {{warehouse_user.email}}</p>
-            <p class=" mb-0">Phone number : {{warehouse_user.phone_no}}</p>
-          </div>
-        </div>
-        <!-- <div class="py-4 px-4 bg-wwhite">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="mb-0">Recent photos</h5>
-            <a href="#" class="btn btn-link text-muted">Show all</a>
-          </div>
-          <div class="row">
-            <div class="col-lg-6 mb-2 pr-lg-1">
-              <img
-                src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                alt=""
-                class="img-fluid rounded shadow-sm"
-              />
-            </div>
-            <div class="col-lg-6 mb-2 pl-lg-1">
-              <img
-                src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                alt=""
-                class="img-fluid rounded shadow-sm"
-              />
-            </div>
-            <div class="col-lg-6 pr-lg-1 mb-2">
-              <img
-                src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-                alt=""
-                class="img-fluid rounded shadow-sm"
-              />
-            </div>
-            <div class="col-lg-6 pl-lg-1">
-              <img
-                src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                alt=""
-                class="img-fluid rounded shadow-sm"
-              />
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
