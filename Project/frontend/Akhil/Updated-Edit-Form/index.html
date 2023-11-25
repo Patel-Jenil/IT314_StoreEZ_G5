@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Edit Profile Form</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+	<!-- Main Style Css -->
+	<link rel="stylesheet" href="css/style.css"/>
+	<!-- styling for the phone code element -->
+	<link rel="stylesheet" href="css/style-phone.css"/>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" crossorigin="anonymous" />
+
+</head>
+<body class="form-v10">
+	<div class="page-content">
+		<div class="form-v10-content">
+			<form class="form-detail" action="#" method="post" id="myform">
+				
+				<div class="form-left">
+					<h2>General Infomation</h2>
+					<div class="form-row">
+						<input type="text" name="first_name" id="first_name" class="input-text" placeholder="First Name" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="last_name" id="last_name" class="input-text" placeholder="Last Name" required>
+					</div>
+					<!-- <div class="form-row">
+						<input type="text" name="company" class="company" id="company" placeholder="Company" required>
+					</div> -->
+					<h2 style="margin-top:100px; margin-bottom:20px;">Select an image:</h2>
+					<div class="form-row-last">
+						<label for="file-upload" class="custom-file-upload">
+							<!-- This is svg for the upload icon-->
+							<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
+								<path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"/>
+							</svg>
+							Upload Your Image
+						</label>
+							<input type="file" id="file-upload" name="image" class="image" accept="image/*">
+					</div>
+				</div>
+				
+				<div class="form-right">
+					<h2>Contact Details</h2>
+					<div class="form-row">
+						<input type="text" name="street" class="street" id="street" placeholder="Street + Nr" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="additional" class="additional" id="additional" placeholder="Additional Information" required>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="zip" class="zip" id="zip" placeholder="Pin Code" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="City" class="City" id="City" placeholder="City" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<input type="text" name="State" class="State" id="State" placeholder="State" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
+					</div>
+					<!-- <div class="form-checkbox">
+						<label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
+						  	<input type="checkbox" name="checkbox">
+						  	<span class="checkmark"></span>
+						</label>
+					</div> -->
+					<div class="form-row-last">
+						<input type="submit" name="register" class="register" value="Save Details">
+						<input type="submit" name="cancel" class="cancel" value="Cancel">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js'></script>
+	<script>
+	// International telephone format
+	// $("#phone").intlTelInput();
+	// get the country data from the plugin
+	var countryData = window.intlTelInputGlobals.getCountryData(),
+		input = document.querySelector("#phone"),
+		addressDropdown = document.querySelector("#country");
+
+	// init plugin
+	var iti = window.intlTelInput(input, {
+		hiddenInput: "full_phone",
+		utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" // just for formatting/placeholders etc
+	});
+
+	// populate the country dropdown
+	for (var i = 0; i < countryData.length; i++) {
+		var country = countryData[i];
+		var optionNode = document.createElement("option");
+		optionNode.value = country.iso2;
+		var textNode = document.createTextNode(country.name);
+		optionNode.appendChild(textNode);
+		addressDropdown.appendChild(optionNode);
+	}
+	// set it's initial value
+	addressDropdown.value = iti.getSelectedCountryData().iso2;
+
+	// listen to the telephone input for changes
+	input.addEventListener('countrychange', function(e) {
+		addressDropdown.value = iti.getSelectedCountryData().iso2;
+	});
+
+	// listen to the address dropdown for changes
+	addressDropdown.addEventListener('change', function() {
+		iti.setCountry(this.value);
+	});
+	</script>
+	<script>
+	//Append Value To Phone Field
+	$("#phone").prop('value', '+1 ');
+	</script>
+</body>
+</html>
