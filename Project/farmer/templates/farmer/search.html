@@ -25,7 +25,7 @@
         }
         .input-group-prepend{
             background-color: black;
-            width: 70px;
+            {% comment %} width: 70px; {% endcomment %}
             margin-right:10px;
         }
         
@@ -33,6 +33,20 @@
             width: 640px;
             display:flex;
             margin-top:10px;
+        }
+        .col-9 {
+            flex: 0 0 auto;
+            width: 75%;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        @media (min-width: 1200px){
+            .card-col{
+                flex: 0 0 auto;
+                width: 21%;
+                margin-right:2%;
+                margin-left:2%
+            }
         }
     </style>
 {% endblock %}
@@ -66,30 +80,39 @@
                         </div>
 
 
-                        <div class="user-details">
-                            <div class="input-box">
-                                <label class="details">Latitude</label>
-                                <input
-                                    type="text"
-                                    name="latitude"
-                                    id="latitude"
-                                    placeholder="Enter your latitude"
-                                    required
-                                />
+                        <div class="user-details input-group col-md-5 mx-auto text-center" style="display:flex; justify-content:space-between;">
+                            <div class="fwidth">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Latitude</label>
+                                </div>
+                                    <input
+                                        type="text"
+                                        name="latitude"
+                                        id="latitude"
+                                        placeholder="Enter your latitude"
+                                        required
+                                        class="form-control datepicker"
+                                    />
                             </div>
-                            <div class="input-box">
-                                <label class="details">Longitude</label>
-                                <input
+                            <div class="fwidth">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Longitude</label>
+                                </div>
+                                    <input
                                     type="text"
                                     name="longitude"
                                     id="longitude"
                                     placeholder="Enter your longitude"
                                     required
+                                    class="form-control datepicker"
                                 />
                             </div>
 
-                            <div class="input-box Detect-location">
-                                <button class="button-8">
+                            
+                        </div>
+                        <div class="" style="display:flex; justify-content:center;margin-top:10px;">
+                            <div class="input-box Detect-location ">
+                                <button class="button-8 form-control datepicker">
                                     <span
                                         ><svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -105,10 +128,12 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="input-group col-md-2 mx-auto text-center mt-3">
-                            <input type="submit">
+                        <div class="" style="display:flex; justify-content:center;margin-top:10px;">
+                            <div class="">
+                                <input type="submit" class="form-control datepicker">
+                            </div>
                         </div>
+
 
                     
                 </div>
@@ -119,7 +144,7 @@
         </div>
     </div>
 
-    <div style="display:flex; flex-direction:row; justify-content:space-between;">
+    <div style="display:flex; flex-direction:row; justify-content:space-between; margin-left:2%; margin-right:2%">
         <div><h4 style="display:inline">Start Date:</h4> <h4 style="display:inline; color:rgb(101, 101, 101)"> {{startdate}}</h4> </div>
         <div><h4 style="display:inline">End Date:</h4><h4 style="display:inline; color:rgb(101, 101, 101)"> {{enddate}}</h4> </div>
     </div>
@@ -156,7 +181,7 @@
     <div class="">
     <div class="row m-0">
         {% for warehouse_data in warehouses_with_unit %}
-            <div class="card col-xl-2 col-9 mx-auto my-3 bg-green px-0" style="width:300px">
+            <div class="card col-9 my-2 bg-green px-0 card-col">
 
                 <div class="card-body">
                     <h4 class="card-title">
