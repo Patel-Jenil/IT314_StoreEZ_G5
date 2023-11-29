@@ -33,7 +33,7 @@
           <th>Contact No.</th>
           <th>Booking Status</th>
         </tr>
-        {% for booking,farmer in data %}
+        {% for booking,farmer,booking_status in data %}
         <tr>
           <td data-cell="Booking Number" style="width:15%;"> <a href="{% url 'warehouse_invoice' booking.id %}?back={{request.build_absolute_uri}}">Booking {{booking.id}} </a> </td>
           <td data-cell="Start Date"> {{booking.start_date}}</td>
@@ -41,7 +41,7 @@
           <!-- <td data-cell="Description" style="width:40%;">{{booking.description}}</td> -->
           <td data-cell="Booked By">{{farmer}}</td>
           <td data-cell="Contact No.">{{farmer.phone_no}}</td>
-          <td class="completed" data-cell="Booked Status"><b>Completed</b></td>
+          <td {% if booking_status == 'Completed' %}class="completed" {% else %}class="on-going"{% endif %}  data-cell="Booked Status"><b>{{booking_status}}</b></td>
         </tr>
         {% endfor %}
 

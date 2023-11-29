@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.db.models import Q, Sum
+from datetime import date
 # Create your views here.
 
 @login_required(login_url='login')  
@@ -237,7 +238,11 @@ def warehouse_bookings(request,id):
         one_booked_unit = all_booked_units[0]
         warehouse_of_booked_unit = one_booked_unit.warehouse
         if warehouse == warehouse_of_booked_unit:
-            data_list.append((booking,booking.farmer))
+            if booking.end_date >= date.today():
+                booking_status = 'On going'
+            else:
+                booking_status = 'Completed'
+            data_list.append((booking,booking.farmer,booking_status))
     paginator = Paginator(data_list, 10)  # Show 10 Bookings per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)

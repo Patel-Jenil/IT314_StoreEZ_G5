@@ -57,7 +57,7 @@ def currentbooking(request):
     data_list = []
     current_user = request.user
     current_farmer = Farmer.objects.get(email=current_user.email)
-    farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__gte = date.today()).order_by("-end_date")
+    farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__gte = date.today()).order_by("id")
     for booking in farmer_current_bookings: # selecting individual bookings and finding it's corresponding warehouse
         print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
@@ -94,7 +94,7 @@ def previousbooking(request):
     data_list = []
     current_user = request.user
     current_farmer = Farmer.objects.get(email=current_user.email)
-    farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__lt = date.today()).order_by("-end_date")
+    farmer_current_bookings = Booking.objects.filter(farmer = current_farmer, end_date__lt = date.today()).order_by("id")
     for booking in farmer_current_bookings: # selecting individual bookings and finding it's corresponding warehouse
         print('-->','booking:',booking)
         all_booked_units = booking.unit.all()
