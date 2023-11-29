@@ -45,12 +45,11 @@ def activate(request,uidb64, token,flag):
         user = User._default_manager.get(pk = uid)
     except(TypeError,ValueError, OverflowError, User.DoesNotExist):
         user = None
-        
+
     if user != None and default_token_generator.check_token(user,token):
         user.is_active = True
-        # user.is_authenticated = True
         user.save()
-        # print(flag, type(flag))
+        print(flag, type(flag))
         if flag == 1:
             owner = Warehouse_owner.objects.create(email = user.email)
             return redirect('warehouse_editprofile')
@@ -59,7 +58,7 @@ def activate(request,uidb64, token,flag):
             return redirect('farmer_editprofile')
     else:
         messages.error(request,'Invalid activation link')
-    return HttpResponse("Hello")
+    return render(request, 'mainapp/signup.html')
 
 
 def loginUser(request):
@@ -106,27 +105,25 @@ def register(request):
         flag = request.POST.get('user')
         print(email,pass1,flag)
         
-        if pass1 == pass2:
-            try:
-                my_user = User.objects.create_user(username=email, email=email, password=pass1, is_active = False)
-            except:
-                messages.error(request, "User already exists with same email.")
-                context = {
-                    'page':"register"
-                }
-                return render(request, 'mainapp/signup.html',context)
-            
+        if pass1 == pass2:           
             # strong pass
             pattern = re.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$")
-            
-            
             if pattern.match(pass1) is None:
                 messages.error(request, 'Your password should be of length between 8 and 12 including atleast one uppercase, one lowercase, one number and one special character (@$!%*?&)')
                 return render(request, 'mainapp/signup.html')
             
-            else:
-                send_verification_email(request,my_user,flag)
+            else:   
+                try:
+                    my_user = User.objects.create_user(username=email, email=email, password=pass1, is_active = False)
+                except:
+                    messages.error(request, "User already exists with same email.")
+                    context = {
+                     'page':"register"
+                    }
+                    return render(request, 'mainapp/signup.html',context)
+                
                 login(request, my_user)
+                send_verification_email(request,my_user,flag)
                 
                 if my_user.is_active == True:
                     # print(email, pass1, pass2, flag)
@@ -151,7 +148,6 @@ def register(request):
         'page':"register"
     }
     return render(request, 'mainapp/signup.html',context)
-
 
 def aboutus(request):
     user = request.user
