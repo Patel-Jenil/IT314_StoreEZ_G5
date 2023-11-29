@@ -17,6 +17,9 @@ class EditProfileForm(forms.ModelForm):
         self.fields['first_name'].widget.attrs['placeholder'] = 'Enter first name'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Enter Last name'
         self.fields['phone_no'].widget.attrs['placeholder'] = 'Enter Phone number'
+        self.fields['phone_no'].widget.attrs['min'] = 1000000000
+        self.fields['phone_no'].widget.attrs['max'] = 9999999999
+        self.fields['phone_no'].widget.attrs['oninvalid'] = "this.setCustomValidity('Phone number should contain 10 digits.')"
         # self.fields['image'].widget.attrs['placeholder'] = 'Enter image'
         
 

@@ -48,11 +48,9 @@
           </div>
         </div>
       </form>
-
-
 {% endblock content %}
 
-<form action="" method="POST">
+{% comment %} <form action="" method="POST">
     {% csrf_token %}
     <p>
         <label for="units">Select a unit to delete</label>
@@ -65,4 +63,4 @@
         </select>
     </p>
     
-    <input type="submit">
+    <input type="submit"> {% endcomment %}

@@ -207,6 +207,7 @@ def removewarehouse(request, id):
     return render(request, 'warehouse/remove_warehouse.html', context)
 
 
+@login_required(login_url='login')  
 def warehouse_bookings(request,id):
     warehouse = get_object_or_404(Warehouse,id=id)
     owner = get_object_or_404(Warehouse_owner,email=request.user.email) 
@@ -230,6 +231,7 @@ def warehouse_bookings(request,id):
     return render(request, 'warehouse/warehouse_bookings.html',context)
 
 
+@login_required(login_url='login')  
 def warehouse_invoice(request, id):
     booking = get_object_or_404(Booking,id=id)
     farmer = booking.farmer
