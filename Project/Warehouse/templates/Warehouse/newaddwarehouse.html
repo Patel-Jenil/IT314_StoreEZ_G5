@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}StoreEZ | Add Warehouse{% endblock title %}
+
+{% block css %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Warehouse/css/neweditprofile.css' %}"/>
+{% endblock css%}
+
+{% block content %}
+<div class="page-content">
+    <div class="form-v10-content">
+        <form class="form-detail" id="myform" method="post" {# enctype="multipart/form-data" #} >
+            {% csrf_token %}
+            <div class="form-left">
+                <h2>General Infomation</h2>
+                <div class="form-row">
+                    <input type="text" name="name" id="name" class="input-text" placeholder="Warehouse Name" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="poc_name" name="poc_name" class="input-text" placeholder="Warehouse Owner Name" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="phone_no" name="phone_no" class="phone" placeholder="Warehouse Owner Ph.No" required>
+                </div>
+
+            </div>
+            
+            <div class="form-right">
+                <h2>Location Details</h2>
+                <div class="form-row">
+                    <input type="text" name="address" class="street" id="address" placeholder="Address" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" name="city" class="street" id="city" placeholder="City" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" name="state" class="State" id="state" placeholder="State" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="form-row">
+                    <input class="text--input-box" type="text" id="latitude" name="latitude" step="any" placeholder="Enter your latitude"    required />
+                </div>
+                <div class="form-row">
+                    <input class="text--input-box" type="text" id="longitude" name="longitude" step="any"  placeholder="Enter your longitude"
+                    required  />
+                </div>
+                <button class="button-8">
+                    <span
+                    ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="18"
+                            viewBox="0 96 960 960"
+                            width="18"
+                            fill="#c12424"
+                          >
+                            <path
+                              d="M450 1014v-75q-137-14-228-105T117 606H42v-60h75q14-137 105-228t228-105v-75h60v75q137 14 228 105t105 228h75v60h-75q-14 137-105 228T510 939v75h-60Zm30-134q125 0 214.5-89.5T784 576q0-125-89.5-214.5T480 272q-125 0-214.5 89.5T176 576q0 125 89.5 214.5T480 880Zm0-154q-63 0-106.5-43.5T330 576q0-63 43.5-106.5T480 426q63 0 106.5 43.5T630 576q0 63-43.5 106.5T480 726Zm0-60q38 0 64-26t26-64q0-38-26-64t-64-26q-38 0-64 26t-26 64q0 38 26 64t64 26Zm0-90Z"
+                            /></svg></span
+                        >Detect Location
+                  </button>
+
+
+                <!-- <div class="form-checkbox">
+                    <label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
+                          <input type="checkbox" name="checkbox">
+                          <span class="checkmark"></span>
+                    </label>
+                </div> -->
+                <div class="form-row-last">
+                    <input onclick="location.href='{% url 'warehouses' %}'" type="submit" name="cancel" class="cancel" value="Cancel">
+                    <input type="submit" name="register" class="register" value="Confirm">
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

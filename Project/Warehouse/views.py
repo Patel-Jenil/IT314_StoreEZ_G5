@@ -30,8 +30,9 @@ def editprofile(request):
     loggedin_user = request.user
     warehouse_owner = get_object_or_404(Warehouse_owner, email=loggedin_user.email)
     editprofile = EditProfileForm(instance=warehouse_owner)
-    context = {'editprofile': editprofile,'user':request.user, 'warehouse_owner_image':warehouse_owner.image}
+    # context = {'editprofile': editprofile,'user':request.user, 'warehouse_owner_image':warehouse_owner.image}
     if request.method == "POST":
+        print(request.FILES) 
         editprofile  = EditProfileForm(request.POST, request.FILES, instance=warehouse_owner)
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
@@ -54,7 +55,8 @@ def editprofile(request):
         
         else:
             context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors, 'warehouse_owner_image':warehouse_owner.image}
-    return render(request,'Warehouse/editprofile.html',context)
+    context = {'editprofile': editprofile,'user':request.user, 'warehouse_owner_image':warehouse_owner.image}
+    return render(request,'Warehouse/neweditprofile.html',context)
 
 @login_required(login_url='login')  
 def warehouses(request, id):
@@ -187,7 +189,7 @@ def addwarehouse(request):
         'user_id':request.user.id,
         'warehouse_image':warehouse_image
     }
-    return render(request,'warehouse/add_warehouse.html',context)
+    return render(request,'warehouse/newaddwarehouse.html',context)
 
 @login_required(login_url='login')  
 def removewarehouse(request, id):

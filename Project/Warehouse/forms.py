@@ -17,7 +17,7 @@ class EditProfileForm(forms.ModelForm):
         self.fields['first_name'].widget.attrs['placeholder'] = 'Enter first name'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Enter Last name'
         self.fields['phone_no'].widget.attrs['placeholder'] = 'Enter Phone number'
-        self.fields['image'].widget.attrs['placeholder'] = 'Enter image'
+        # self.fields['image'].widget.attrs['placeholder'] = 'Enter image'
         
 
         
