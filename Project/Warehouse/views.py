@@ -36,6 +36,22 @@ def editprofile(request):
         editprofile  = EditProfileForm(request.POST, request.FILES, instance=warehouse_owner)
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
+            # Validations
+            flag=False
+            if user.phone_no =="" or int(user.phone_no) <1000000000 or int( user.phone_no) >9999999999:
+                messages.error(request,"Phone number should contain 10 digits.")
+                flag=True
+
+            if user.first_name =="" :
+                messages.error(request,"Invalid First name!")    
+                flag=True
+
+            if user.last_name =="" :
+                messages.error(request,"Invalid Last name!")    
+                flag=True 
+
+            if flag:
+                return redirect('warehouse_editprofile' )
             warehouse_owner.first_name = user.first_name
             warehouse_owner.last_name = user.last_name
             warehouse_owner.phone_no = user.phone_no
