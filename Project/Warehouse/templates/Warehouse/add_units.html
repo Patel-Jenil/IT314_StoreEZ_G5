@@ -10,7 +10,35 @@
 {% endblock css%}
 
 {% block content %}
-<div class="page-content">
+<div class="page-content" style="flex-direction: column">
+    {% if messages %}
+        <script>
+            function closeAlert(element) {
+                var alert = element.parentElement;
+                alert.style.display = 'none';
+            }
+        </script>
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+                <h3>Success Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+                <h3>{{message}}</h3>
+                <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+                <h3>Warning Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% endif %}
+    
+        {% endfor %}
+    {% endif %}
     <div class="form-v10-content">
         <form class="form-detail" id="myform" method="post" {# enctype="multipart/form-data" #} >
             {% csrf_token %}

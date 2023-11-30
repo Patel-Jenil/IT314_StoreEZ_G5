@@ -1,5 +1,7 @@
 body {
 	margin:  0;
+    background:url('../bg.png');
+    /* background-color:#90bc79; */
 	/* font-family: 'Montserrat',sans-serif; */
 }
 .page-content {
@@ -7,7 +9,7 @@ body {
 	width: 100%;
 	margin:  0 auto;
 	display: flex;
-	background:url('../bg.png');
+	/* background:url('../bg.png'); */
 	background-color:#90bc79;
 	display: -webkit-flex;
 	justify-content: center;
@@ -20,7 +22,7 @@ body {
 	-ms-align-items: center;
 	-moz-align-items: center;
 	-webkit-align-items: center;
-	
+	height: 100vh;
 }
 .form-v10-content  {
 	background: #fff;

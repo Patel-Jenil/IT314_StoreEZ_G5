@@ -6,12 +6,12 @@
     --secondary-clr: rgb(1, 108, 15);
 }
 
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Ubuntu", sans-serif;
-}
+} */
 
 body {
     background: var(--bg-clr);
