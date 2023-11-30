@@ -56,11 +56,11 @@
                 </tr>
                 {% for warehouse in warehouses%}
                 <tr class="not-heading">
-                  <td data-cell="Warehouse ID | Name">{{warehouse.id}} {{warehouse.name}}</td>
+                  <td data-cell="Name">{{warehouse.name}}</td>
                   <td data-cell="Warehouse Address">{{warehouse.address}}</td>
                   <td data-cell="Show all Units"><a href="{% url 'all_units' warehouse.id %}">Units</a></td>
                   <td data-cell="Show all Units"><a href="{% url 'warehouse_bookings' warehouse.id %}">All Bookings</a></td>
-                  <td data-cell="Delete Warehouse"><a href="{% url 'remove_warehouse' warehouse.id %}">Delete warehouse</a></td>
+                  <td class="completed" data-cell="Delete Warehouse" ><a href="{% url 'remove_warehouse' warehouse.id %}">Delete</a></td>
                 </tr>
                 {% endfor %}
                 

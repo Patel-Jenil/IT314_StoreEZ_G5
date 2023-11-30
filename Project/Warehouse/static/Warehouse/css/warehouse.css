@@ -11,7 +11,7 @@ body{
   
 
 .add_warehouse_btn{
-  background-color: #4f6f52;
+  background-color: #11400c;
   min-width: 60%;
   padding: 2%;
   border-radius: 10px;
@@ -109,12 +109,9 @@ table{
   background:#eee;
   /* border-bottom-right-radius:20px; */
 }
-table a{
-  color: #4f6f52;
-}
 
 .table-heading{
-    background-color: #4F6F52;
+    background-color: #11400c;
     border-radius: 15px;
     color: #fff;
 }
@@ -126,7 +123,7 @@ table a{
 /* caption */
 th,td{
   padding:1rem;
-  width: 27%;
+  width: 21%;
   
 }
 

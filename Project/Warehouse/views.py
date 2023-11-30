@@ -73,7 +73,7 @@ def editprofile(request):
         else:
             context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors, 'warehouse_owner_image':warehouse_owner.image}
     context = {'editprofile': editprofile,'user':request.user, 'warehouse_owner_image':warehouse_owner.image}
-    return render(request,'Warehouse/neweditprofile.html',context)
+    return render(request,'Warehouse/editprofile.html',context)
 
 @login_required(login_url='login')  
 def warehouses(request, id):
@@ -135,6 +135,8 @@ def warehouses(request):
 @login_required(login_url='login')  
 def addunit(request, id):
     # print(id)
+    # warehouse = get_object_or_404(Warehouse_owner, id=id)
+    warehouse = Warehouse.objects.get(id=id)
     if request.POST:
         type = request.POST.get('type')
         capacity = request.POST.get('capacity')
@@ -162,12 +164,13 @@ def addunit(request, id):
         return redirect('all_units', id=id)
         # print(type, capacity, price, warehouse)
     # print("id:",id)   
-    context = {'id': id}
+    context = {'id': id, 'warehouse':warehouse}
     return render(request, 'warehouse/add_units.html', context)
 
 
 @login_required(login_url='login')  
 def removeunit(request, id):
+    warehouse = Warehouse.objects.get(id=id)
     if request.method == "POST":
         unit = request.POST.get('unit')
         # print("id: ",unit)
@@ -178,7 +181,7 @@ def removeunit(request, id):
     
     units = Warehouse.objects.get(id = id).unit_set.all()   
     # print(units.count())
-    context = {'units': units,'id':id}
+    context = {'units': units,'id':id, 'warehouse':warehouse}
     return render(request, 'warehouse/removeunit.html', context)
 
 
@@ -245,7 +248,7 @@ def addwarehouse(request):
         'user_id':request.user.id,
         'warehouse_image':warehouse_image
     }
-    return render(request,'warehouse/newaddwarehouse.html',context)
+    return render(request,'warehouse/add_warehouse.html',context)
 
 @login_required(login_url='login')  
 def removewarehouse(request, id):

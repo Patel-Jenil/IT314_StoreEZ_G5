@@ -13,7 +13,7 @@ h1{
   background-color: #90bc79;
 } */
 .box{
-  background-color: #4f6f52;
+  background-color: #11400c;
   margin-bottom: 40px ;
 }
 .top-box{
@@ -36,7 +36,7 @@ h1{
 }
 .unit-header{
   text-align: center;
-  background-color: #4F6F52;
+  background-color: #11400c;
   padding: 8% 12% 8% 12%;
   border-radius: 0.8rem;
   color: #fff;
@@ -85,6 +85,10 @@ h1{
 
   position: relative;
 }
+
+.ag-courses-item_title:hover{
+  color: #fff;
+}
 .ag-courses-item_link:hover,
 .ag-courses-item_link:hover .ag-courses-item_date {
   text-decoration: none;
@@ -106,6 +110,7 @@ h1{
 
   z-index: 2;
   position: relative;
+  transition-duration: 0.0001s
 }
 .ag-courses-item_date-box {
   font-size: 18px;
@@ -125,7 +130,7 @@ h1{
 .ag-courses-item_bg {
   height: 128px;
   width: 128px;
-  background-color: #557C55;
+  background-color: #11400c;
 
   z-index: 1;
   position: absolute;
