@@ -1,0 +1,164 @@
+/* html{color-scheme:light} */
+
+body{
+  color:#000;
+  font-size:1.25rem;
+  font-family:system-ui;
+  line-height:1.5;
+  /* background: url('bg.png') ; */
+  background-color: #90bc79;
+}
+
+.wrapperr{
+  display:flex;
+  flex-direction: column;
+  
+  border:solid;
+  border-width:1px;
+  border-color:#90bc79;
+  margin: auto;
+  max-width: 90%;
+  border-radius:15px;
+}
+
+.info-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+  background-color: #dceed3;
+  margin: 3%;
+  border-radius: 15px;
+}
+
+
+
+.info-row button{
+  background-color:white;
+  border:none;
+  height:50px;
+  width:100px;
+  border-radius:10px;
+  cursor:pointer;
+  color:#000000;
+  font-weight: 700;
+  font-size:larger;
+}
+
+.info-row button:hover{
+  background:#eee;
+  border-radius:15px;
+  /* border-radius:20px;
+  transition-timing-function:ease-out;
+  transition-duration: 0.2s;
+  transition-property: inherit; */
+}
+
+
+.info-row .ab{
+  flex:2;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.info-row .ab div{
+  flex:2;
+  padding-bottom:10px;
+}
+
+.table-container{
+  max-width:100%;
+}
+
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#eee;
+  /* border-bottom-right-radius:20px; */
+}
+
+.table-heading{
+    background-color: #4F6F52;
+    border-radius: 15px;
+}
+
+/* caption{
+  border-top-right-radius: 20px;
+  border-top-left-radius:20px;
+} */
+/* caption */
+th,td{
+  padding:1rem;
+  
+}
+
+/* 
+th{
+  cursor:pointer;
+  
+} */
+
+.not-heading:nth-of-type(2n):hover{
+  background: hsl(99.9 62.8% 83.1% / 0.4);
+}
+
+.not-heading:nth-of-type(2n+1):hover{
+  background: hsla(0, 0%, 82%, 0.2);
+}
+
+th{
+  text-align:left;
+}
+
+
+tr:nth-of-type(2n){
+  background:hsl(99.9 62.8% 83.1% / 0.2);
+}
+
+.on-going{
+    color: green;
+}
+
+.completed{
+    color: red;
+}
+
+
+@media (max-width:650px){
+  th{
+    display:none;
+  }
+
+  td{
+    display:grid;
+    gap:0.5rem;
+    grid-template-columns: 18ch auto;
+    padding:10px;
+  }
+  
+
+  td::before{
+    content:attr(data-cell) ": ";
+    font-weight:700;
+  }
+}
+@media(max-width:450px) {
+    body{
+        font-size: 0.75rem;
+    }
+    .info-row{
+        margin-left: auto;
+        margin-right: auto ;
+        width: 90%;
+    }
+    .ab{
+        display: flex;
+        flex-direction: column;
+        padding-top: 8px;
+    }
+    .ind-row{
+        width: 90%;
+    }
+}

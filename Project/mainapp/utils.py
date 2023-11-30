@@ -7,8 +7,6 @@ from django.contrib.auth.tokens import default_token_generator
 
 from StoreEZ import settings
 
-print("hello")
-
 def send_verification_email(request,user,flag):
     from_email = settings.DEFAULT_FROM_EMAIL
     current_site = get_current_site(request)

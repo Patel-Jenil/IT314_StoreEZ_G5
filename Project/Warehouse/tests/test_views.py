@@ -6,7 +6,7 @@ from mainapp.models import Warehouse_owner, Warehouse
 from django.contrib.messages import get_messages
 
 
-class TestEditProfile(TestCase):
+class TestWarehouseOwnerEditProfile(TestCase):
     def setUp(self):
         self.client = Client()
         self.testemail = "test@gmail.com"
@@ -32,7 +32,7 @@ class TestEditProfile(TestCase):
             'last_name':'Patel',
             'phone_no': 1234567890
             })
-        self.assertTrue(response.status_code == 200)
+        self.assertTrue(response.status_code == 200) # Because Form will become invalid and if clause will pass
         
     def test_last_name(self):
         response = self.client.post(self.edit_profile_url, {
@@ -40,7 +40,7 @@ class TestEditProfile(TestCase):
             'last_name':'',
             'phone_no': 1234567890
             })
-        self.assertTrue(response.status_code == 200)
+        self.assertTrue(response.status_code == 200) # Because Form will become invalid and if clause will pass
         
     def test_shorter_phone_no(self):
         response = self.client.post(self.edit_profile_url, {
@@ -56,9 +56,7 @@ class TestEditProfile(TestCase):
             'last_name':'Patel',
             'phone_no': 1234567890123
             })
-        self.assertTrue(response.status_code == 200)
-
-
+        self.assertTrue(response.status_code == 200) # Because Form will become invalid and if clause will pass
 
 class TestAddWarehouse(TestCase):
     def setUp(self):

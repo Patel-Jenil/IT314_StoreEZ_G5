@@ -1,0 +1,191 @@
+body {
+  --background-color: #90BC79;
+  background: url("{% static 'Warehouse/bg.png' %}");
+  --text-color: #A1A1AA;
+  /* --card-background-color: #808080; */
+  /* --card-border-color: rgba(241, 13, 13, 0.1); */
+  
+  display: flex;
+  flex-direction: column;
+  height: 1000px;
+}
+
+
+/* .bsearch
+{
+  width: 100px;
+  background-color: red;
+} */
+
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  padding: 2px;
+}
+
+.search-box {
+  flex: 1;
+  border: none;
+  padding: 5px;
+  outline: none;
+  height: 40px;
+  width: 400px;
+  font-size: large;
+}
+
+.search-box::placeholder{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+}
+
+.search-icon {
+  width: 24px; /* Adjust the width as needed */
+  height: 24px; /* Adjust the height as needed */
+  /* margin-right: 5px; Adjust the margin as needed */
+  align-items: center;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+}
+
+.button{
+  display: flex;
+  background-color: #d9e3dd;
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+}
+
+.search-date{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar{
+  flex:1;
+  text-align: center;
+  align-items: center;
+  margin-left: 60px;
+}
+
+.date{
+  display: flex;
+  background-color: #198754;
+  border: none;
+  border-color: #198754;
+  box-shadow: 5px 5px 5px;
+  height: 30px;
+  border-radius: 10px;
+  border-width: 5px;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 40px;
+  width: 200px;
+  font-size: large;
+}
+
+
+
+
+
+
+
+.search-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom:50px;
+}
+
+.full{
+  background-color: #808080;
+}
+.empty{
+  background-color: white;
+}
+
+.full, .empty{
+  width: 200px;
+  height: 90px;
+  border: none;
+  border-radius: 20px;
+  border-width: 2px;
+  margin:20px;
+}
+.dropdown{
+  margin-bottom:50px;;
+}
+
+.grid {
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  margin:20px;
+
+}
+
+.warehouse-name{
+  display: flex;
+  flex-direction: row;
+}
+.dropdown{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.dropdown button{
+  width:78%;
+}
+
+.dropdown-menu{
+  width:78%;
+}
+
+.container
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.bsearch{
+  width: 80%;
+}
+
+.bdate_input
+{
+  width: 40%;
+}
+
+.dash-table {
+  background-color: #198754;
+}
+
+.dash-margin
+{
+    margin-left: 3%;
+}
+
+.dash {
+  /* border-radius: 25px; */
+  min-height: 92vh;
+  width: 85vw;
+  background-color: var(--background-color2);
+  border-radius: 20px;
+  /* border-top-left-radius: 20px; */
+}

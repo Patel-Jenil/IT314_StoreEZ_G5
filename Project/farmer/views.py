@@ -35,15 +35,39 @@ def editprofile(request):
         editprofile  = EditProfileForm(request.POST, request.FILES, instance=farmer)
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
+            # Validations
+            flag=False
+            if user.phone_no =="" or int(user.phone_no) <1000000000 or int( user.phone_no) >9999999999:
+                messages.error(request,"Phone number should contain 10 digits.")
+                flag=True
+
+            if user.first_name.strip() == "" :
+                messages.error(request,"Invalid First name!")    
+                flag=True
+
+            if user.last_name.strip() == "" :
+                messages.error(request,"Invalid Last name!")    
+                flag=True 
+
+            if user.city.strip() == "" :
+                messages.error(request,"Invalid city!")    
+                flag=True
+        
+            if user.state.strip() == "" :
+                messages.error(request,"Invalid state!")    
+                flag=True
+                
+            if flag:
+                return redirect('farmer_editprofile' )
             loggedin_user = request.user
             farmer_user = get_object_or_404(Farmer, email=loggedin_user.email)
-            farmer_user.first_name = user.first_name
-            farmer_user.last_name = user.last_name
+            farmer_user.first_name = user.first_name.strip()
+            farmer_user.last_name = user.last_name.strip()
             farmer_user.phone_no = user.phone_no
-            farmer_user.city = user.city
-            farmer_user.state = user.state
+            farmer_user.city = user.city.strip()
+            farmer_user.state = user.state.strip()
             farmer_user.image = user.image
-            print(user.image)
+            # print(user.image)
             if farmer_user.image == "":
                 farmer_user.image = Farmer().image 
             farmer_user.save()

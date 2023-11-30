@@ -9,6 +9,8 @@ from django.contrib import messages
 from .models import Farmer, Warehouse_owner
 from .utils import send_verification_email
 import string, random, re
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 # from django.contrib.auth.forms import UserCreationForm
 
 
@@ -47,6 +49,14 @@ def activate(request,uidb64, token,flag):
         user = None
 
     if user != None and default_token_generator.check_token(user,token):
+        if Farmer.objects.filter(email = user.email).exists():
+            messages.success(request,'Farmer already verified.')
+            return redirect('login')
+            
+        elif Warehouse_owner.objects.filter(email = user.email).exists():
+            messages.success(request,'Warehouse owner already verified.')
+            return redirect('login')
+            
         user.is_active = True
         user.save()
         print(flag, type(flag))
@@ -58,7 +68,7 @@ def activate(request,uidb64, token,flag):
             return redirect('farmer_editprofile')
     else:
         messages.error(request,'Invalid activation link')
-    return render(request, 'mainapp/signup.html')
+    return redirect('register')
 
 
 def loginUser(request):
@@ -67,7 +77,11 @@ def loginUser(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         # print(username, password)
-        
+        try:
+            validate_email(username)
+        except ValidationError as e:
+            messages.error(request, "Invalid Email Address!")
+            return redirect('login')
         try:
             my_user = User.objects.get(username=username)
             my_user = authenticate(request, username=username, password=password)
@@ -75,19 +89,22 @@ def loginUser(request):
             if my_user is not None:
                 login(request, my_user)
                 next_page = request.POST.get('next')
-                print(next_page)
+                # print(next_page)
                 try:
                     Farmer.objects.get(email=my_user.email)
                 except Farmer.DoesNotExist:
-                    return redirect("Warehouse_profile") 
+                    return redirect(next_page) if next_page else redirect("Warehouse_profile") 
                 # messages.success(request, "You have succesfully Logged In")  
                 return redirect(next_page) if next_page else redirect("farmer_currentbooking")
 
             else : 
                 messages.error(request, "Invalid username or password")
-                print("Invalid username or password") 
+                # print("Invalid username or password")
+                return redirect('login')
+                
         except:
             messages.error(request, "Invalid username or password")
+            return redirect('login')
             
     # Do not remove elif as it is used for Next Page and validations Error message from POST request will pass through the last render
     elif request.GET:
@@ -99,28 +116,29 @@ def loginUser(request):
 
 def register(request):  
     if request.method == 'POST':
-        email = request.POST.get('email')
+        email = request.POST.get('email').strip()
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
         flag = request.POST.get('user')
         print(email,pass1,flag)
-        
-        if pass1 == pass2:           
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            messages.error(request, "Invalid Email Address!")
+            return redirect('register')
+        if (pass1 == pass2):           
             # strong pass
-            pattern = re.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$")
-            if pattern.match(pass1) is None:
+            pattern = re.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*\-_]).{8,20}$")
+            if pattern.match(pass1) is None or " " in pass1:
                 messages.error(request, 'Your password should be of length between 8 and 12 including atleast one uppercase, one lowercase, one number and one special character (@$!%*?&)')
-                return render(request, 'mainapp/signup.html')
+                return redirect('register')
             
             else:   
                 try:
                     my_user = User.objects.create_user(username=email, email=email, password=pass1, is_active = False)
                 except:
                     messages.error(request, "User already exists with same email.")
-                    context = {
-                     'page':"register"
-                    }
-                    return render(request, 'mainapp/signup.html',context)
+                    return redirect('register')
                 
                 login(request, my_user)
                 send_verification_email(request,my_user,flag)
@@ -139,10 +157,15 @@ def register(request):
                     # return HttpResponse("Please activate your account using link from mail")
                     return render(request, 'mainapp/activate.html')
             
-        else:
-            print("Passwords do not match")
-            messages.error(request, "Passwords do not match")
+        elif pass1 == "" or pass2 == "":
+            print("Password cannot be empty!")
+            messages.error(request, "Password cannot be empty!")
+            return redirect('register')
             
+        else:
+            # print("Passwords do not match")
+            messages.error(request, "Passwords do not match")
+            return redirect('register')
         
     context = {
         'page':"register"

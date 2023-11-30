@@ -16,7 +16,7 @@
          {% for message in messages %}
             {% if message.tags == "success" %}
             <div class="alert success-alert">
-               <h3>Success Alert Message</h3>
+               <h3>{{message}}</h3>
                <a class="close">&times;</a>
             </div>
             {% elif message.tags == "error" %}
@@ -92,7 +92,7 @@
 									<ul class="requirement-list">
 										<li>
 											<i class="fa-solid fa-circle"></i>
-											<span>At least 8 to 12 characters length</span>
+											<span>At least 8 to 20 characters length</span>
 										</li>
 										<li>
 											<i class="fa-solid fa-circle"></i>
@@ -104,7 +104,7 @@
 										</li>
 										<li>
 											<i class="fa-solid fa-circle"></i>
-											<span>At least 1 special symbol (!...$)</span>
+											<span>At least 1 special symbol (#?!@$%^&*-_)</span>
 										</li>
 										<li>
 											<i class="fa-solid fa-circle"></i>
