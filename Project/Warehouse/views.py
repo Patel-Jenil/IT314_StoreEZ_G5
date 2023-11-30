@@ -43,18 +43,18 @@ def editprofile(request):
                 messages.error(request,"Phone number should contain 10 digits.")
                 flag=True
 
-            if user.first_name =="" :
+            if user.first_name.strip() =="" :
                 messages.error(request,"Invalid First name!")    
                 flag=True
 
-            if user.last_name =="" :
+            if user.last_name.strip() =="" :
                 messages.error(request,"Invalid Last name!")    
                 flag=True 
 
             if flag:
                 return redirect('warehouse_editprofile' )
-            warehouse_owner.first_name = user.first_name
-            warehouse_owner.last_name = user.last_name
+            warehouse_owner.first_name = user.first_name.strip()
+            warehouse_owner.last_name = user.last_name.strip()
             warehouse_owner.phone_no = user.phone_no
             warehouse_owner.image = user.image
             if warehouse_owner.image == "": # If owner clears him image then set default value
@@ -147,6 +147,10 @@ def addunit(request, id):
         if price == "" or float(price) <= 0:
             messages.error(request, "Invalid Price")
             flag = True
+        
+        if type != 'Hot' and type != 'Cold':
+            messages.error(request, "Don't mess with Dev tools")
+            flag = 1
             
         warehouse = Warehouse.objects.get(id = id)
         if flag:
@@ -185,20 +189,55 @@ def editunit(request, id, id1):
 @login_required(login_url='login')  
 def addwarehouse(request):
     warehouse_image = Warehouse().image
-    print(warehouse_image)
+    # print(warehouse_image)
     if request.method == 'POST':
-        name = request.POST.get('name')
-        address = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        poc_name = request.POST.get('poc_name')
+        name = request.POST.get('name').strip()
+        address = request.POST.get('address').strip()
+        city = request.POST.get('city').strip()
+        state = request.POST.get('state').strip()
+        poc_name = request.POST.get('poc_name').strip()
         phone_no = request.POST.get('phone_no')
         latitude = request.POST.get('latitude')
         longitude = request.POST.get('longitude')
-    
-        print(request.user.id)
+        # Validations
+        flag=False
+        if phone_no =="" or int(phone_no) <1000000000 or int(phone_no) >9999999999:
+            messages.error(request,"Phone number should contain 10 digits.")
+            flag=True
+        
+        if not( -90 <= float(latitude) <= 90):
+            messages.error(request,"Invalid latitude!")
+            flag=True
+            
+        if not( -180 <= float(longitude) <= 180):
+            messages.error(request,"Invalid latitude!")
+            flag=True
+
+        if name =="" :
+            messages.error(request,"Invalid Name!")    
+            flag=True
+            
+        if city =="" :
+            messages.error(request,"Invalid city!")    
+            flag=True
+        
+        if state =="" :
+            messages.error(request,"Invalid state!")    
+            flag=True
+        
+        if poc_name =="" :
+            messages.error(request,"Invalid Point of contact person Name!")    
+            flag=True
+
+        if address =="" :
+            messages.error(request,"Invalid address!")    
+            flag=True 
+
+        if flag:
+            return redirect('add_warehouse' )
+        # print(request.user.id)
         warehouse_owner = Warehouse_owner.objects.get(email = request.user.email)
-        print(warehouse_owner)
+        # print(warehouse_owner)
         user = Warehouse(name = name, address = address, city = city, state = state, poc_name = poc_name , poc_phone_no=phone_no,owner = warehouse_owner , longitude = longitude , latitude = latitude)
         user.save()
         return redirect('warehouses')

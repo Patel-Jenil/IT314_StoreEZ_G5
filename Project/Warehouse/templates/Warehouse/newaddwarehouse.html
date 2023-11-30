@@ -10,7 +10,36 @@
 {% endblock css%}
 
 {% block content %}
-<div class="page-content">
+<div class="page-content" style="flex-direction: column">
+{% if messages %}
+        <script>
+            function closeAlert(element) {
+                var alert = element.parentElement;
+                alert.style.display = 'none';
+            }
+        </script>
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+                <h3>Success Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+                <h3>{{message}}</h3>
+                <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+                <h3>Warning Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
     <div class="form-v10-content">
         <form class="form-detail" id="myform" method="post" {# enctype="multipart/form-data" #} >
             {% csrf_token %}
@@ -20,10 +49,10 @@
                     <input type="text" name="name" id="name" class="input-text" placeholder="Warehouse Name" required>
                 </div>
                 <div class="form-row">
-                    <input type="text" id="poc_name" name="poc_name" class="input-text" placeholder="Warehouse Owner Name" required>
+                    <input type="text" id="poc_name" name="poc_name" class="input-text" placeholder="Point of Contact Person Name" required>
                 </div>
                 <div class="form-row">
-                    <input type="text" id="phone_no" name="phone_no" class="phone" placeholder="Warehouse Owner Ph.No" required>
+                    <input type="text" id="phone_no" name="phone_no" class="phone" placeholder="Point of Contact Phone No." required>
                 </div>
 
             </div>
