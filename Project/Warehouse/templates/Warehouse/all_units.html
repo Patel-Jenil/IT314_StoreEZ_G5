@@ -41,7 +41,7 @@
         
         
       <div class="row">
-        {% for unit in  units%}
+        {% for unit in  data%}
         <div class="col-xl-3 col-md-3 col-sm-6 col-6">
           <div class="ag-courses_item">
             <a href="{% url 'unit' warehouse.id unit.id %}" class="ag-courses-item_link">
@@ -73,4 +73,23 @@
       </div>
       
   </div>
+
+  <nav aria-label="..."style="color: blue;">
+    <ul class="pagination pagination-sm justify-content-center" ">
+      {% if data.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a> </li>
+      <li class="page-item"> <a class="page-link" href="?page={{data.previous_page_number}}">Previous</a> </li>
+      {% endif %}
+      
+      {%for i in nums %}
+      <li class="page-item "><a class="page-link" href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>{{i}}
+      {%endfor%}
+  
+      <li class="page-item disabled><a href="#" class="page-link">{% if data.has_next %}</a></li>
+  
+      <li class="page-item"><a class="page-link" href="?page={{data.next_page_number}}">Next</a> </li>
+      {% endif %}
+  
+    </ul>
+  </nav>
 {% endblock content %}

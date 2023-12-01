@@ -84,7 +84,7 @@
           <input type="submit" class="btn btn-light btn-lg mg m-2 pb-2">
         </form>
           {% comment %} <a href="{% url 'search' %}"> <b>Cancel</b></a> {% endcomment %}
-        <form action="{% url 'search'%}" method="post">
+        <form action="{% url 'search'%}" method="get">
           {% csrf_token %}
           <input type="hidden" id="id_startdate" name="startdate" value="{{startdate}}">
           <input type="hidden" id="id_startdate" name="enddate" value="{{enddate}}">

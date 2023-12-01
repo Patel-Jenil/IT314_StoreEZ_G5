@@ -50,7 +50,7 @@
           <th>Contact No.</th>
           <th>Booking Status</th>
         </tr>
-        {% for booking in current_booking %}
+        {% for booking, booking_status in data %}
         <tr class="not-heading">
           <td data-cell="Booking Number" style="width:15%;"> {{booking.id}} </td>
           <td data-cell="Start Date">{{ booking.start_date}}</td>
@@ -58,25 +58,28 @@
           <td data-cell="Description" style="width:40%;">{{ booking.description}}</td>
           <td data-cell="Booked By">{{ booking.farmer}}</td>
           <td data-cell="Contact No.">{{ booking.farmer.phone_no}}</td>
-          <td class="on-going" data-cell="Booked Status" class="on-going"><b>On going</b></td>
-        </tr>
-        {% endfor %}
-        
-
-        {% for booking in prev_booking %}
-        <tr>
-          <td data-cell="Booking Number" style="width:15%;"> {{booking.id}} </td>
-          <td data-cell="Start Date">{{ booking.start_date}}</td>
-          <td data-cell="End Date">{{ booking.end_date}}</td>
-          <td data-cell="Description" style="width:40%;">{{ booking.description}}</td>
-          <td data-cell="Booked By">{{ booking.farmer}}</td>
-          <td data-cell="Contact No.">{{ booking.farmer.phone_no}}</td>
-          <td class="completed" data-cell="Booked Status"><b>Completed</b></td>
-        </tr>
+          <td {% if booking_status == 'Completed' %}class="completed" {% else %}class="on-going"{% endif %}  data-cell="Booked Status"><b>{{booking_status}}</b></td>        </tr>
         {% endfor %}
 
       </table>
     </div>
   </div>
-
+  <nav aria-label="..."style="color: blue;">
+    <ul class="pagination pagination-sm justify-content-center" ">
+      {% if data.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a> </li>
+      <li class="page-item"> <a class="page-link" href="?page={{data.previous_page_number}}">Previous</a> </li>
+      {% endif %}
+      
+      {%for i in nums %}
+      <li class="page-item "><a class="page-link" href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>{{i}}
+      {%endfor%}
+  
+      <li class="page-item disabled><a href="#" class="page-link">{% if data.has_next %}</a></li>
+  
+      <li class="page-item"><a class="page-link" href="?page={{data.next_page_number}}">Next</a> </li>
+      {% endif %}
+  
+    </ul>
+  </nav>
 {% endblock %}

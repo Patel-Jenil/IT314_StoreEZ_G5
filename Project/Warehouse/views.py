@@ -86,23 +86,38 @@ def all_units(request, id):
     warehouse = Warehouse.objects.get(id = id)
     units = warehouse.unit_set.all()
     # print(units)
-    context = {'units':units, 'warehouse':warehouse}
+    paginator = Paginator(units, 4)  # TODO:Show 12/16 Bookings per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    count=Warehouse.objects.count()
+    nums= "." *page_obj.paginator.num_pages
+    context={'data':page_obj,'warehouse':warehouse,'nums':nums, 'units':units,}
     return render(request,'warehouse/all_units.html',context)
 
 @login_required(login_url='login')  
 def unit(request, id, id1):
     warehouse = Warehouse.objects.get(id=id)
     unit = Unit.objects.get(id=id1)
-    
-    all_bookings = Booking.objects.filter(unit=id1)
+
+    all_bookings = Booking.objects.filter(unit=id1).order_by('-end_date')
     # print("booking :",all_bookings)
+    data_list = []
+    for booking in all_bookings:
+        if booking.end_date >= date.today():
+            booking_status = 'On going'
+        else:
+            booking_status = 'Completed'
+        data_list.append((booking,booking_status))
     
-    current_date = timezone.now().date()
-    
-    current_booking = all_bookings.filter(end_date__gte=current_date).order_by('-end_date')
-    prev_booking = all_bookings.filter(end_date__lt=current_date).order_by('-end_date')
+    # current_booking = all_bookings.filter(end_date__gte=current_date).order_by('-end_date')
+    # prev_booking = all_bookings.filter(end_date__lt=current_date).order_by('-end_date')
     # print(prev_booking)
-    context = {'warehouse':warehouse, 'unit':unit, 'current_booking':current_booking, 'prev_booking': prev_booking, 'id':id}
+    paginator = Paginator(data_list, 5)  # TODO:Show 10/15 Bookings per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    count=Warehouse.objects.count()
+    nums= "." *page_obj.paginator.num_pages
+    context={'data':page_obj,'warehouse':warehouse,'nums':nums, 'unit':unit, 'id':id}
     return render(request, 'warehouse/unit.html', context)
 
 
