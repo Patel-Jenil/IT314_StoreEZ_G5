@@ -6,7 +6,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'Warehouse/css/neweditprofile.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Warehouse/css/editprofile.css' %}"/>
+    <script defer src="{% static 'Warehouse/script/register.js' %}"></script>
 {% endblock css%}
 
 {% block content %}
@@ -72,13 +73,13 @@
                     <input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
                 </div>
                 <div class="form-row">
-                    <input class="text--input-box" type="text" id="latitude" name="latitude" step="any" placeholder="Enter your latitude"    required />
+                    <input class="text--input-box" type="number" id="latitude" name="latitude" step="any" placeholder="Enter your latitude"    required />
                 </div>
                 <div class="form-row">
-                    <input class="text--input-box" type="text" id="longitude" name="longitude" step="any"  placeholder="Enter your longitude"
+                    <input class="text--input-box" type="number" id="longitude" name="longitude" step="any"  placeholder="Enter your longitude"
                     required  />
                 </div>
-                <button class="button-8">
+                <button class="button-8" type='button'>
                     <span
                     ><svg
                     xmlns="http://www.w3.org/2000/svg"

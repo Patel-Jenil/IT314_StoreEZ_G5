@@ -86,9 +86,11 @@
                                     <label class="input-group-text">Latitude</label>
                                 </div>
                                     <input
-                                        type="text"
+                                        type="number"
+                                        step="any"
                                         name="latitude"
                                         id="latitude"
+                                        value="{{latitude}}"
                                         placeholder="Enter your latitude"
                                         required
                                         class="form-control datepicker"
@@ -99,9 +101,11 @@
                                     <label class="input-group-text">Longitude</label>
                                 </div>
                                     <input
-                                    type="text"
+                                    type="number"
+                                    step="any"
                                     name="longitude"
                                     id="longitude"
+                                    value="{{longitude}}"
                                     placeholder="Enter your longitude"
                                     required
                                     class="form-control datepicker"
@@ -112,7 +116,7 @@
                         </div>
                         <div class="" style="display:flex; justify-content:center;margin-top:10px;">
                             <div class="input-box Detect-location ">
-                                <button class="button-8 form-control datepicker">
+                                <button class="button-8 form-control datepicker" type='button'>
                                     <span
                                         ><svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +184,7 @@
 
     <div class="">
     <div class="row m-0">
-        {% for warehouse_data in warehouses_with_unit %}
+        {% for warehouse_data in data %}
             <div class="card col-9 my-2 bg-green px-0 card-col">
 
                 <div class="card-body">
@@ -206,8 +210,8 @@
                             <td class="td-value" style="text-align:center">{{warehouse_data.cold_capacity}}</th>
                         </tr>
                         <tr>
-                            <td>Distance</td>
-                            <td>{{warehouse_data.distance |floatformat:"0" }}</td>
+                            <td>Distance:</td>
+                            <td>{{warehouse_data.distance |floatformat:"2" }} km</td>
                         </tr>
                     </table>
                     
@@ -216,7 +220,23 @@
             
         {% endfor %}
     </div>
-    </div>
+</div>
 
+<nav aria-label="..."style="color: blue;">
+    <ul class="pagination pagination-sm justify-content-center" ">
+        {% if data.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">&laquo First</a> </li>
+        <li class="page-item"> <a class="page-link" href="?page={{data.previous_page_number}}&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">Previous</a> </li>
+        {% endif %}
+        
+        {%for i in nums %}
+        <li class="page-item "><a class="page-link" href="?page={{forloop.counter}}&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">{{forloop.counter}}</a></li>{{i}}
+        {%endfor%}
     
+        <li class="page-item disabled><a href="#" class="page-link">{% if data.has_next %}</a></li>
+    
+        <li class="page-item"><a class="page-link" href="?page={{data.next_page_number}}&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">Next</a> </li>
+        {% endif %}
+    </ul>
+</nav>
 {% endblock %}

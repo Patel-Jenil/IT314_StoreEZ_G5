@@ -217,8 +217,8 @@ def search(request):
     # if request.method == 'POST':
     start_date = request.GET.get('startdate','')
     end_date = request.GET.get('enddate', '')
-    latitude = request.GET.get('latitude')
-    longitude = request.GET.get('longitude')
+    latitude = request.GET.get('latitude','')
+    longitude = request.GET.get('longitude','')
     # print("------------------------",type(latitude))
     
     if (not start_date and end_date) or (not end_date and start_date) or start_date > end_date:
@@ -280,8 +280,7 @@ def search(request):
         
         
         nearby_warehouse_list = []
-        
-        if latitude != None:
+        if latitude != '' and longitude != '':
             latitude = float(latitude)
             longitude = float(longitude)
             for w in warehouses_with_unit:
@@ -295,7 +294,20 @@ def search(request):
         # print(longitude,latitude)
         # print(nearby_warehouse_list)
         print(nearby_warehouse_list)
-        context = {'warehouses_with_unit': nearby_warehouse_list, 'startdate':start_date, 'enddate':end_date}
+        paginator = Paginator(nearby_warehouse_list, 4)  # Show 16 Bookings per page.
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        count=Warehouse.objects.count()
+        nums= "." *page_obj.paginator.num_pages
+
+        context={
+            "data": page_obj, # Keep it data as 'data' is used in template more than one place
+            'nums':nums,
+            'startdate':start_date,
+            'enddate':end_date,
+            'latitude':latitude,
+            'longitude':longitude,
+        }
     # print(warehouses)
         
     return render(request,'farmer/search.html',context)
