@@ -52,7 +52,7 @@
         </tr>
         {% for booking, booking_status in data %}
         <tr class="not-heading">
-          <td data-cell="Booking Number" style="width:15%;"> {{booking.id}} </td>
+          <td data-cell="Booking Number" style="width:15%;"><a href="{% url 'warehouse_invoice' booking.id %}?back={{request.build_absolute_uri}}">Booking {{booking.id}}</a></td>
           <td data-cell="Start Date">{{ booking.start_date}}</td>
           <td data-cell="End Date">{{ booking.end_date}}</td>
           <td data-cell="Description" style="width:40%;">{{ booking.description}}</td>

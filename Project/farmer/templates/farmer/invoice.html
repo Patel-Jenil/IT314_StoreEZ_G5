@@ -40,7 +40,7 @@
 
 <body>
 
-<section>
+<section id='invoice'>
   <div class="invoice">
     <div class="header">
       <div class="i_row">
@@ -154,7 +154,7 @@
           <div class="i_row grand_total_wrap">
             <div class="i_col w_50">
             </div>
-            <div class="i_col w_50 grand_total">
+            <div class="i_col w_50 grand_total" id='grand_total'>
               <p><span>GRAND TOTAL :</span>
                 <span>{{price}}</span>
               </p>
@@ -176,7 +176,19 @@
 </section>
 {%endif%}
 <button class="btn btn-light btn-lg mg m-2 pb-1" onclick="location.href='{% if back %}{{back}}{% else %}{% url 'farmer_currentbooking' %}{% endif %}'" type='button'> Back </button>
+<button class="btn btn-light btn-lg mg m-2 pb-1" onclick="DownloadPDF('invoice')" type='button'> Download PDF </button>
 
 {%endblock%}
-</body>
-</html>
+
+{% block js %}
+  <script type='text/javascript'>
+    function DownloadPDF(p) {
+      var full_body = document.body.innerHTML;
+      var invoice_body = document.getElementById(p).innerHTML;
+      document.body.innerHTML = invoice_body;
+      document.getElementById("grand_total").style = "color:green; font-size: larger; background-color:rgb(1, 108, 15)"; // BG-color is not working
+      window.print();
+      document.body.innerHTML = full_body;
+    }
+  </script>
+{% endblock js %}
