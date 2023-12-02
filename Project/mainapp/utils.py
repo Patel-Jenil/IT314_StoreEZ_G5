@@ -16,7 +16,7 @@ def send_verification_email(request,user,flag):
         'domain':current_site,
         'uid':urlsafe_base64_encode(force_bytes(user.pk)),
         'token':default_token_generator.make_token(user),
-        'flag':flag
+        'flag':urlsafe_base64_encode(force_bytes(flag))
     })
     
     to_email = user.email

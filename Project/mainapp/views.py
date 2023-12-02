@@ -44,6 +44,7 @@ def homepage(request):
 def activate(request,uidb64, token,flag):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
+        flag = urlsafe_base64_decode(flag).decode()
         user = User._default_manager.get(pk = uid)
     except(TypeError,ValueError, OverflowError, User.DoesNotExist):
         user = None
@@ -56,9 +57,9 @@ def activate(request,uidb64, token,flag):
         elif Warehouse_owner.objects.filter(email = user.email).exists():
             messages.success(request,'Warehouse owner already verified.')
             return redirect('login')
-            
         user.is_active = True
         user.save()
+        token = default_token_generator.make_token(user)
         print(flag, type(flag))
         if flag == 1:
             owner = Warehouse_owner.objects.create(email = user.email)
