@@ -3,6 +3,7 @@ from django.urls import reverse, resolve
 from django.contrib.auth.models import User
 
 
+print("=> Jenil Testing: Sign in")
 class TestSignIn(TestCase):
     def setUp(self):
         self.client = Client()
@@ -56,9 +57,8 @@ class TestSignIn(TestCase):
         self.assertTrue(response.url == self.url and response.status_code == 302)
 
 
-
+print("=> Jenil Testing: Sign Up")
 class TestSignUp(TestCase):
-    
 
     def setUp(self):
         self.client = Client()
