@@ -2,9 +2,8 @@
 {% load static %}
 {% block title %} StoreEZ | Book {% endblock title %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'farmer/tableunit.css' %}">
-<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" /> -->
-<link rel="stylesheet" href="{% static 'farmer/style5.css' %}">
+<link rel="stylesheet" href="{% static 'farmer/css/tableunit.css' %}">
+
 <link rel="stylesheet" href="{% static 'farmer/css/cascade.css' %}" />
 
 {% endblock %}
@@ -15,10 +14,14 @@
 
 
 <div class="outer-box container-fluid " >
-  <div class="bg-dgreen">
-      <div class="bg-dgreen py-3 d-flex flex-column justify-content-end align-items-center mb-4 rempad">
-          <div class="font-large"> <h2 class="text-center ff" style="font-size: 100%; text-decoration-line:none; -webkit-text-fill-color: white;">Select Number of Units to Book</h2><h4 style="color:white">Warehouse {{id}}</h4>
-            <h5 style="color:white">Dates range: {{startdate}} - {{enddate}}</h5></div>
+  <div class="" style="background-color: #016C0F;">
+      <div class="py-3 d-flex flex-column justify-content-end align-items-center mb-4 rempad">
+          <div class="font-large"> 
+            <h2 class="ff" style="font-size: 100%; text-decoration-line:none; -webkit-text-fill-color: white;">
+              Select Number of Units to Book</h2>
+            <h4 style="color:white">Warehouse {{id}}</h4>
+            <h5 style="color:white">Dates range: {{startdate}} - {{enddate}}</h5>
+          </div>
           <div class="w-100">
           </div>
           
@@ -32,11 +35,11 @@
     <div class="container mx-5 p-5"> -->
       <form action="" method="post">
         {% csrf_token %}
-        <!-- <div class="table-layout">
-          <h1 class="text-center ff" style="font-size: 210%">Select Number of Units to be Booked</h1>
-        </div> -->
-
         <div class="table-layout">
+          <h1 class="text-center ff" style="font-size: 210%">Select Number of Units to be Booked</h1>
+        </div>
+
+        <!-- <div class="table-layout">
         <table class="table table-hover table-striped" style="border-radius:20px;  background-image: url({%static 'farmer/bg.png' %})">
           <thead>
             <tr>
@@ -61,8 +64,38 @@
           </tbody>
           {% endfor %}
           </table>
+        </div> -->
+        <div class="table-container">
+          <table>
+            <tr>
+              <th>Units</th>
+              <th>Type</th>
+              <th>Capacity</th>
+              <th>Price (₹ per day)</th>
+              <th>Price (₹)</th>
+            </tr>
+            {% for unit in units %}
+            <tr>
+              <td data-cell="{{unit.id}}">
+                <input class="form-check-input" name="checkbox" type="checkbox" value="{{unit.id}}">
+                <label class="form-check-label ff" for="defaultCheck1" style="font-size: 138%;">
+                  Unit {{unit.id}}
+                </label></td>
+              <td data-cell="Unit Type" style="width:15%;">{{unit.type}}</td>
+              <td data-cell="Unit Capacity">{{unit.capacity}}</td>
+              <td data-cell="Unit Price">{{unit.price}}</td>
+              <td data-cell="Price Total" id="totalPriceDisplay"></td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <td></td>
+              <td ></td>
+              <td data-cell="Start Date"></td>
+              <td data-cell="End Date"><b>Total Price:</b> </td>
+              <td data-cell="End Date"><b>₹15000</b></td>
+            </tr>
+          </table>
         </div>
-
       <!-- {% for unit in units %}
         <div class="form-check py-3">
           <input class="form-check-input" name="checkbox" type="checkbox" value="">
@@ -80,23 +113,25 @@
             placeholder="Provide description for your warehouse">
         </div>
 
-        <div>
-          <input type="submit" class="btn btn-light btn-lg mg m-2 pb-2">
-        </form>
-          {% comment %} <a href="{% url 'search' %}"> <b>Cancel</b></a> {% endcomment %}
+        <div class="submit-btn">
+          <input type="submit" class="" >
+        </div>
+      </form>
+
+      <div class="cancel-btn" style="width: 20%;">
         <form action="{% url 'search'%}" method="get">
           {% csrf_token %}
           <input type="hidden" id="id_startdate" name="startdate" value="{{startdate}}">
           <input type="hidden" id="id_startdate" name="enddate" value="{{enddate}}">
-          <button class="btn btn-light btn-lg mg m-2 pb-2" onclick="location.href='{% url 'search' %}'" type='submit'> Cancel </button>
+          <button  onclick="location.href='{% url 'search' %}'" type='submit'> Cancel </button>
         </form>
-          {% comment %} <button type="button" class="btn btn-light btn-lg ">Submit</button> {% endcomment %}
-        </div>
-    </div>
-  </div>
+      </div>
+      
+</div>
 
 
-  <script>
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
       ////// Total Price
       function calculateTotalPrice() {
@@ -149,10 +184,9 @@
       var form = document.querySelector('form');
       form.addEventListener('submit', checkUnitsSelection);
     });
-  </script>
+</script>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
 {% endblock %}

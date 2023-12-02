@@ -76,6 +76,90 @@
     </div> 
 </form>
 
+<!-- New Code -->
+<div class="container-fluid mx-0 text-white ff"
+        style="background-color: #25381b;">
+        <div class="container">
+            <h3 class="text-center" style="font-size: 250%;">Select date range and warehouse to book</h3>
+        </div>
+        <div class="row my-2 py-2 ">
+            <div class="col-12 col-sm-6 d-flex my-2  px-md-5">
+                <div class="bg-successful rounded-2 d-flex align-items-center"><h5 class="px-1 mb-0" style="font-size: 130%; color: #90bc79; border-color: #90bc79; width: 150%;">From: </h5></div>
+                <div class="input-group date px-3" data-provide="datepicker">
+                    <input type="date" class="form-control px-0">
+
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 d-flex my-2  px-md-5">
+                <div class="bg-successful rounded-2 d-flex align-items-center"><h5 class="px-1 mb-0" style="font-size: 130%; color: #90bc79; border-color: #90bc79; width: 150%;">To: </h5></div>
+                <div class="input-group date px-3" data-provide="datepicker">
+                    <input type="date" class="form-control">
+
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="row my-2 py-2 ">
+            <div class="col-12 col-sm-5 my-2 ">
+                <div class="d-flex align-items-center justify-content-center">
+                <div class="dropdown">
+                    <button class="btn btn-success btn-lg btn-clr dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                      Select City
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+
+            <div class="col-12 col-sm-2 d-flex align-items-center justify-content-center my-2  px-md-5">
+            <h5>OR</h5>
+            </div>
+            <div class="col-12 col-sm-5 d-flex my-2 align-items-center justify-content-center px-md-5">
+                
+                <button type="button" class="btn btn-success btn-lg btn-clr">
+                    Detect Location</button>
+            </div>
+
+        </div>    
+            
+        <div class="row my-2 py-2 ">
+        <div class="col-12 col-sm-6 d-flex my-2  px-md-5">
+            <div class="bg-successful rounded-2 d-flex align-items-center"><h5 class="px-2 mb-0" style="font-size: 130%; color: #90bc79; border-color: #90bc79; width: 150%;">Latitude: </h5></div>
+            <div class="input-group text px-4" >
+                <input type="text" class="form-control px-0">
+                
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 d-flex my-2  px-md-5">
+            <div class="bg-successful rounded-2 d-flex align-items-center"><h5 class="px-2 mb-0" style="font-size: 130%; color: #90bc79; border-color: #90bc79; width: 150%;">Longitude: </h5></div>
+            <div class="input-group text px-4">
+                <input type="text" class="form-control">
+
+            </div>
+        </div>
+
+    </div>
+            
+            
+          
+                
+        
+
+        
+
+        <div class="container d-flex justify-content-center py-3">
+            <button type="button" class="btn btn-primary btn-lg btn-clr1 text-black" >Submit</button>
+        </div>
+    </div> 
+<!-- End code -->
+
 <div class="row ">
     {% for warehouse_data in data %}
     <div class="col-lg-4 col-md-6 col-12 d-flex justify-content-center">

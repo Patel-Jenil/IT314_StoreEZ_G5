@@ -64,3 +64,52 @@ td{
  .td-value{
     text-align: center;
 } 
+
+.ff{
+    font-family: "Times New Roman", Times, serif;
+}
+
+.redw{
+    margin: auto;
+    width: 60%;
+}
+
+.submit-btn{
+    margin: auto;
+    max-width: 20%;
+}
+
+.submit-btn input{
+    padding: 0.5%;
+    background-color: #016C0F;
+    width: 100%;
+    margin: 1%;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 20px;
+}
+.submit-btn input:hover{
+    background-color: #121212;
+    font-size: 1.5rem;
+}
+
+.cancel-btn{
+    margin: auto;
+    width: 20%;
+}
+
+.cancel-btn button{
+    margin: auto;
+    padding: 0.5%;
+    background-color: #016C0F;
+    width: 100%;
+    margin: 1%;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 20px;
+}
+
+.cancel-btn button:hover{
+    background-color: #121212;
+
+}
