@@ -1,0 +1,12 @@
+.form-right .drpdwn{
+  border:0;
+  border-bottom:1px solid;
+  border-bottom-color:rgba(255, 255, 255, 0.3);
+  border-width:1px;
+  background:none;
+  height:40px;
+  font-size:15px;
+  width:100%;
+  text-align: center;
+  font-family:'Montserrat', sans-serif;
+}

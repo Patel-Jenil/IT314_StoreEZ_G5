@@ -1,0 +1,38 @@
+.iti__selected-flag {
+    top: 6px;
+    height: 33px !important;
+    border-radius: 4px;
+    transition: .3s;
+}
+input#phone {
+    padding-left: 47px !important;
+  	top: 6px;
+}  
+.intl-tel-input .flag-dropdown .selected-flag {
+  padding: 11px 16px 11px 6px;
+}
+.intl-tel-input {
+  z-index: 99;
+  width: 100%;
+}
+.iti-flag {
+  box-shadow: none;
+}
+.intl-tel-input .selected-flag:focus {
+  outline: none;
+}
+.iti--allow-dropdown .iti__flag-container:hover .iti__selected-flag {
+    background-color: rgba(0, 0, 0, 0.05);
+}  
+.iti--allow-dropdown input{
+    padding-right: 6px;
+    padding-left: 52px;
+    margin-left: 0;
+}
+.iti__country-list {
+    border-radius: 4px !important;
+    z-index: 999 !important;
+    box-shadow: 0 0 16px 0 rgb(0 0 0 / 8%) !important;
+    border: 1px solid #ececec !important;
+  	width: 270px !important;
+}
