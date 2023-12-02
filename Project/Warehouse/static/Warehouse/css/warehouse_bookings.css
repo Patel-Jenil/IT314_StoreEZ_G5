@@ -15,18 +15,18 @@ body{
   
   border:solid;
   border-width:1px;
-  border-color:#90bc79;
+  border-color:#11400c;
   margin: auto;
   max-width: 90%;
   border-radius:15px;
 }
 
 .box{
-  background-color: #4f6f52;
+  background-color: #11400c;
   margin-bottom: 10px ;
 }
 .top-box h2,h5{
-  color: #fff;
+  color: #11400c;
   padding: 1px;
   margin:20px;
 }
