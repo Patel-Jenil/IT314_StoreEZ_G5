@@ -3,7 +3,7 @@
 {% load jenil_multiply_tag %}
 {% block title %} Farmer | Booking {% if booking.id %}{{booking.id}}{% else %}???{% endif %} {% endblock title %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'farmer/Invoice.css' %}">
+<link rel="stylesheet" href="{% static 'farmer/css/Invoice.css' %}">
 
 {% endblock %}
 {% block content %}
@@ -169,14 +169,31 @@
           <p class="p_title">Payment Method</p>
           <p>Card/UPI/NetBanking</p>
         </div>
-        
       </div>
-    </div>
+        <div class="i_row">
+          <div class="i_col w_50">
+            <button class="btn btn-light" style="background-color: rgb(1, 108, 15); color: #fff;" 
+            onclick="location.href='{% if back %}{{back}}{% else %}{% url 'farmer_currentbooking' %}{% endif %}'" 
+            type='button'>
+            <span>Back</span>
+            </button>
+          </div>
+          <div class="i_col w_50" style="text-align: right;">
+            <button class="btn btn-light" style="background-color: rgb(1, 108, 15); color: #fff;"
+            onclick="DownloadPDF('invoice')" 
+            type='button'> 
+            Download PDF 
+            </button>
+
+          </div>
+        </div>
+      </div>
+    
   </div>
 </section>
 {%endif%}
-<button class="btn btn-light btn-lg mg m-2 pb-1" onclick="location.href='{% if back %}{{back}}{% else %}{% url 'farmer_currentbooking' %}{% endif %}'" type='button'> Back </button>
-<button class="btn btn-light btn-lg mg m-2 pb-1" onclick="DownloadPDF('invoice')" type='button'> Download PDF </button>
+<!-- <button class="btn btn-light btn-lg mg m-2 pb-1" onclick="location.href='{% if back %}{{back}}{% else %}{% url 'farmer_currentbooking' %}{% endif %}'" type='button'> Back </button>
+<button class="btn btn-light btn-lg mg m-2 pb-1" onclick="DownloadPDF('invoice')" type='button'> Download PDF </button> -->
 
 {%endblock%}
 

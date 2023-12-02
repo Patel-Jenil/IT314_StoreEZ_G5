@@ -10,12 +10,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Ubuntu", sans-serif;
 }
 
 body {
     background: var(--bg-clr);
-    font-size: 12px;
     line-height: 20px;
     color: var(--primary-clr);
     padding: 0 20px;
@@ -29,6 +27,9 @@ body {
     padding: 50px 60px;
     position: relative;
     margin: 20px auto;
+    font-size: 12px;
+    font-family: "Ubuntu", sans-serif;
+
 }
 
 .w_15 {
@@ -142,4 +143,8 @@ body {
 
 .grand_total {
     font-size: larger;
+}
+/* new css */
+.button>svg{
+    fill: rgb(1, 108, 15);
 }
