@@ -223,7 +223,23 @@ def search(request):
     
     if (not start_date and end_date) or (not end_date and start_date) or start_date > end_date:
         messages.error(request, "Invalid Dates")
-        context = {'startdate':date.today().strftime('%Y-%m-%d'), 'enddate':date.today().strftime('%Y-%m-%d')}
+        isError = 'Invalid Dates'
+        context = {'isError': isError,'startdate':date.today().strftime('%Y-%m-%d'), 'enddate':date.today().strftime('%Y-%m-%d')}
+    elif (latitude!='' and longitude!='') and (not(-90<= float(latitude) <=90) or not(-180<=float(longitude) <= 180)): 
+        latitude = float(latitude)
+        longitude = float(longitude)
+        context = {'startdate':start_date,'enddate':end_date}
+        if not(-90<= latitude <=90) and not(-180<=longitude <= 180):
+            messages.error(request,'Invalid Latitude (-90 to 90) and Longitude (-180 to 180).')
+            context['isError'] = 'Invalid Latitude and Longitude'
+        elif not(-90<= latitude <=90):
+            messages.error(request,'Invalid Latitude. It ranges from -90 to 90.')
+            context['longitude'] = longitude
+            context['isError'] = 'Invalid Latitude'
+        elif not(-180<=longitude <= 180):
+            messages.error(request,'Invalid Longitude. It ranges from -180 to 180.')
+            context['latitude'] = latitude
+            context['isError'] = 'Invalid Longitude'
     else:
         if start_date == '':
             start_date = date.today().strftime('%Y-%m-%d')
@@ -311,89 +327,6 @@ def search(request):
     # print(warehouses)
         
     return render(request,'farmer/search.html',context)
-    # unit = Booking.objects.all()
-    
-    # if request.method == 'POST':
-    start_date = request.GET.get('startdate','')
-    end_date = request.GET.get('enddate', '')
-    latitude = request.GET.get('latitude')
-    longitude = request.GET.get('longitude')
-    print("------------------------",type(latitude))
-    
-    if (not start_date and end_date) or (not end_date and start_date) or start_date > end_date:
-        messages.error(request, "Invalid Dates")
-        context = {'startdate':date.today().strftime('%Y-%m-%d'), 'enddate':date.today().strftime('%Y-%m-%d')}
-    else:
-        if start_date == '':
-            start_date = date.today().strftime('%Y-%m-%d')
-        # else:
-            # pass
-            # start_date = datetime.strptime(start_date, '%d-%m-%Y').strftime('%Y-%m-%d')
-        if end_date == '':
-            end_date = date.today().strftime('%Y-%m-%d')
-        # else:
-            # pass
-            # end_date = datetime.strptime(end_date, '%d-%m-%Y').strftime('%Y-%m-%d')
-        # start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
-        # end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
-        
-        # booked_units = Booking.objects.filter(start_date__lte=end_date, end_date__gte=start_date)
-        # booked_units = Booking.objects.filter(Q(Q(start_date__lte=end_date) & Q(end_date__gte=end_date)) | Q(Q(start_date__lte=start_date) & Q(end_date__gte=start_date)))\
-        #                     .values_list('unit', flat=True)
-        # booked_units = Booking.objects.filter(Q(start_date__lte=end_date,end_date__gte=end_date) | Q(start_date__lte=start_date,end_date__gte=start_date)). \
-        
-        # Jenil: booked_units = Booking.objects.filter(Q(start_date__gte=start_date,start_date__lte=end_date) | Q(end_date__gte=start_date,end_date__lte=end_date)). \
-        # Algorithm made by JENIL PATEL (202101074)
-        booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date). \
-            values_list('unit', flat=True).exclude(unit=None).distinct()
-        # print(booked_units)
-        print("Bookings: ",Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date).values_list(flat=True))
-        print("Booked_units: ",booked_units)
-        # warehouses = Warehouse.objects.values_list('name', 'id')
-        warehouses = Warehouse.objects.all()
-        
-        warehouses_with_unit = []
-        for warehouse in warehouses:
-            # units = warehouse.unit_set.all()
-            units = warehouse.unit_set.exclude(id__in=booked_units.values_list('unit'))
-            # for x in units:
-            #     print(x.type)
-            hot_units = 0
-            cold_units = 0
-            hot_capacity = 0
-            cold_capacity = 0
-            if len(units) > 0:
-                for x in units:
-                    if x.type == "Hot":
-                        hot_units += 1
-                        hot_capacity += x.capacity
-                    else:
-                        cold_units += 1
-                        cold_capacity += x.capacity
-            if len(units) > 0:
-                warehouses_with_unit.append({'warehouse': warehouse, 'hot_units': hot_units, 'hot_capacity':hot_capacity, 'cold_units':cold_units, 'cold_capacity':cold_capacity, 'latitude':warehouse.latitude, 'longitude':warehouse.longitude})
-            # print(units)
-        # print(warehouses_with_unit,longitude,latitude)
-        
-        
-        nearby_warehouse_list = []
-        
-        if latitude != None:
-            latitude = float(latitude)
-            longitude = float(longitude)
-            for w in warehouses_with_unit:
-                curr_dist = computeDistance(w['latitude'], w['longitude'], latitude, longitude)
-                w['distance'] = round(curr_dist, 2)
-                nearby_warehouse_list.append(w)
-
-            nearby_warehouse_list.sort(key=sortFunc)
-        print(longitude,latitude)
-        print(nearby_warehouse_list)
-        context = {'warehouses_with_unit': warehouses_with_unit, 'startdate':start_date, 'enddate':end_date}
-    # print(warehouses)
-        
-    return render(request,'farmer/search.html',context)
-
 
 @login_required(login_url='login')
 def book(request,id, start, end):

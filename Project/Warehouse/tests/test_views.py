@@ -6,6 +6,7 @@ from mainapp.models import Warehouse_owner, Warehouse
 from django.contrib.messages import get_messages
 
 
+print("=> Jenil Testing: Warehouse owner Edit Profile")
 class TestWarehouseOwnerEditProfile(TestCase):
     def setUp(self):
         self.client = Client()
@@ -58,6 +59,8 @@ class TestWarehouseOwnerEditProfile(TestCase):
             })
         self.assertTrue(response.status_code == 200) # Because Form will become invalid and if clause will pass
 
+
+print("=> Jenil Testing: Add Warehouse")
 class TestAddWarehouse(TestCase):
     def setUp(self):
         self.client = Client()
@@ -224,6 +227,8 @@ class TestAddWarehouse(TestCase):
         })
         self.assertTrue(response.url == reverse('add_warehouse') and response.status_code == 302)
 
+
+print("=> Jenil Testing: Add Warehouse Unit")
 class TestAddUnit(TestCase):
     def setUp(self):
         self.client = Client()
