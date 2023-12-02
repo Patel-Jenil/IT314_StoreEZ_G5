@@ -204,6 +204,7 @@
       var invoice_body = document.getElementById(p).innerHTML;
       document.body.innerHTML = invoice_body;
       document.getElementById("grand_total").style = "color:green; font-size: larger; background-color:rgb(1, 108, 15)"; // BG-color is not working
+      Array.from(document.getElementsByClassName('btn')).forEach(element => element.style.display = 'none');
       window.print();
       document.body.innerHTML = full_body;
     }
