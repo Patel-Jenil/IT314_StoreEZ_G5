@@ -5,15 +5,15 @@
 	<title>Edit Profile Form</title>
 	<!-- Mobile Specific Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+	<!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+	<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+	<!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"> -->
 	<!-- Main Style Css -->
 	<link rel="stylesheet" href="css/style.css"/>
 	<!-- styling for the phone code element -->
 	<!-- <link rel="stylesheet" href="css/style-phone.css"/> -->
 	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" crossorigin="anonymous" />
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" crossorigin="anonymous" /> -->
 
 </head>
 <body class="form-v10">
@@ -85,46 +85,6 @@
 		</div>
 	</div>
 
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js'></script>
-	<script>
-	// International telephone format
-	// $("#phone").intlTelInput();
-	// get the country data from the plugin
-	var countryData = window.intlTelInputGlobals.getCountryData(),
-		input = document.querySelector("#phone"),
-		addressDropdown = document.querySelector("#country");
-
-	// init plugin
-	var iti = window.intlTelInput(input, {
-		hiddenInput: "full_phone",
-		utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" // just for formatting/placeholders etc
-	});
-
-	// populate the country dropdown
-	for (var i = 0; i < countryData.length; i++) {
-		var country = countryData[i];
-		var optionNode = document.createElement("option");
-		optionNode.value = country.iso2;
-		var textNode = document.createTextNode(country.name);
-		optionNode.appendChild(textNode);
-		addressDropdown.appendChild(optionNode);
-	}
-	// set it's initial value
-	addressDropdown.value = iti.getSelectedCountryData().iso2;
-
-	// listen to the telephone input for changes
-	input.addEventListener('countrychange', function(e) {
-		addressDropdown.value = iti.getSelectedCountryData().iso2;
-	});
-
-	// listen to the address dropdown for changes
-	addressDropdown.addEventListener('change', function() {
-		iti.setCountry(this.value);
-	});
-	</script>
-	<script>
-	//Append Value To Phone Field
-	$("#phone").prop('value', '+1 ');
-	</script>
+	<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js'></script> -->
 </body>
 </html>

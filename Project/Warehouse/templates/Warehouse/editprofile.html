@@ -10,7 +10,6 @@
 {% endblock %}
 
 {% block content %}
-<div class="page-content" style="flex-direction: column">
 {% if messages %}
     <script>
         function closeAlert(element) {
@@ -39,60 +38,66 @@
 
     {% endfor %}
 {% endif %}
-    <div class="form-v10-content">
-        <form class="form-detail" action="" id="myform" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-left">
-                <h2>Profile</h2>
-                <div class="form-row">
-                    <img class="profile-img"; src="{{warehouse_owner_image.url}}"; style="width:180px !important">
-                    <!-- {{editprofile.image}} -->
-                </div>
-                <h2 style="margin-bottom:20px;">Select an image:</h2>
-                <div class="form-row-last">
-                    <label for="file-upload" class="custom-file-upload">
-                        <!-- This is svg for the upload icon-->
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
-                            <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"/>
-                        </svg>
-                        Upload Your Image
-                    </label>
-                        <input type="file" id="file-upload" name="image" class="image" accept="image/*">
-                </div>
-            </div>
-            
-            <div class="form-right">
-                <h2>General Details</h2>
-                <div class="form-row">
-                    {{editprofile.first_name}}
-                </div>
-                <div class="form-row">
-                    {{editprofile.last_name}}
-                </div>
-                <div class="form-row">
-                    {{editprofile.phone_no}}
-                </div>
-                <!-- <div class="form-row">
-                    <input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
-                </div> -->
-                <!-- <div class="form-checkbox">
-                    <label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
-                          <input type="checkbox" name="checkbox">
-                          <span class="checkmark"></span>
-                    </label>
-                </div> -->
-                <div class="form-row-last">
-                    <a href="{% url 'Warehouse_profile' %}">
-                        <input type="" name="cancel" class="cancel" id="c_button"value="Cancel"> 
-                    </a>
-                    <!-- <button onclick="location.href='{% url 'Warehouse_profile' %}'" type='button'> Cancel </button> -->
-                    <input type="submit" name="register" class="register" value="Confirm" />
-                    <!-- <input type="submit" name="register" class="register" value="Save Details"> -->
-                </div>
-            </div>
 
 
-        </form>
+<div class="form-v10">
+    <div class="class="page-content"">
+        <div class="form-v10-content">
+            <form class="form-detail" action="" id="myform" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-left">
+                    <h2>Profile</h2>
+                    <div class="form-row">
+                        <img class="profile-img"; src="{{warehouse_owner_image.url}}"; style="width:180px !important">
+                        <!-- {{editprofile.image}} -->
+                    </div>
+                    <h2 style="margin-bottom:20px;">Select an image:</h2>
+                    <div class="form-row-last">
+                        <label for="file-upload" class="custom-file-upload">
+                            <!-- This is svg for the upload icon-->
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
+                                <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"/>
+                            </svg>
+                            Upload Your Image
+                        </label>
+                            <input type="file" id="file-upload" name="image" class="image" accept="image/*">
+                    </div>
+                </div>
+                
+                <div class="form-right">
+                    <h2>General Details</h2>
+                    <div class="form-row">
+                        {{editprofile.first_name}}
+                    </div>
+                    <div class="form-row">
+                        {{editprofile.last_name}}
+                    </div>
+                    <div class="form-row">
+                        {{editprofile.phone_no}}
+                    </div>
+                    <!-- <div class="form-row">
+                        <input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
+                    </div> -->
+                    <!-- <div class="form-checkbox">
+                        <label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
+                              <input type="checkbox" name="checkbox">
+                              <span class="checkmark"></span>
+                        </label>
+                    </div> -->
+                    <div class="form-row-last">
+                        <a href="{% url 'Warehouse_profile' %}">
+                            <input type="" name="cancel" class="cancel" id="c_button"value="Cancel"> 
+                        </a>
+                        <!-- <button onclick="location.href='{% url 'Warehouse_profile' %}'" type='button'> Cancel </button> -->
+                        <input type="submit" name="register" class="register" value="Confirm" />
+                        <!-- <input type="submit" name="register" class="register" value="Save Details"> -->
+                    </div>
+                </div>
+    
+    
+            </form>
+        </div>
     </div>
 </div>
+    
 {% endblock %}

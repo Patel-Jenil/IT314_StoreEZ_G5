@@ -1,10 +1,11 @@
+
 .ag-format-container {
   width: 1142px;
   margin: 0 auto;
 }
 
 h1{
-font-size: 2.3rem;
+font-size: 2rem;
 text-align: left;
 width: 7%;
 /* float:left */
@@ -15,11 +16,15 @@ background-color: #90bc79;
 .box{
 background-color: #11400c;
 margin-bottom: 40px ;
+max-width: 80%;
+margin: auto;
+border-radius: 25px;
 }
 .top-box{
 margin: auto;
-width: 70%;
-padding: 5%;
+/* width: 70%; */
+padding: 3% 3% 3% 3%;
+
 
 }
 .top-box h2,h6{
@@ -28,11 +33,11 @@ padding: 2px;
 }
 
 .unit-box{
-border-style: solid;
+border-style: none;
 }
 .row{
 margin-top: 2%;
-border-color: #121212;
+/* border-color: #121212; */
 }
 
 
@@ -69,7 +74,7 @@ background-color: #90bc79;
 /* width: 30%; */
 overflow: hidden;
 border-radius: 28px;
-border-style: solid;
+/* border-style: solid; */
 /* border-color: #121212; */
 
 }

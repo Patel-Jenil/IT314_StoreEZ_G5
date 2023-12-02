@@ -28,24 +28,21 @@
             
             <div class="form-right">
                 <h2>Select a unit to remove</h2>
-                <div class="form-row">
-                    <select name="unit">
-
+                <div class="form-row" style="display:flex; justify-content:center; align-items: center;">
+                    <select name="unit" class="drpdwn" id="drpdwn" style="color:white; ">
                         {% for unit in  units %}
-                        <option value="{{unit.id}}">{{unit.id}}</option> </br>
+                        <option value="{{unit.id}}" style="color:black;">{{unit.id}}</option> </br>
                         {% endfor %}
-                        
                     </select>
                 </div>
 
 
                 <div class="form-row-last">
-                    <input onclick="location.href='{% url 'all_units' id %}'" type="submit" name="cancel" class="cancel" value="Cancel">
+                    <input onclick="location.href='{% url 'all_units' id %}'" type="cancel" name="cancel" class="cancel" value="Cancel">
                     <button class="save-button">
-                        Add unit
+                        Remove unit
                       </button>
                     <!-- <input type="submit" name="register" class="register" value="Confirm"> -->
-                    
                 </div>
             </div>
         </form>

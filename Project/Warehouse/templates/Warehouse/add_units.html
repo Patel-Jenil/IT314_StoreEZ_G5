@@ -56,15 +56,20 @@
             
             <div class="form-right">
                 <h2>Unit Information</h2>
-                <div class="form-row">
-                    <!-- <input type="text" name="address" class="street" id="address" placeholder="Unit type" required> -->
+                 <!-- <div class="form-row"> 
                     <select id="type" name="type">
                     <option value="Hot">Standard</option>
                     <option value="Cold" >Temperature Controlled</option>
                     </select>
+                </div>  -->
+                <div class="form-row" style="display:flex; justify-content:center; align-items: center;">
+                    <select name="type" class="drpdwn" id="drpdwn" style="color:white; ">
+                        <option value="Hot" style="color:black;">Standard</option>
+                        <option value="Cold" style="color:black;">Temperature Controlled</option>
+                    </select>
                 </div>
                 <div class="form-row">
-                    <input type="number" name="capacity" min="1" placeholder="Capacity(cubic meter)" required>
+                    <input type="number" name="capacity" placeholder="Capacity(cubic meter)" min="1" step="1" required>
                 </div>
                 <div class="form-row">
                     <input type="number" placeholder="Price(₹ per day)" name="price" step=".01" min="0.01" required>

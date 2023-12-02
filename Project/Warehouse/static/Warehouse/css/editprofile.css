@@ -1,6 +1,7 @@
-body {
-	margin:  0;
-	/* font-family: 'Montserrat',sans-serif; */
+.form-v10{
+	margin:  auto;
+	max-width: 70%;
+	font-family: 'Montserrat',sans-serif;
 }
 .page-content {
     font-family: 'Montserrat',sans-serif;

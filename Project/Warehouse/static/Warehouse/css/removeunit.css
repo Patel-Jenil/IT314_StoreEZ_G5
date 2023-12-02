@@ -230,6 +230,7 @@ input[type="file"] {
 	color: #333;
 	font-weight: 700;
 	font-size: 15px;
+	text-align: center;
 }
 .form-v10-content .form-detail .form-right .register:hover{
 	background: #1b1a1a;
@@ -393,3 +394,19 @@ input[type="file"] {
     font-size: 15px;
     border-radius: 25px;
 }
+.cancel{
+	text-align: center;
+}
+.form-right .drpdwn{
+	border:0;
+	border-bottom:1px solid;
+	border-bottom-color:rgba(255, 255, 255, 0.3);
+	border-width:1px;
+	background:none;
+	height:40px;
+	font-size:15px;
+	width:100%;
+	/* text-align: center; */
+	font-family:'Montserrat', sans-serif;
+	padding-left: 15px;
+  }

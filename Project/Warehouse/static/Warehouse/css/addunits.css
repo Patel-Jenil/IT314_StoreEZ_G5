@@ -20,7 +20,7 @@ body {
 	-ms-align-items: center;
 	-moz-align-items: center;
 	-webkit-align-items: center;
-	
+	height: 89vh;
 }
 .form-v10-content  {
 	background: #fff;
@@ -391,3 +391,17 @@ input[type="file"] {
     font-size: 15px;
     border-radius: 25px;
 }
+
+.form-right .drpdwn{
+	border:0;
+	border-bottom:1px solid;
+	border-bottom-color:rgba(255, 255, 255, 0.3);
+	border-width:1px;
+	background:none;
+	height:40px;
+	font-size:15px;
+	width:100%;
+	/* text-align: center; */
+	font-family:'Montserrat', sans-serif;
+	padding-left: 15px;
+  }

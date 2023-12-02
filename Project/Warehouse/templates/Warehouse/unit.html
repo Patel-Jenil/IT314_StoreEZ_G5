@@ -6,7 +6,9 @@
 {% endblock %}
 {% block content %}
 
-<div class="info-row">
+
+<div class="wrapperr">
+  <div class="info-row">
     <div class="ab">
       <div class="ind-row">
         <b>
@@ -30,40 +32,36 @@
         </b> ₹{{ unit.price }}
       </div>
       <div class="ind-row">
-        
-          <button onclick="location.href='{% url 'all_units' id%}'" type="button"> Go Back</button>
+          <button onclick="location.href='{% url 'all_units' id%}'" type="button" class> Go Back</button>
       </div>
     </div>
-    </div>
+</div>
+
+  <div class="table-container">
+    <table>
+      <tr class="table-heading">
+        <th>Booking Ref No.</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Description</th>
+        <th>Booked by</th>
+        <th>Contact No.</th>
+        <th>Booking Status</th>
+      </tr>
+      {% for booking, booking_status in data %}
+      <tr class="not-heading">
+        <td data-cell="Booking Number" style="width:15%;"><a href="{% url 'warehouse_invoice' booking.id %}?back={{request.build_absolute_uri}}">Booking {{booking.id}}</a></td>
+        <td data-cell="Start Date">{{ booking.start_date}}</td>
+        <td data-cell="End Date">{{ booking.end_date}}</td>
+        <td data-cell="Description" style="width:30%;">{{ booking.description}}</td>
+        <td data-cell="Booked By">{{ booking.farmer}}</td>
+        <td data-cell="Contact No.">{{ booking.farmer.phone_no}}</td>
+        <td {% if booking_status == 'Completed' %}class="completed" {% else %}class="on-going"{% endif %}  data-cell="Booked Status"><b>{{booking_status}}</b></td>        </tr>
+      {% endfor %}
+
+    </table>
   </div>
-
-
-  <div class="wrapperr">
-    <div class="table-container">
-      <table>
-        <tr class="table-heading">
-          <th>Booking Reference No.</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Description</th>
-          <th>Booked by</th>
-          <th>Contact No.</th>
-          <th>Booking Status</th>
-        </tr>
-        {% for booking, booking_status in data %}
-        <tr class="not-heading">
-          <td data-cell="Booking Number" style="width:15%;"><a href="{% url 'warehouse_invoice' booking.id %}?back={{request.build_absolute_uri}}">Booking {{booking.id}}</a></td>
-          <td data-cell="Start Date">{{ booking.start_date}}</td>
-          <td data-cell="End Date">{{ booking.end_date}}</td>
-          <td data-cell="Description" style="width:40%;">{{ booking.description}}</td>
-          <td data-cell="Booked By">{{ booking.farmer}}</td>
-          <td data-cell="Contact No.">{{ booking.farmer.phone_no}}</td>
-          <td {% if booking_status == 'Completed' %}class="completed" {% else %}class="on-going"{% endif %}  data-cell="Booked Status"><b>{{booking_status}}</b></td>        </tr>
-        {% endfor %}
-
-      </table>
-    </div>
-  </div>
+</div>
   <nav aria-label="..."style="color: blue;">
     <ul class="pagination pagination-sm justify-content-center" ">
       {% if data.has_previous %}

@@ -53,7 +53,8 @@
                     <input type="text" id="poc_name" name="poc_name" class="input-text" placeholder="Point of Contact Person Name" required>
                 </div>
                 <div class="form-row">
-                    <input type="text" id="phone_no" name="phone_no" class="phone" placeholder="Point of Contact Phone No." required>
+                    <input type="number" id="phone_no" name="phone_no" class="phone" placeholder="Point of Contact Phone No." min=1000000000 max="9999999999" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Phone number should contain 10 digits.')"
+                    required>
                 </div>
 
             </div>
@@ -70,37 +71,29 @@
                     <input type="text" name="state" class="State" id="state" placeholder="State" required>
                 </div>
                 <div class="form-row">
-                    <input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
+                    <input class="text--input-box" type="number" id="latitude" name="latitude" step="any" placeholder="Enter your latitude" min=-90 max=90  oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Invalid Latitude')" required />
                 </div>
                 <div class="form-row">
-                    <input class="text--input-box" type="number" id="latitude" name="latitude" step="any" placeholder="Enter your latitude"    required />
-                </div>
-                <div class="form-row">
-                    <input class="text--input-box" type="number" id="longitude" name="longitude" step="any"  placeholder="Enter your longitude"
+                    <input class="text--input-box" type="number" id="longitude" name="longitude" step="any"  placeholder="Enter your longitude" min=-180 max=180
                     required  />
                 </div>
-                <button class="button-8" type='button'>
-                    <span
-                    ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="18"
-                            viewBox="0 96 960 960"
-                            width="18"
-                            fill="#c12424"
-                          >
-                            <path
-                              d="M450 1014v-75q-137-14-228-105T117 606H42v-60h75q14-137 105-228t228-105v-75h60v75q137 14 228 105t105 228h75v60h-75q-14 137-105 228T510 939v75h-60Zm30-134q125 0 214.5-89.5T784 576q0-125-89.5-214.5T480 272q-125 0-214.5 89.5T176 576q0 125 89.5 214.5T480 880Zm0-154q-63 0-106.5-43.5T330 576q0-63 43.5-106.5T480 426q63 0 106.5 43.5T630 576q0 63-43.5 106.5T480 726Zm0-60q38 0 64-26t26-64q0-38-26-64t-64-26q-38 0-64 26t-26 64q0 38 26 64t64 26Zm0-90Z"
-                            /></svg></span
-                        >Detect Location
-                  </button>
-
-
-                <!-- <div class="form-checkbox">
-                    <label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
-                          <input type="checkbox" name="checkbox">
-                          <span class="checkmark"></span>
-                    </label>
-                </div> -->
+                <div class="form-row">
+                    <button class="detect location button-8" type='button' style="width:100%; padding: 2%; border-radius: 20px; border-style: none;">
+                        <span
+                        ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="18"
+                                viewBox="0 96 960 960"
+                                width="18"
+                                fill="#c12424"
+                              >
+                                <path
+                                  d="M450 1014v-75q-137-14-228-105T117 606H42v-60h75q14-137 105-228t228-105v-75h60v75q137 14 228 105t105 228h75v60h-75q-14 137-105 228T510 939v75h-60Zm30-134q125 0 214.5-89.5T784 576q0-125-89.5-214.5T480 272q-125 0-214.5 89.5T176 576q0 125 89.5 214.5T480 880Zm0-154q-63 0-106.5-43.5T330 576q0-63 43.5-106.5T480 426q63 0 106.5 43.5T630 576q0 63-43.5 106.5T480 726Zm0-60q38 0 64-26t26-64q0-38-26-64t-64-26q-38 0-64 26t-26 64q0 38 26 64t64 26Zm0-90Z"
+                                /></svg></span
+                            >Detect Location
+                      </button>
+                </div>
+                
                 <div class="form-row-last">
                     <input onclick="location.href='{% url 'warehouses' %}'" type="submit" name="cancel" class="cancel" value="Cancel">
                     <input type="submit" name="register" class="register" value="Confirm">

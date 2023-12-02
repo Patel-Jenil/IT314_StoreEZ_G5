@@ -13,12 +13,10 @@
   <div class="wrapperr">
     <div class="box">
       <div class="top-box">
-        <div> 
-          <h2>Warehouse [{{warehouse.id}}] details: {{warehouse.name}} </h2>
-          <h5>Address: {{warehouse.address}} </h5>
-          <h5>{{warehouse.city}}, {{warehouse.state}} </h5>
-          <h5>Point of Contact - {{warehouse.poc_name}} [{{warehouse.poc_phone_no}}]</h5>
-        </div>
+          <h2>{{warehouse.name|capfirst}}  details: </h2>
+          <p>Address: {{warehouse.address}} </p>
+          <p>{{warehouse.city}}, {{warehouse.state}} </p>
+          <p>Point of Contact - {{warehouse.poc_name}} [Ph.No: {{warehouse.poc_phone_no}}]</h5>
       </div>
     </div>
 

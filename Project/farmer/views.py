@@ -326,7 +326,7 @@ def search(request):
         }
     # print(warehouses)
         
-    return render(request,'farmer/search.html',context)
+    return render(request,'farmer/newsearch.html',context)
 
 @login_required(login_url='login')
 def book(request,id, start, end):
