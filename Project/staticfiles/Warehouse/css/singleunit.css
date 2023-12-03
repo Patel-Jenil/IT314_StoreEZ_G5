@@ -2,7 +2,7 @@
 
 body{
   color:#000;
-  font-size:1.25rem;
+  /* font-size:1.25rem; */
   font-family:system-ui;
   line-height:1.5;
   /* background: url('bg.png') ; */
@@ -12,13 +12,14 @@ body{
 .wrapperr{
   display:flex;
   flex-direction: column;
-  
+  font-size:1.1rem;
   border:solid;
   border-width:1px;
   border-color:#90bc79;
   margin: auto;
   max-width: 90%;
   border-radius:15px;
+  margin-bottom: 2%;
 }
 
 .info-row{
@@ -27,8 +28,9 @@ body{
   align-items: center;
   padding: 1%;
   background-color: #dceed3;
-  margin: 3%;
-  border-radius: 15px;
+  /* border-radius: 15px; */
+  margin-bottom: 2%;
+
 }
 
 
@@ -37,12 +39,12 @@ body{
   background-color:white;
   border:none;
   height:50px;
-  width:100px;
+  width:90px;
   border-radius:10px;
   cursor:pointer;
   color:#000000;
   font-weight: 700;
-  font-size:larger;
+  font-size:1.1rem;
 }
 
 .info-row button:hover{
@@ -80,8 +82,9 @@ table{
 }
 
 .table-heading{
-    background-color: #4F6F52;
+    background-color: #016c0f;
     border-radius: 15px;
+    color: #fff;
 }
 
 /* caption{

@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-10 col-lg-9">
                             <div class="input-group text px-3">
-                                <input type="text" class="form-control px-0" disabled value="{{latitude}}" id = "latitude" name = "latitude">
+                                <input type="number" step='any' class="form-control px-0" value="{{latitude}}" id = "latitude" name = "latitude">
 
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-10 col-lg-9">
                             <div class="input-group text px-3   ">
-                                <input type="text" class="form-control" disabled value="{{longitude}}" id="longitude" name = "longitude">
+                                <input type="number" step='any' class="form-control" value="{{longitude}}" id="longitude" name = "longitude">
 
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                     <div class="row">
                         <div class="col-4" style="font-weight: bold;">Type</div>
                         <div class="col-4" style="font-weight: bold;">Units</div>
-                        <div class="col-4" style="font-weight: bold;">Capacity</div>
+                        <div class="col-4" style="font-weight: bold; padding-left:5px; padding-right:5px !important">Capacity(m<sup>3</sup>)</div>
                     </div>
                 </li>
                 <li class="list-group-item">
@@ -191,7 +191,23 @@
     {% endfor %}
 </div>
 </div>
-
+<nav aria-label="..."style="color: blue;">
+    <ul class="pagination pagination-sm justify-content-center" ">
+        {% if data.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">&laquo First</a> </li>
+        <li class="page-item"> <a class="page-link" href="?page={{data.previous_page_number}}&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">Previous</a> </li>
+        {% endif %}
+        
+        {%for i in nums %}
+        <li class="page-item "><a class="page-link" href="?page={{forloop.counter}}&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">{{forloop.counter}}</a></li>{{i}}
+        {%endfor%}
+    
+        <li class="page-item disabled><a href="#" class="page-link">{% if data.has_next %}</a></li>
+    
+        <li class="page-item"><a class="page-link" href="?page={{data.next_page_number}}&startdate={{startdate}}&enddate={{enddate}}&latitude={{latitude}}&longitude={{longitude}}">Next</a> </li>
+        {% endif %}
+    </ul>
+</nav>
 {% endblock %}
 
 {%block js%}
