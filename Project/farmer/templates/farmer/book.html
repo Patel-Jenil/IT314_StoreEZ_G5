@@ -3,8 +3,7 @@
 {% block title %} StoreEZ | Book {% endblock title %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'farmer/css/tableunit.css' %}">
-
-<link rel="stylesheet" href="{% static 'farmer/css/cascade.css' %}" />
+<link rel="stylesheet" href="{% static 'farmer/css/book1.css' %}" />
 
 {% endblock %}
 
@@ -72,7 +71,6 @@
               <th>Type</th>
               <th>Capacity</th>
               <th>Price (₹ per day)</th>
-              <th>Price (₹)</th>
             </tr>
             {% for unit in units %}
             <tr>
@@ -84,15 +82,13 @@
               <td data-cell="Unit Type" style="width:15%;">{{unit.type}}</td>
               <td data-cell="Unit Capacity">{{unit.capacity}}</td>
               <td data-cell="Unit Price">{{unit.price}}</td>
-              <td data-cell="Price Total" id="totalPriceDisplay"></td>
             </tr>
             {% endfor %}
             <tr>
               <td></td>
-              <td ></td>
               <td data-cell="Start Date"></td>
               <td data-cell="End Date"><b>Total Price:</b> </td>
-              <td data-cell="End Date"><b>₹15000</b></td>
+              <td data-cell="End Date" id="totalPriceDisplay"></td>
             </tr>
           </table>
         </div>
@@ -134,6 +130,12 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
       ////// Total Price
+      function calculateUnitPrice(){
+        var unitPrice = parseFloat(unit.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.innerText);
+        var totalPrice = unitPrice * days;
+        var totalUnitPriceDisplay = document.getElementById('totalUnitPriceDisplay');
+        totalUnitPriceDisplay.innerText = 'Price*day: ₹ ' + totalPrice + '\nDays: ' + days;
+      }
       function calculateTotalPrice() {
         var totalUnitsPrice = 0;
         var selectedUnits = document.querySelectorAll('input[name="checkbox"]:checked');
@@ -141,6 +143,9 @@
         selectedUnits.forEach(function (unit) {
           var unitPrice = parseFloat(unit.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.innerText);
           totalUnitsPrice += unitPrice;
+          var totalPrice = totalUnitsPrice * days;
+          var totalPriceDisplay = document.getElementById('totalPriceDisplay');
+          totalPriceDisplay.innerText = 'Price/day: ₹ ' + totalUnitsPrice + '\nDays: ' + days;
         });
         //start date and end date have id's
         //id_startdate and id_enddate
@@ -154,7 +159,8 @@
   
         /// showing the total price in the div
         var totalPriceDisplay = document.getElementById('totalPriceDisplay');
-        totalPriceDisplay.innerText = 'Price/day: ₹ ' + totalUnitsPrice + '\nDays: ' + days + '\nTotal Price: ₹ ' + totalPrice.toFixed(2);
+        totalPriceDisplay.innerText = '₹ ' + totalUnitsPrice;
+        finalPriceDisplay.innerText = totalPrice.toFixed(2);
       }
   
       //calculates total range between dates

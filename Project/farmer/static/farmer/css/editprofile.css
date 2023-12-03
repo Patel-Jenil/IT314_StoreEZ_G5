@@ -1,13 +1,12 @@
 body {
-	margin:  0;
-	/* font-family: 'Montserrat',sans-serif; */
+	margin:  auto;
+	
 }
 .page-content {
-    font-family: 'Montserrat',sans-serif;
-	width: 100%;
+	/* width: 100%; */
 	margin:  0 auto;
 	display: flex;
-	background:url('../bg.png');
+	/* background:url('../bg.png'); */
 	background-color:#90bc79;
 	display: -webkit-flex;
 	justify-content: center;
@@ -20,8 +19,7 @@ body {
 	-ms-align-items: center;
 	-moz-align-items: center;
 	-webkit-align-items: center;
-	height: 89vh;
-	
+	font-family: 'Montserrat',sans-serif;
 }
 .form-v10-content  {
 	background: #fff;
@@ -224,7 +222,7 @@ input[type="file"] {
 	-webkit-box-shadow: 0px 6px 17px 0px rgba(0, 0, 0, 0.15);
 	width: 180px;
 	border: none;
-	margin: 6px 5px 50px 5px;
+	margin: 6px 0 50px 0px;
 	cursor: pointer;
 	color: #333;
 	font-weight: 700;
@@ -352,31 +350,4 @@ input[type="file"] {
 		text-align: center;
 	    margin: 44px 0 30px;
 	}
-}
-
-#c_button{
-	text-align: center;
-}
-
-.detect-btn{
-	margin: auto;
-	background: #fff;
-    border-radius: 25px;
-    -o-border-radius: 25px;
-    -ms-border-radius: 25px;
-    -moz-border-radius: 25px;
-    -webkit-border-radius: 25px;
-    box-shadow: 0px 6px 17px 0px rgba(0, 0, 0, 0.15);
-    -o-box-shadow: 0px 6px 17px 0px rgba(0, 0, 0, 0.15);
-    -ms-box-shadow: 0px 6px 17px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 6px 17px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 0px 6px 17px 0px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    border: none;
-    margin: 6px 0 28	px 0px;
-    cursor: pointer;
-    color: #333;
-    font-weight: 700;
-    font-size: 15px;
-	padding: 2%;
 }
