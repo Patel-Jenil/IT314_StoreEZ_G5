@@ -1,0 +1,30 @@
+body{
+    background-color: #90bc79;
+
+}
+form{
+    background-color: aqua;
+}
+.fitalic{
+    font-style: italic;
+}
+
+.ff{
+    font-family: "Times New Roman", Times, serif;
+}
+
+.fitalic{
+    font-style: italic;
+}
+
+.ff{
+    font-family: "Times New Roman", Times, serif;
+}
+
+.btn-clr{
+    background-color: #90bc79;
+}
+
+.btn-clr1{
+    background-color: white ;
+}

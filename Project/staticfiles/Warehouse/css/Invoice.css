@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Redressed&family=Ubuntu:wght@400;700&display=swap");
+:root {
+    --bg-clr: #90bc79;
+    --white: #fff;
+    --primary-clr: #2f2929;
+    --secondary-clr: rgb(1, 108, 15);
+}
+
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
+} */
+
+body {
+    background: var(--bg-clr);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--primary-clr);
+    padding: 0 20px;
+}
+
+.invoice {
+    width: 600px;
+    max-width: 100%;
+    height: auto;
+    background: var(--white);
+    padding: 50px 60px;
+    position: relative;
+    margin: 20px auto;
+}
+
+.w_15 {
+    width: 15%;
+}
+
+.w_50 {
+    width: 50%;
+}
+
+.w_100 {
+    width: 100%;
+    align-items: center;
+}
+
+.w_55 {
+    width: 55%;
+}
+
+.w_25 {
+    width: 25%
+}
+
+.w_20 {
+    width: 20%
+}
+
+.i_number {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.i_row {
+    display: flex;
+}
+
+.text_right {
+    text-align: right;
+}
+
+.invoice .header .i_row {
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.invoice .header .i_row:last-child {
+    align-items: flex-end;
+}
+
+.invoice .header .i_row .i_logo p {
+    font-family: "Redressed", cursive;
+}
+
+.invoice .header .i_row .i_logo p,
+.invoice .header .i_row .i_title h2 {
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--secondary-clr);
+}
+
+.invoice .header .i_row .i_address .i_number span {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.invoice .body .i_table .i_col p {
+    font-weight: 700;
+}
+
+.invoice .body .i_table .i_row .i_col {
+    padding: 0px 5px;
+}
+
+.invoice .body .i_table .i_table_head .i_row {
+    border: 2px solid;
+    border-color: var(--primary-clr) transparent var(--primary-clr) transparent;
+}
+
+.invoice .body .i_table .i_table_body .i_row:last-child {
+    border-bottom: 2px solid var(--primary-clr);
+}
+
+.invoice .body .i_table .i_table_foot .grand_total_wrap {
+    margin-top: 20px;
+}
+
+.invoice .body .i_table .i_table_foot .grand_total_wrap .grand_total {
+    background: var(--secondary-clr);
+    color: var(--white);
+    padding: 10px 15px;
+}
+
+.invoice .body .i_table .i_table_foot .grand_total_wrap .grand_total p {
+    display: flex;
+    justify-content: space-between;
+}
+
+.invoice .footer {
+    margin-top: 30px;
+}
+
+.address {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.date_details {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.grand_total {
+    font-size: larger;
+}

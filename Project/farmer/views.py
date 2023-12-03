@@ -355,6 +355,7 @@ def book(request,id, start, end):
     # Total Days
     
     total_days = (end_date - start_date).days + 1
+    assert(total_days>0)
     print("Start Date:", start_date)
     print("End Date:", end_date)
     print("Total:",total_days,"Days")
