@@ -1,0 +1,27 @@
+body{
+    background-color: #90bc79;
+}
+
+
+.fitalic{
+    font-style: italic;
+}
+
+.ff{
+    font-family: "Times New Roman", Times, serif;
+}
+
+.btn-clr{
+    background-color: white;
+    color: black;
+    font-size: large;
+    /* width: 200px; */
+    width:80%;
+    justify-content: center;
+}
+
+.btn-clr1{
+    background-color: white;
+    color: black;
+    font-size: large;
+}

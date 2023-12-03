@@ -44,7 +44,7 @@ def homepage(request):
 def activate(request,uidb64, token,flag):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
-        flag = urlsafe_base64_decode(flag).decode()
+        flag = int(urlsafe_base64_decode(flag).decode())
         user = User._default_manager.get(pk = uid)
     except(TypeError,ValueError, OverflowError, User.DoesNotExist):
         user = None
