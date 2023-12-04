@@ -162,7 +162,7 @@ def farmer_invoice(request,id):
         one_booked_unit = all_booked_units[0]
     else:
         messages.error(request,"No units are booked for this period.")
-        return render(request, 'farmer/booking.html', {})
+        return render(request, 'farmer/invoice.html', {})
     # print('one_booked_unit:',one_booked_unit)
     per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
     # print("Price per day:",per_day_price)
