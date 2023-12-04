@@ -155,23 +155,23 @@ def farmer_invoice(request,id):
     farmer = get_object_or_404(Farmer,email=user.email)
     booking = get_object_or_404(Booking,id=id)
     all_booked_units = booking.unit.all()
-    print('all_booked_units:',all_booked_units)
+    # print('all_booked_units:',all_booked_units)
     total_units = len(all_booked_units)
-    print(total_units)
+    # print(total_units)
     if total_units:
         one_booked_unit = all_booked_units[0]
     else:
         messages.error(request,"No units are booked for this period.")
         return render(request, 'farmer/booking.html', {})
-    print('one_booked_unit:',one_booked_unit)
+    # print('one_booked_unit:',one_booked_unit)
     per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
-    print("Price per day:",per_day_price)
+    # print("Price per day:",per_day_price)
     total_days = (booking.end_date - booking.start_date).days + 1
-    print("Total Days:",total_days)
+    # print("Total Days:",total_days)
     price = total_days * per_day_price
-    print('price:',price)
+    # print('price:',price)
     warehouse = one_booked_unit.warehouse
-    print('warehouse:',warehouse)
+    # print('warehouse:',warehouse)
     back_page = request.GET.get('back')
     context = {'farmer':farmer,'booking':booking,'all_booked_units':all_booked_units, 'per_day_price':per_day_price,
                'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units, 'back':back_page}
@@ -348,7 +348,7 @@ def book(request,id, start, end):
     booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date). \
             values_list('unit', flat=True).exclude(unit=None).distinct()
     # print(booked_units)
-    print("Bookings: ",Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date))
+    # print("Bookings: ",Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date))
     print("Booked_units: ",booked_units)
     #  Excluding all the units that have been blocked
     unbooked_units = all_units.exclude(id__in=booked_units.values_list('unit'))
@@ -356,21 +356,27 @@ def book(request,id, start, end):
     
     total_days = (end_date - start_date).days + 1
     assert(total_days>0)
-    print("Start Date:", start_date)
-    print("End Date:", end_date)
-    print("Total:",total_days,"Days")
+    # print("Start Date:", start_date)
+    # print("End Date:", end_date)
+    # print("Total:",total_days,"Days")
     # Taking the value from user-Which units are selected by user
     if request.method == 'POST':
-        selected_unit = request.POST.getlist('checkbox') # Will have id of the unit as we return id as value from HTML
-        print(selected_unit)
+        selected_units = request.POST.getlist('checkbox') # Will have id of the unit as we return id as value from HTML
+        ## When its POST request that means Confirm button was pressed but between selecting units and booking them there might some other booking done
+        ## So check if they are still available
+        assert(len(selected_units) > 0)
+        if any(int(unit) in list(booked_units) for unit in selected_units):
+            messages.error(request,"Oops, Looks like you are late.\nSome of your selected units got booked in your selected Date Range")
+            return redirect(reverse('book', args=(id,start,end)))
+        
+        print(selected_units)
         description = request.POST.get('description')
         user = request.user
         myfarmer = get_object_or_404(Farmer, email=user.email)
-
         booking = Booking(start_date=start, end_date=end, description=description, farmer=myfarmer)
         booking.save()
         
-        booking.unit.set(selected_unit) # Whenever there is many to many feild we have to .set method
+        booking.unit.set(selected_units) # Whenever there is many to many feild we have to .set method
         
         return redirect(reverse('farmer_invoice', args=(booking.id,))) # redirect to current booking. This is done temporarily
     

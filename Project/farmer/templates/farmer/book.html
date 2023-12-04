@@ -10,7 +10,34 @@
 
 
 {%block content%}
+{% if messages %}
+        <script>
+            function closeAlert(element) {
+                var alert = element.parentElement;
+                alert.style.display = 'none';
+            }
+        </script>
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="alert success-alert">
+                <h3>Success Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="alert danger-alert">
+                <h3>{{message}}</h3>
+                <a class="close" onclick="closeAlert(this)">&times;</a>
+            </div>
+            
+            {% else %}
+            <div class="alert warning-alert">
+                <h3>Warning Alert Message</h3>
+                <a class="close">&times;</a>
+            </div>
+            {% endif %}
 
+        {% endfor %}
+{% endif %}
 
 <div class="outer-box container-fluid " >
   <div class="" style="background-color: #016C0F;">
@@ -69,7 +96,7 @@
             <tr>
               <th>Units</th>
               <th>Type</th>
-              <th>Capacity</th>
+              <th>Capacity (m<sup>3</sup>)</th>
               <th>Price (₹ per day)</th>
             </tr>
             {% for unit in units %}
@@ -85,10 +112,10 @@
             </tr>
             {% endfor %}
             <tr>
-              <td></td>
-              <td data-cell="Start Date"></td>
-              <td data-cell="End Date"><b>Total Price:</b> </td>
-              <td data-cell="End Date" id="totalPriceDisplay"></td>
+              <td ><b>Total Days:</b></td>
+              <td > {{total_days}}</td>
+              <td ><b>Total Price:</b> </td>
+              <td id="totalPriceDisplay"></td>
             </tr>
           </table>
         </div>
@@ -159,8 +186,12 @@
   
         /// showing the total price in the div
         var totalPriceDisplay = document.getElementById('totalPriceDisplay');
-        totalPriceDisplay.innerText = '₹ ' + totalUnitsPrice;
-        finalPriceDisplay.innerText = totalPrice.toFixed(2);
+        
+        /// Changed the Display design so don't make any more changes in JS
+        // totalPriceDisplay.innerText = '₹ ' + totalUnitsPrice;
+        totalPriceDisplay.innerText = '₹ ' + totalPrice.toFixed(2);
+        // finalPriceDisplay.innerText = totalPrice.toFixed(2);
+
       }
   
       //calculates total range between dates
