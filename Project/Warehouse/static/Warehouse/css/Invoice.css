@@ -126,6 +126,10 @@ body {
     justify-content: space-between;
 }
 
+/* .invoice .body .i_table .i_table_foot .grand_total_wrap .grand_total p {
+ 
+} */
+
 .invoice .footer {
     margin-top: 30px;
 }
