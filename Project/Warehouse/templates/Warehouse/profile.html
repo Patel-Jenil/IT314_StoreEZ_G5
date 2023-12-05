@@ -12,7 +12,7 @@
       <div class="col-12">
         <div class="our-team">
           <div class="picture">
-            <img class="img-fluid" src="{{warehouse_user.image.url}}">
+            <img class="img-fluid" src="{{warehouse_user.image.url}}",alt='{{image.url}}'>
           </div>
           <div class="team-content">
             <h3 class="name">{{warehouse_user.first_name | capfirst}} {{warehouse_user.last_name | capfirst}}</h3>
@@ -23,11 +23,11 @@
             </div>
           </div>
           <a href="{% url 'warehouse_editprofile' %}">
-            <div class="edit"> 
+            <div class="edit">
                 <button>Edit Profile</button>
               </div>
           </a>
-          
+
         </div>
       </div>
     </div>

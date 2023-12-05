@@ -14,25 +14,32 @@ from django.db.models import Q, Sum
 from datetime import date
 # Create your views here.
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def Warehouse_Profile(request):
     user = request.user
     # warehouse_user = Warehouse_owner.objects.get(email = user.email)
     warehouse_user = get_object_or_404(Warehouse_owner, email=user.email)
+    if not warehouse_user.image:
+        warehouse_user.image= Warehouse_owner().image
+        warehouse_user.save()
     context = {
-        "warehouse_user":warehouse_user
+        "warehouse_user":warehouse_user,
+        'image':Warehouse_owner().image
     }
-    return render(request,'warehouse/profile.html',context)
+    return render(request,'Warehouse/profile.html',context)
 
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def editprofile(request):
     loggedin_user = request.user
     warehouse_owner = get_object_or_404(Warehouse_owner, email=loggedin_user.email)
+    if not warehouse_owner.image:
+        warehouse_owner.image= Warehouse_owner().image
+        warehouse_owner.save()
     editprofile = EditProfileForm(instance=warehouse_owner)
     # context = {'editprofile': editprofile,'user':request.user, 'warehouse_owner_image':warehouse_owner.image}
     if request.method == "POST":
-        print(request.FILES) 
+        print(request.FILES)
         editprofile  = EditProfileForm(request.POST, request.FILES, instance=warehouse_owner)
         if editprofile.is_valid():
             user = editprofile.save(commit=False)
@@ -43,12 +50,12 @@ def editprofile(request):
                 flag=True
 
             if user.first_name.strip() =="" :
-                messages.error(request,"Invalid First name!")    
+                messages.error(request,"Invalid First name!")
                 flag=True
 
             if user.last_name.strip() =="" :
-                messages.error(request,"Invalid Last name!")    
-                flag=True 
+                messages.error(request,"Invalid Last name!")
+                flag=True
 
             if flag:
                 return redirect('warehouse_editprofile' )
@@ -60,21 +67,21 @@ def editprofile(request):
                 warehouse_owner.image = Warehouse_owner().image # default image in model
             print(user.phone_no, user.image, user.first_name, user.last_name)
             warehouse_owner.save()
-            
+
             return redirect('Warehouse_profile')
-        
+
         else:
             context = {'editprofile': editprofile,'user_id':request.user.id , 'errors':editprofile.errors, 'warehouse_owner_image':warehouse_owner.image}
     context = {'editprofile': editprofile,'user':request.user, 'warehouse_owner_image':warehouse_owner.image}
     return render(request,'Warehouse/editprofile.html',context)
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def warehouses(request, id):
     warehouse = Warehouse.objects.get(id = id)
     context = {'warehouse':warehouse}
-    return render(request,'warehouse/warehouse.html',context)
+    return render(request,'Warehouse/warehouse.html',context)
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def all_units(request, id):
     warehouse = Warehouse.objects.get(id = id)
     units = warehouse.unit_set.all()
@@ -84,9 +91,9 @@ def all_units(request, id):
     count=Warehouse.objects.count()
     nums= "." *page_obj.paginator.num_pages
     context={'data':page_obj,'warehouse':warehouse,'nums':nums, 'units':units,}
-    return render(request,'warehouse/all_units.html',context)
+    return render(request,'Warehouse/all_units.html',context)
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def unit(request, id, id1):
     warehouse = Warehouse.objects.get(id=id)
     unit = Unit.objects.get(id=id1)
@@ -100,7 +107,7 @@ def unit(request, id, id1):
         else:
             booking_status = 'Completed'
         data_list.append((booking,booking_status))
-    
+
     # current_booking = all_bookings.filter(end_date__gte=current_date).order_by('-end_date')
     # prev_booking = all_bookings.filter(end_date__lt=current_date).order_by('-end_date')
     # print(prev_booking)
@@ -110,13 +117,13 @@ def unit(request, id, id1):
     count=Warehouse.objects.count()
     nums= "." *page_obj.paginator.num_pages
     context={'data':page_obj,'warehouse':warehouse,'nums':nums, 'unit':unit, 'id':id}
-    return render(request, 'warehouse/unit.html', context)
+    return render(request, 'Warehouse/unit.html', context)
 
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def warehouses(request):
     search_query = ''
-    
+
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
     print(search_query)
@@ -135,11 +142,11 @@ def warehouses(request):
     print(warehouses)
     # print(user.email, warehouses)
     context = {
-        'warehouses':warehouses, 
+        'warehouses':warehouses,
     }
-    return render(request,'warehouse/warehouses.html',context)
+    return render(request,'Warehouse/warehouses.html',context)
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def addunit(request, id):
     # print(id)
     # warehouse = get_object_or_404(Warehouse_owner, id=id)
@@ -152,30 +159,30 @@ def addunit(request, id):
         if capacity == "" or int(capacity) <= 0:
             messages.error(request, "Invalid Capacity")
             flag = True
-        
+
         if price == "" or float(price) <= 0:
             messages.error(request, "Invalid Price")
             flag = True
-        
+
         if type != 'Hot' and type != 'Cold':
             messages.error(request, "Don't mess with Dev tools")
             flag = 1
-            
+
         warehouse = Warehouse.objects.get(id = id)
         if flag:
             return redirect('addunit', id=id )
-        
-        
+
+
         unit = Unit(type=type, capacity=capacity, price=price, warehouse=warehouse)
         unit.save()
         return redirect('all_units', id=id)
         # print(type, capacity, price, warehouse)
-    # print("id:",id)   
+    # print("id:",id)
     context = {'id': id, 'warehouse':warehouse}
-    return render(request, 'warehouse/add_units.html', context)
+    return render(request, 'Warehouse/add_units.html', context)
 
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def removeunit(request, id):
     warehouse = Warehouse.objects.get(id=id)
     if request.method == "POST":
@@ -185,18 +192,18 @@ def removeunit(request, id):
         print(del_unit)
         del_unit.delete()
         return redirect('all_units', id=id)
-    
-    units = Warehouse.objects.get(id = id).unit_set.all()   
+
+    units = Warehouse.objects.get(id = id).unit_set.all()
     # print(units.count())
     context = {'units': units,'id':id, 'warehouse':warehouse}
-    return render(request, 'warehouse/removeunit.html', context)
+    return render(request, 'Warehouse/removeunit.html', context)
 
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def editunit(request, id, id1):
-    return render(request, 'warehouse/editunit.html')
+    return render(request, 'Warehouse/editunit.html')
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def addwarehouse(request):
     warehouse_image = Warehouse().image
     # print(warehouse_image)
@@ -214,34 +221,34 @@ def addwarehouse(request):
         if phone_no =="" or int(phone_no) <1000000000 or int(phone_no) >9999999999:
             messages.error(request,"Phone number should contain 10 digits.")
             flag=True
-        
+
         if not( -90 <= float(latitude) <= 90):
             messages.error(request,"Invalid latitude!")
             flag=True
-            
+
         if not( -180 <= float(longitude) <= 180):
             messages.error(request,"Invalid latitude!")
             flag=True
 
         if name =="" :
-            messages.error(request,"Invalid Name!")    
+            messages.error(request,"Invalid Name!")
             flag=True
-            
+
         if city =="" :
-            messages.error(request,"Invalid city!")    
+            messages.error(request,"Invalid city!")
             flag=True
-        
+
         if state =="" :
-            messages.error(request,"Invalid state!")    
+            messages.error(request,"Invalid state!")
             flag=True
-        
+
         if poc_name =="" :
-            messages.error(request,"Invalid Point of contact person Name!")    
+            messages.error(request,"Invalid Point of contact person Name!")
             flag=True
 
         if address =="" :
-            messages.error(request,"Invalid address!")    
-            flag=True 
+            messages.error(request,"Invalid address!")
+            flag=True
 
         if flag:
             return redirect('add_warehouse' )
@@ -255,9 +262,9 @@ def addwarehouse(request):
         'user_id':request.user.id,
         'warehouse_image':warehouse_image
     }
-    return render(request,'warehouse/add_warehouse.html',context)
+    return render(request,'Warehouse/add_warehouse.html',context)
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def removewarehouse(request, id):
     print(id)
     context = {'id':id}
@@ -265,17 +272,17 @@ def removewarehouse(request, id):
     if request.method == "POST":
         del_warehouse.delete()
         return redirect('warehouses')
-    
+
 
     # print(units.count())
     context = {'id':id, 'warehouse': del_warehouse}
-    return render(request, 'warehouse/remove_warehouse.html', context)
+    return render(request, 'Warehouse/remove_warehouse.html', context)
 
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def warehouse_bookings(request,id):
     warehouse = get_object_or_404(Warehouse,id=id)
-    owner = get_object_or_404(Warehouse_owner,email=request.user.email) 
+    owner = get_object_or_404(Warehouse_owner,email=request.user.email)
     assert(owner == warehouse.owner) # To check if the right owner is accessing this page
     data_list = []
     all_bookings = Booking.objects.all().order_by("id")
@@ -297,10 +304,10 @@ def warehouse_bookings(request,id):
     count=Warehouse.objects.count()
     nums= "." *page_obj.paginator.num_pages
     context={'data':page_obj,'warehouse':warehouse,'nums':nums}
-    return render(request, 'warehouse/warehouse_bookings.html',context)
+    return render(request, 'Warehouse/warehouse_bookings.html',context)
 
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def warehouse_invoice(request, id):
     booking = get_object_or_404(Booking,id=id)
     farmer = booking.farmer
@@ -310,7 +317,7 @@ def warehouse_invoice(request, id):
         one_booked_unit = all_booked_units[0]
     else:
         messages.error(request,"No units are booked for this period.")
-        return render(request, 'warehouse/booking.html', {})
+        return render(request, 'Warehouse/booking.html', {})
     per_day_price = all_booked_units.aggregate(total=Sum('price'))['total']
     # print("Price per day:",per_day_price)
     total_days = (booking.end_date - booking.start_date).days + 1
@@ -321,7 +328,7 @@ def warehouse_invoice(request, id):
     assert(warehouse.owner.email==request.user.email)
     # print('warehouse:',warehouse)
     back_page = request.GET.get('back')
-    
+
     context = {'farmer':farmer,'booking':booking,'all_booked_units':all_booked_units, 'per_day_price':per_day_price,
                'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units, 'back':back_page}
-    return render(request, 'warehouse/invoice.html', context)
+    return render(request, 'Warehouse/invoice.html', context)

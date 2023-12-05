@@ -1,4 +1,3 @@
-from turtle import st
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.models import User
 from mainapp.models import Farmer,Warehouse, Booking, Unit
@@ -41,21 +40,21 @@ def editprofile(request):
                 flag=True
 
             if user.first_name.strip() == "" :
-                messages.error(request,"Invalid First name!")    
+                messages.error(request,"Invalid First name!")
                 flag=True
 
             if user.last_name.strip() == "" :
-                messages.error(request,"Invalid Last name!")    
-                flag=True 
+                messages.error(request,"Invalid Last name!")
+                flag=True
 
             if user.city.strip() == "" :
-                messages.error(request,"Invalid city!")    
+                messages.error(request,"Invalid city!")
                 flag=True
-        
+
             if user.state.strip() == "" :
-                messages.error(request,"Invalid state!")    
+                messages.error(request,"Invalid state!")
                 flag=True
-                
+
             if flag:
                 return redirect('farmer_editprofile' )
             loggedin_user = request.user
@@ -67,7 +66,7 @@ def editprofile(request):
             farmer_user.state = user.state.strip()
             farmer_user.image = user.image
             if farmer_user.image == "":
-                farmer_user.image = Farmer().image 
+                farmer_user.image = Farmer().image
             farmer_user.save()
             return redirect('farmer_profile')
         else:
@@ -128,10 +127,10 @@ def previousbooking(request):
         "data": page_obj,
         'nums':nums,
     }
-    return render(request, 'farmer/previousbooking.html', context)   
+    return render(request, 'farmer/previousbooking.html', context)
 
 
-@login_required(login_url='login') 
+@login_required(login_url='login')
 def farmer_invoice(request,id):
     user = request.user
     farmer = get_object_or_404(Farmer,email=user.email)
@@ -151,8 +150,8 @@ def farmer_invoice(request,id):
     context = {'farmer':farmer,'booking':booking,'all_booked_units':all_booked_units, 'per_day_price':per_day_price,
                'total_days':total_days, 'price':price, 'warehouse':warehouse, 'total_units':total_units, 'back':back_page}
     return render(request, 'farmer/invoice.html', context)
-    
-    
+
+
 def computeDistance(lat1, lon1, lat2, lon2):
     p = pi/180
     a = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p) * cos(lat2*p) * (1-cos((lon2-lon1)*p))/2
@@ -162,19 +161,19 @@ def sortFunc(e):
     return e['distance']
 
 
-@login_required(login_url='login')  
+@login_required(login_url='login')
 def search(request):
-    
+
     start_date = request.GET.get('startdate','')
     end_date = request.GET.get('enddate', '')
     latitude = request.GET.get('latitude','')
     longitude = request.GET.get('longitude','')
-    
+
     if (not start_date and end_date) or (not end_date and start_date) or start_date > end_date:
         messages.error(request, "Invalid Dates")
         isError = 'Invalid Dates'
         context = {'isError': isError,'startdate':date.today().strftime('%Y-%m-%d'), 'enddate':date.today().strftime('%Y-%m-%d')}
-    elif (latitude!='' and longitude!='') and (not(-90<= float(latitude) <=90) or not(-180<=float(longitude) <= 180)): 
+    elif (latitude!='' and longitude!='') and (not(-90<= float(latitude) <=90) or not(-180<=float(longitude) <= 180)):
         latitude = float(latitude)
         longitude = float(longitude)
         context = {'startdate':start_date,'enddate':end_date}
@@ -198,9 +197,9 @@ def search(request):
         # Algorithm made by JENIL PATEL (202101074)
         booked_units = Booking.objects.filter(start_date__lte=end_date,end_date__gte=start_date). \
             values_list('unit', flat=True).exclude(unit=None).distinct()
-                
+
         warehouses = Warehouse.objects.all()
-        
+
         warehouses_with_unit = []
         for warehouse in warehouses:
             units = warehouse.unit_set.exclude(id__in=booked_units.values_list('unit'))
@@ -218,7 +217,7 @@ def search(request):
                         cold_capacity += x.capacity
             if len(units) > 0:
                 warehouses_with_unit.append({'warehouse': warehouse, 'hot_units': hot_units, 'hot_capacity':hot_capacity, 'cold_units':cold_units, 'cold_capacity':cold_capacity, 'latitude':warehouse.latitude, 'longitude':warehouse.longitude})
-        
+
         nearby_warehouse_list = []
         if latitude != '' and longitude != '':
             latitude = float(latitude)
@@ -245,7 +244,7 @@ def search(request):
             'latitude':latitude,
             'longitude':longitude,
         }
-        
+
     return render(request,'farmer/search.html',context)
 
 @login_required(login_url='login')
@@ -253,7 +252,7 @@ def book(request,id, start, end):
 
     # Getting warehouse according to the url id
     warehouse = Warehouse.objects.get(id=id)
-    
+
     #  Gettinng all the units of that warehouse
     all_units = warehouse.unit_set.all()
     end_date = datetime.strptime(end, '%Y-%m-%d').date()
@@ -264,10 +263,10 @@ def book(request,id, start, end):
             values_list('unit', flat=True).exclude(unit=None).distinct()
     unbooked_units = all_units.exclude(id__in=booked_units.values_list('unit'))
 
-    # Total Days    
+    # Total Days
     total_days = (end_date - start_date).days + 1
     assert(total_days>0)
-    
+
     # Taking the value from user-Which units are selected by user
     if request.method == 'POST':
         selected_units = request.POST.getlist('checkbox') # Will have id of the unit as we return id as value from HTML
@@ -277,17 +276,17 @@ def book(request,id, start, end):
         if any(int(unit) in list(booked_units) for unit in selected_units):
             messages.error(request,"Oops, Looks like you are late.\nSome of your selected units got booked in your selected Date Range")
             return redirect(reverse('book', args=(id,start,end)))
-        
+
         description = request.POST.get('description')
         user = request.user
         myfarmer = get_object_or_404(Farmer, email=user.email)
         booking = Booking(start_date=start, end_date=end, description=description, farmer=myfarmer)
         booking.save()
-        
+
         booking.unit.set(selected_units) # Whenever there is many to many feild we have to .set method
-        
+
         return redirect(reverse('farmer_invoice', args=(booking.id,))) # redirect to current booking. This is done temporarily
-    
+
     context = {'startdate':start, 'enddate':end, 'units':unbooked_units, 'total_days':total_days,'id':warehouse.id, 'warehouse':warehouse}
     return render(request,'farmer/book.html',context)
 
