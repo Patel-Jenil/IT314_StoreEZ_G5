@@ -14,8 +14,10 @@
   <div class="box">
     <div class="top-box">
       <div> 
-        <h2>{{warehouse.name|title}} details: </h5>
-        <h6 >Location - {{warehouse.city|title}}, {{warehouse.state|title}}</h6>
+        <h2>{{warehouse.name|title}} details: </h6>
+          <h6>Address: {{warehouse.address}} </h6>
+          <h6>{{warehouse.city}}, {{warehouse.state}} </h6>
+          <h6>Point of Contact - {{warehouse.poc_name}} [Ph.No: {{warehouse.poc_phone_no}}]</h6>
         <h6>Standard- Room temperature</h6>
         <h6>Temp-controlled - Regulates and maintains specific temperature conditions(0- 10<sup>°</sup>C)</h6>
       </div>

@@ -10,7 +10,9 @@
 {% endblock %}
 
 {% block content %}
+<div class="main-content">
 {% if messages %}
+<div>
     <script>
         function closeAlert(element) {
             var alert = element.parentElement;
@@ -35,13 +37,10 @@
             <a class="close">&times;</a>
         </div>
         {% endif %}
-
     {% endfor %}
+    </div>
 {% endif %}
-
-
-<div class="form-v10">
-    <div class="class="page-content"">
+    <div class="page-content">
         <div class="form-v10-content">
             <form class="form-detail" action="" id="myform" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

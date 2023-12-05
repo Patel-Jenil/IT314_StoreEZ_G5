@@ -10,81 +10,85 @@
 {% endblock css%}
 
 {% block content %}
-<div class="page-content" style="flex-direction: column">
+<div class="main-content">
     {% if messages %}
-        <script>
-            function closeAlert(element) {
-                var alert = element.parentElement;
-                alert.style.display = 'none';
-            }
-        </script>
-        {% for message in messages %}
-            {% if message.tags == "success" %}
-            <div class="alert success-alert">
-                <h3>Success Alert Message</h3>
-                <a class="close">&times;</a>
-            </div>
-            {% elif message.tags == "error" %}
-            <div class="alert danger-alert">
-                <h3>{{message}}</h3>
-                <a class="close" onclick="closeAlert(this)">&times;</a>
-            </div>
-            
-            {% else %}
-            <div class="alert warning-alert">
-                <h3>Warning Alert Message</h3>
-                <a class="close">&times;</a>
-            </div>
-            {% endif %}
-    
-        {% endfor %}
+        <div>
+            <script>
+                function closeAlert(element) {
+                    var alert = element.parentElement;
+                    alert.style.display = 'none';
+                }
+            </script>
+            {% for message in messages %}
+                {% if message.tags == "success" %}
+                <div class="alert success-alert">
+                    <h3>Success Alert Message</h3>
+                    <a class="close">&times;</a>
+                </div>
+                {% elif message.tags == "error" %}
+                <div class="alert danger-alert">
+                    <h3>{{message}}</h3>
+                    <a class="close" onclick="closeAlert(this)">&times;</a>
+                </div>
+                
+                {% else %}
+                <div class="alert warning-alert">
+                    <h3>Warning Alert Message</h3>
+                    <a class="close">&times;</a>
+                </div>
+                {% endif %}
+        
+            {% endfor %}
+        </div>
     {% endif %}
-    <div class="form-v10-content">
-        <form class="form-detail" id="myform" method="post" {# enctype="multipart/form-data" #} >
-            {% csrf_token %}
-            <div class="form-left">
-                <h2>Warehouse Infomation</h2>
-                <div class="form-row">
-                    <P>{{warehouse.name|capfirst}}</P>
-                    <P>{{warehouse.city|capfirst}}, {{warehouse.state|capfirst}}</P>
-                </div>
-                <div class="form-row">
-                    <P>Person In Charge: {{warehouse.poc_name}}, Ph: +91 {{warehouse.poc_phone_no}}</P>
-                </div>
+    <div class="page-content">
+        <div class="form-v10-content">
+            <form class="form-detail" id="myform" method="post" {# enctype="multipart/form-data" #} >
+                {% csrf_token %}
+                <div class="form-left">
+                    <h2>Warehouse Infomation</h2>
+                    <div class="form-row">
+                        <P>{{warehouse.name|capfirst}}</P>
+                        <P>{{warehouse.city|capfirst}}, {{warehouse.state|capfirst}}</P>
+                    </div>
+                    <div class="form-row">
+                        <P>Person In Charge: {{warehouse.poc_name}}, Ph: +91 {{warehouse.poc_phone_no}}</P>
+                    </div>
 
-            </div>
-            
-            <div class="form-right">
-                <h2>Unit Information</h2>
-                 <!-- <div class="form-row"> 
-                    <select id="type" name="type">
-                    <option value="Hot">Standard</option>
-                    <option value="Cold" >Temperature Controlled</option>
-                    </select>
-                </div>  -->
-                <div class="form-row" style="display:flex; justify-content:center; align-items: center;">
-                    <select name="type" class="drpdwn" id="drpdwn" style="color:white; ">
-                        <option value="Hot" style="color:black;">Standard</option>
-                        <option value="Cold" style="color:black;">Temperature Controlled</option>
-                    </select>
                 </div>
-                <div class="form-row">
-                    <input type="number" name="capacity" placeholder="Capacity(cubic meter)" min="1" step="1" required>
-                </div>
-                <div class="form-row">
-                    <input type="number" placeholder="Price(₹ per day)" name="price" step=".01" min="0.01" required>
-                </div>
+                
+                <div class="form-right">
+                    <h2>Unit Information</h2>
+                    <!-- <div class="form-row"> 
+                        <select id="type" name="type">
+                        <option value="Hot">Standard</option>
+                        <option value="Cold" >Temperature Controlled</option>
+                        </select>
+                    </div>  -->
+                    <div class="form-row" style="display:flex; justify-content:center; align-items: center;">
+                        <select name="type" class="drpdwn" id="drpdwn" style="color:white; ">
+                            <option value="Hot" style="color:black;">Standard</option>
+                            <option value="Cold" style="color:black;">Temperature Controlled</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <input type="number" name="capacity" placeholder="Capacity(cubic meter)" min="1" step="1" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="number" placeholder="Price(₹ per day)" name="price" step=".01" min="0.01" required>
+                    </div>
 
-                <div class="form-row-last">
-                    <input onclick="location.href='{% url 'all_units' id %}'" type="submit" name="cancel" class="cancel" value="Cancel">
-                    <button class="save-button">
-                        Add unit
-                      </button>
-                    <!-- <input type="submit" name="register" class="register" value="Confirm"> -->
-                    
+                    <div class="form-row-last">
+                        <input onclick="location.href='{% url 'all_units' id %}'" name="cancel" class="cancel" value="Cancel" style="text-align:center">
+                        <button class="save-button"  type="submit">
+                            Add unit
+                        </button>
+                        <!-- <input type="submit" name="register" class="register" value="Confirm"> -->
+                        
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

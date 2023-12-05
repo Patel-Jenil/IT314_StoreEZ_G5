@@ -12,7 +12,9 @@
 {% block content %}
 <!-- <div class="page-content" style="flex-direction: column">
 </div> -->
+<div class="main-content">
 {% if messages %}
+<div>
     <script>
         function closeAlert(element) {
             var alert = element.parentElement;
@@ -39,6 +41,7 @@
         {% endif %}
 
     {% endfor %}
+    </div>
 {% endif %}
 <div class="form-v10">
     <div class="page-content">
@@ -107,6 +110,7 @@
             </form>
         </div>
     </div>
+</div>
 </div>
     
 {% endblock %}

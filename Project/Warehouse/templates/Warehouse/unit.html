@@ -19,7 +19,7 @@
       <div class="ind-row">
         <b>
           Unit Type: 
-        </b> {{ unit.type }}
+        </b> {% if unit.type == "Hot" %}Standard{% else %}Temp-controlled {% endif %}
       </div>
       <div class="ind-row">
         <b>

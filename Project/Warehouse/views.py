@@ -19,7 +19,6 @@ def Warehouse_Profile(request):
     user = request.user
     # warehouse_user = Warehouse_owner.objects.get(email = user.email)
     warehouse_user = get_object_or_404(Warehouse_owner, email=user.email)
-    # print(warehouse_user)
     context = {
         "warehouse_user":warehouse_user
     }
@@ -62,12 +61,6 @@ def editprofile(request):
             print(user.phone_no, user.image, user.first_name, user.last_name)
             warehouse_owner.save()
             
-            # user = User.objects.get(username =loggedin_user.email)
-            # user.username = farmer_user.email
-            # user.email = farmer_user.email
-            # user.save()
-            # login_newuser = authenticate(username = user.email , password = loggedin_user.password)
-            # login(request,login_newuser)
             return redirect('Warehouse_profile')
         
         else:
@@ -85,8 +78,7 @@ def warehouses(request, id):
 def all_units(request, id):
     warehouse = Warehouse.objects.get(id = id)
     units = warehouse.unit_set.all()
-    # print(units)
-    paginator = Paginator(units, 4)  # TODO:Show 12/16 Bookings per page.
+    paginator = Paginator(units, 12)  # TODO:Show 12/16 Bookings per page.
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     count=Warehouse.objects.count()
@@ -269,15 +261,14 @@ def addwarehouse(request):
 def removewarehouse(request, id):
     print(id)
     context = {'id':id}
+    del_warehouse = Warehouse.objects.get(id=id)
     if request.method == "POST":
-        del_warehouse = Warehouse.objects.get(id=id)
-        print(del_warehouse)
         del_warehouse.delete()
         return redirect('warehouses')
     
 
     # print(units.count())
-    context = {'id':id}
+    context = {'id':id, 'warehouse': del_warehouse}
     return render(request, 'warehouse/remove_warehouse.html', context)
 
 

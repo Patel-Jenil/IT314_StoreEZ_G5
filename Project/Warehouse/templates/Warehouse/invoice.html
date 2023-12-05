@@ -127,7 +127,7 @@
               <p>{{unit.id}}</p>
             </div>
             <div class="i_col w_20">
-              <p>{{unit.type}}</p>
+              <p>{% if unit.type == "Hot" %}Standard{% else %}Temp-controlled {% endif %}</p>
             </div>
             <div class="i_col w_20">
               <p>{{unit.capacity}}</p>

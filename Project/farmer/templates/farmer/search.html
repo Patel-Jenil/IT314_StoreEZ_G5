@@ -16,6 +16,7 @@
 
 
 {% block content %}
+<div style='display:none !important'> Jenil Testing: {% if isError %}{{isError}}{% else %}All Good{% endif %} </div>
 <div class="container-fluid mx-0 text-white ff" style="background-color: #25381b;">
     <div class="container">
         <h3 class="text-center" style="font-size: 250%; color: white;">Select date range and warehouse to book</h3>
@@ -150,8 +151,8 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-4">City</div>
-                        <div class="col-4">Bombay</div>
+                        <div class="col-4">{{warehouse_data.warehouse.city}}</div>
+                        <div class="col-4">{{warehouse_data.warehouse.state}}</div>
 
                     </div>
                 </li>

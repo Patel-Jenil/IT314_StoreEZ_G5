@@ -43,10 +43,14 @@
   <div class="" style="background-color: #016C0F;">
       <div class="py-3 d-flex flex-column justify-content-end align-items-center mb-4 rempad">
           <div class="font-large"> 
-            <h2 class="ff" style="font-size: 100%; text-decoration-line:none; -webkit-text-fill-color: white;">
-              Select Number of Units to Book</h2>
-            <h4 style="color:white">Warehouse {{id}}</h4>
-            <h5 style="color:white">Dates range: {{startdate}} - {{enddate}}</h5>
+            <h3 class="ff" style="font-size: 100%; text-decoration-line:none; -webkit-text-fill-color: white;">
+              Select Number of Units to Book</h3>
+            <h4 class="ff" style="color:white">Warehouse {{id}}</h4>
+            <h6 class="ff" style="color:white">Address: {{warehouse.address}}, {{warehouse.city}}, {{warehouse.state}} </h6>
+            <h6 class="ff" style="color:white">Point of Contact - {{warehouse.poc_name}} [Ph.No: {{warehouse.poc_phone_no}}]</h6>
+            <h6 class="ff" style="color:white">Standard- Room temperature</h6>
+            <h6 class="ff" style="color:white">Temp-controlled - Regulates and maintains specific temperature conditions(0- 10<sup>°</sup>C)</h6>
+            <h5 class="ff" style="color:white">Dates range: {{startdate}} - {{enddate}}</h5>
           </div>
           <div class="w-100">
           </div>
@@ -106,7 +110,7 @@
                 <label class="form-check-label ff" for="defaultCheck1" style="font-size: 138%;">
                   Unit {{unit.id}}
                 </label></td>
-              <td data-cell="Unit Type" style="width:15%;">{{unit.type}}</td>
+              <td data-cell="Unit Type" style="width:15%;">{% if unit.type == "Hot" %}Standard{% else %}Temp-controlled {% endif %}</td>
               <td data-cell="Unit Capacity">{{unit.capacity}}</td>
               <td data-cell="Unit Price">{{unit.price}}</td>
             </tr>

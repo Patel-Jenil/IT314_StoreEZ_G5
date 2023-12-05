@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}StoreEZ | Add Unit{% endblock title %}
+{% block title %}StoreEZ | Remove Unit{% endblock title %}
 
 {% block css %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,7 @@
 
                 <div class="form-row-last">
                     <input onclick="location.href='{% url 'all_units' id %}'" type="cancel" name="cancel" class="cancel" value="Cancel">
-                    <button class="save-button">
+                    <button type="submit" class="save-button"  name="Remove Unit">
                         Remove unit
                       </button>
                     <!-- <input type="submit" name="register" class="register" value="Confirm"> -->
