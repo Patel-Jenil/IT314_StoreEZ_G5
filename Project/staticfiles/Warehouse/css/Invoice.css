@@ -6,6 +6,7 @@
     --secondary-clr: rgb(1, 108, 15);
 }
 
+
 /* * {
     margin: 0;
     padding: 0;
@@ -126,6 +127,11 @@ body {
     justify-content: space-between;
 }
 
+
+/* .invoice .body .i_table .i_table_foot .grand_total_wrap .grand_total p {
+ 
+} */
+
 .invoice .footer {
     margin-top: 30px;
 }
@@ -142,4 +148,10 @@ body {
 
 .grand_total {
     font-size: larger;
+}
+
+@media (max-width:559px) {
+    .invoice .body .i_table .i_row .i_col {
+        padding: 0px 15px;
+    }
 }

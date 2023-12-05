@@ -102,6 +102,13 @@ body {
 
 
 
+/* .search-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom:50px;
+} */
 
 .search-row{
   display: flex;
