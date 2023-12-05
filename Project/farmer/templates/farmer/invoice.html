@@ -41,7 +41,7 @@
 <body>
 
 <section id='invoice'>
-  <div class="invoice">
+  <div class="invoice  px-1 px-lg-5">
     <div class="header">
       <div class="i_row">
         <div class="i_logo">
@@ -56,64 +56,67 @@
         </div>
         </div>
       </div>
-      <div class="i_row">
+      <div class="container d-flex flex-nowrap">
+      <div class="i_row fsize">
         <div class="i_number">
-          <p class="farmername">Name: {{farmer}}</p>  
-          <p class="bookingid">Booking ID: {{booking.id}}</p>
-          <p class="mobileno">Phone No: {{farmer.phone_no}}</p>
+          <p class="farmername fsize">Name: {{farmer}}</p>  
+          <p class="bookingid fsize">Booking ID: {{booking.id}}</p>
+          <p class="mobileno fsize">Phone No: {{farmer.phone_no}}</p>
         </div>
-        <div class="date_details">
-            <p class="bookedfrom">Start Date: {{booking.start_date}}</p>
-            <p class="booked till">End Date: {{booking.end_date}}</p>
+        <div class="date_details" style="margin-left:1em;">
+            <p class="bookedfrom fsize">Start Date: {{booking.start_date}}</p>
+            <p class="booked till fsize">End Date: {{booking.end_date}}</p>
         </div>
         <div class="i_address text_right">
       
           <p class="p_title">
            
             <div class="warehouse name">
-              <div class="address">
+              <div class="address fsize">
                 Warehouse Name:{{warehouse.name}}
               </div>
             </div>
 
 
-            <span> [Warehouse ID: {{warehouse.id}} ]</span><br>
+            <span class="fsize"> [Warehouse ID: {{warehouse.id}} ]</span><br>
 
-            <span>POC Name: {{warehouse.poc_name}}</span> <br>
-            <span>POC no: {{warehouse.poc_phone_no}}</span>
+            <span class="fsize">POC Name: {{warehouse.poc_name}}</span> <br>
+            <span class="fsize">POC no: {{warehouse.poc_phone_no}}</span>
 
             <div class="address">
-              <p>Address : {{warehouse.address}}</p>
+              <p class="fsize">Address : {{warehouse.address}}</p>
             </div>
 
             <span>{{warehouse.city}},</span>
             <span>{{warehouse.state}}</span>
           </p>
+        
         </div>
       </div>
     </div>
+  </div>
     <div class="body">
       <div class="i_table">
         <div class="i_table_head">
           <div class="i_row">
             <div class="i_col w_20">
-              <p class="p_title">Unit ID</p>
+              <p class="p_title" style="word-wrap: break-word">Unit ID</p>
             </div>
             <div class="i_col w_20">
-              <p class="p_title">Unit Type</p>
+              <p class="p_title" style="word-wrap: break-word">Unit Type</p>
             </div>
             
             <div class="i_col w_20">
-              <p class="p_title">Capacity(m<sup>3</sup>)</p>
+              <p class="p_title" style="word-wrap: break-word">Capacity(m<sup>3</sup>)</p>
             </div>
             <div class="i_col w_20">
-              <p class="p_title">Price(₹)/day</p>
+              <p class="p_title" style="word-wrap: break-word">Price(₹)/day</p>
             </div>
             <div class="i_col w_20">
-                <p class="p_title">Total Days</p>
+                <p class="p_title" style="word-wrap: break-word">Total Days</p>
               </div>
             <div class="i_col w_20">
-              <p class="p_title">Total Price(₹)/day</p>
+              <p class="p_title" style="word-wrap: break-word">Total Price(₹)/day</p>
             </div>
           </div>
         </div>
@@ -124,22 +127,22 @@
             <div class="i_col w_20">
                
 
-              <p>{{unit.id}}</p>
+              <p style="word-wrap: break-word">{{unit.id}}</p>
             </div>
             <div class="i_col w_20">
-              <p>{% if unit.type == "Hot" %}Standard{% else %}Temp-controlled {% endif %}</p>
+              <p style="word-wrap: break-word">{% if unit.type == "Hot" %}Standard{% else %}Temp-controlled {% endif %}</p>
             </div>
             <div class="i_col w_20">
-              <p>{{unit.capacity}}</p>
+              <p style="word-wrap: break-word">{{unit.capacity}}</p>
             </div>
             <div class="i_col w_20">
-              <p>{{unit.price}}</p>
+              <p style="word-wrap: break-word">{{unit.price}}</p>
             </div>
             <div class="i_col w_20">
-              <p>{{total_days}}</p>
+              <p style="word-wrap: break-word">{{total_days}}</p>
             </div>
             <div class="i_col w_20">
-              <p>{{total_days | multiply:unit.price}}</p>
+              <p style="word-wrap: break-word">{{total_days | multiply:unit.price}}</p>
             </div>
           </div>
           
@@ -164,12 +167,12 @@
       </div>
     </div>
     <div class="footer">
-      <div class="i_row">
+      {% comment %} <div class="i_row">
         <div class="i_col w_100">
           <p class="p_title">Payment Method</p>
           <p>Card/UPI/NetBanking</p>
         </div>
-      </div>
+      </div> {% endcomment %}
         <div class="i_row">
           <div class="i_col w_50">
             <button class="btn btn-light" style="background-color: rgb(1, 108, 15); color: #fff;" 

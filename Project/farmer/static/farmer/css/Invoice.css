@@ -148,3 +148,21 @@ body {
 .button>svg{
     fill: rgb(1, 108, 15);
 }
+.bword{
+    word-wrap: break-word!important;
+}
+
+.fsize{
+
+}
+@media (max-width:559px) {
+    .invoice .body .i_table .i_row .i_col {
+        padding: 0px 5px;
+    }
+    .i_row .i_col {
+        font-size: 8px;
+    }
+    .fsize{
+        font-size: 10px;
+    }
+}
