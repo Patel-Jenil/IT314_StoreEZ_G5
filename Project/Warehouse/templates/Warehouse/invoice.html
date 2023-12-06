@@ -3,7 +3,7 @@
 {% load jenil_multiply_tag %}
 {% block title %} Warehouse | Booking {% if booking.id %}{{booking.id}}{% else %}???{% endif %} {% endblock title %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'warehouse/css/Invoice.css' %}">
+<link rel="stylesheet" href="{% static 'Warehouse/css/Invoice.css' %}">
 
 {% endblock %}
 {% block content %}
@@ -26,7 +26,7 @@
                 <h3>{{message}}</h3>
                 <a class="close" onclick="closeAlert(this)">&times;</a>
             </div>
-            
+
             {% else %}
             <div class="alert warning-alert">
                 <h3>Warning Alert Message</h3>
@@ -56,7 +56,7 @@
       <div class="container d-flex flex-nowrap">
       <div class="i_row fsize">
         <div class="i_number">
-          <p class="farmername fsize">Name: {{farmer}}</p>  
+          <p class="farmername fsize">Name: {{farmer}}</p>
           <p class="bookingid fsize">Booking ID: {{booking.id}}</p>
           <p class="mobileno fsize">Phone No: {{farmer.phone_no}}</p>
         </div>
@@ -65,9 +65,9 @@
             <p class="booked till fsize">End Date: {{booking.end_date}}</p>
         </div>
         <div class="i_address text_right">
-      
+
           <p class="p_title">
-           
+
             <div class="warehouse name">
               <div class="address fsize">
                 Warehouse Name:{{warehouse.name}}
@@ -101,7 +101,7 @@
             <div class="i_col w_20">
               <p class="p_title"style="word-wrap: break-word">Unit Type</p>
             </div>
-            
+
             <div class="i_col w_20">
               <p class="p_title" style="word-wrap: break-word">Capacity(m<sup>3</sup>)</p>
             </div>
@@ -139,10 +139,10 @@
               <p style="word-wrap: break-word">{{total_days | multiply:unit.price}}</p>
             </div>
           </div>
-          
+
         </div>
         {% endfor %}
-        
+
         <p style="padding-top:5px">Description: {{booking.description}} </p>
 
 
@@ -169,17 +169,17 @@
       </div> {% endcomment %}
       <div class="i_row">
         <div class="i_col w_50">
-          <button class="btn btn-light" style="background-color: rgb(1, 108, 15); color: #fff;" 
-          onclick="location.href='{% if back %}{{back}}{% else %}{% url 'warehouses' %}{% endif %}'" 
+          <button class="btn btn-light" style="background-color: rgb(1, 108, 15); color: #fff;"
+          onclick="location.href='{% if back %}{{back}}{% else %}{% url 'warehouses' %}{% endif %}'"
           type='button'>
           <span>Back</span>
           </button>
         </div>
         <div class="i_col w_50" style="text-align: right;">
           <button class="btn btn-light" style="background-color: rgb(1, 108, 15); color: #fff;"
-          onclick="DownloadPDF('invoice')" 
-          type='button'> 
-          Download PDF 
+          onclick="DownloadPDF('invoice')"
+          type='button'>
+          Download PDF
           </button>
 
         </div>

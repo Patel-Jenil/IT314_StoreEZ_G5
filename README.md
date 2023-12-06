@@ -9,3 +9,6 @@ The Repository contains:
 1. Lab_Assignments folder: Includes all labs of course IT314.
 2. Project folder: Implementation of the project idea (Warehouse Management).
 3. Documentation folder: Includes all the documents concerning Project.
+
+The Project is deployed on a website:
+Link: https://whit3wo1f.pythonanywhere.com/

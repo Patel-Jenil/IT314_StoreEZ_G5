@@ -45,12 +45,12 @@
                 <a href="{% url 'homepage' %}" class="navbar-brand">
                     <h2 class="text-black">Store-EZ</h2>
                 </a>
-                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+                <button type="button" id="my_toggler_button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto">
+                    <div class="navbar-nav ms-auto"  id='my_response_nav'>
 
                         <a href="{% url 'homepage' %}" class="nav-item nav-link text-black">Home</a>
                         {% if request.user.is_authenticated %}
@@ -107,7 +107,47 @@
 
     <!-- Template Javascript -->
     <script src="{%static 'js/main.js'%}"></script>
+    <script>
+        // Reference to the navbar button
+        var navbarButton = document.getElementById('my_toggler_button');
+    
+        // Reference to the list element in the navbar
+        var navbarList = document.getElementById('my_response_nav');
+    
+        function updateLogoutButton() {
+            // Check the value of aria-expanded and add or remove the logout button accordingly
+            var isNavbarCollapsed = navbarButton.getAttribute('aria-expanded') === 'false';
+        
+            if (!isNavbarCollapsed) {
+            var logoutLink = document.createElement('a');
+            {% if request.user.is_active %}
+                logoutLink.href="{% url 'logout' %}";
+                logoutLink.textContent = 'Logout';
+            {% else %}
+                logoutLink.href="{% url 'login' %}";
+                logoutLink.textContent = 'Login/Sign Up';
+            {% endif %}
+            logoutLink.id = 'my_logoutButton';
+            logoutLink.classList.add('nav-item');
+            logoutLink.classList.add('nav-link');
+            navbarList.appendChild(logoutLink);
+        
+            } else {
+            // If the condition is not met, remove the previously added logout button
+            var existingLogoutButton = document.getElementById('my_logoutButton');
+            if (existingLogoutButton) {
+                navbarList.removeChild(existingLogoutButton);
+            }
+            }
+        }
 
+        // Monitor changes to the aria-expanded attribute
+        navbarButton.addEventListener('click', function() {
+        // Assuming that clicking the navbar button toggles the expanded state
+        updateLogoutButton();
+        });
+
+    </script>
     {% block js %}
     {% endblock %}
 </body>
