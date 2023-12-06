@@ -49,10 +49,10 @@
             <div class="form-left">
                 <h2>General Infomation</h2>
                 <div class="form-row">
-                    <input type="text" name="name" id="name" class="input-text" placeholder="Warehouse Name" required>
+                    <input type="text" name="name" id="name" class="input-text" placeholder="Warehouse Name" maxlength="50" required>
                 </div>
                 <div class="form-row">
-                    <input type="text" id="poc_name" name="poc_name" class="input-text" placeholder="Point of Contact Person Name" required>
+                    <input type="text" id="poc_name" name="poc_name" class="input-text" placeholder="Point of Contact Person Name"  maxlength="20" required>
                 </div>
                 <div class="form-row">
                     <input type="number" id="phone_no" name="phone_no" class="phone" placeholder="Point of Contact Phone No." min=1000000000 max="9999999999" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Phone number should contain 10 digits.')"
@@ -64,13 +64,13 @@
             <div class="form-right">
                 <h2>Location Details</h2>
                 <div class="form-row">
-                    <input type="text" name="address" class="street" id="address" placeholder="Address" required>
+                    <input type="text" name="address" class="street" id="address" placeholder="Address" maxlength="200" required>
                 </div>
                 <div class="form-row">
-                    <input type="text" name="city" class="street" id="city" placeholder="City" required>
+                    <input type="text" name="city" class="street" id="city" placeholder="City" maxlength="20" required>
                 </div>
                 <div class="form-row">
-                    <input type="text" name="state" class="State" id="state" placeholder="State" required>
+                    <input type="text" name="state" class="State" id="state" placeholder="State" maxlength="20" required>
                 </div>
                 <div class="form-row">
                     <input class="text--input-box" type="number" id="latitude" name="latitude" step="any" placeholder="Enter your latitude" min=-90 max=90  oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Invalid Latitude')" required />
@@ -97,7 +97,8 @@
                 </div>
                 
                 <div class="form-row-last">
-                    <input onclick="location.href='{% url 'warehouses' %}'" name="cancel" class="cancel" value="Cancel" style="text-align:center">
+                    <button  onclick="location.href='{% url 'warehouses'%}'" type="button" class="cancel" value="Cancel" id="c_button" style="padding: 3%;"> Cancel </button>
+                    <!-- <input onclick="location.href='{% url 'warehouses' %}'" name="cancel" class="cancel" value="Cancel" style="text-align:center"> -->
                     <input type="submit" name="register" class="register" value="Confirm">
                     
                 </div>

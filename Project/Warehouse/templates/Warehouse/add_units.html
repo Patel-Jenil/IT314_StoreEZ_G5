@@ -79,7 +79,8 @@
                     </div>
 
                     <div class="form-row-last">
-                        <input onclick="location.href='{% url 'all_units' id %}'" name="cancel" class="cancel" value="Cancel" style="text-align:center">
+                        <button  onclick="location.href='{% url 'all_units' id %}'" type="button" class="cancel" value="Cancel" id="c_button" style="padding: 3%;"> Cancel </button>
+                        <!-- <input onclick="location.href='{% url 'all_units' id %}'" name="cancel" class="cancel" value="Cancel" style="text-align:center"> -->
                         <button class="save-button"  type="submit">
                             Add unit
                         </button>

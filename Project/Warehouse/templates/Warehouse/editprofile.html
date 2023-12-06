@@ -84,9 +84,8 @@
                         </label>
                     </div> -->
                     <div class="form-row-last">
-                        <a href="{% url 'Warehouse_profile' %}">
-                            <input type="" name="cancel" class="cancel" id="c_button"value="Cancel"> 
-                        </a>
+                        <button  onclick="location.href='{% url 'Warehouse_profile'%}'" type="button" class="cancel" value="Cancel" id="c_button" style="padding: 3%;"> Cancel </button>
+                        <!-- <input type="cancel" name="cancel" class="cancel" id="c_button"value="Cancel">  -->
                         <!-- <button onclick="location.href='{% url 'Warehouse_profile' %}'" type='button'> Cancel </button> -->
                         <input type="submit" name="register" class="register" value="Confirm" />
                         <!-- <input type="submit" name="register" class="register" value="Save Details"> -->

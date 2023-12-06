@@ -137,7 +137,7 @@
         <div class="form-group pb-2 redw">
           <label class="py-3 ff m-2 pb-2" for="formGroupExampleInput" style="font-size: 160%;">Description</label>
           <input type="text" class="form-control"  name="description" id="formGroupExampleInput"
-            placeholder="Provide description for your warehouse">
+            placeholder="Provide description for your warehouse" maxlength=200>
         </div>
 
         <div class="submit-btn">
@@ -185,7 +185,7 @@
   
         // input field with the id "totalPrice" to display the result
         // var days = calculateDays(startDate, endDate);
-        var days = {{total_days}}
+        var days = {{total_days}};
         var totalPrice = totalUnitsPrice * days;
   
         /// showing the total price in the div

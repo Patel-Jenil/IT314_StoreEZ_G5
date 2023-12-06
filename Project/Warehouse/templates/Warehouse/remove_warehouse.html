@@ -28,7 +28,8 @@
           <div class="form-right">
               <h2>Remove Warehouse {{id}} ?</h2>
               <div class="form-row-last">
-                  <input onclick="location.href='{% url 'warehouses' %}'" type="cancel" name="cancel" class="cancel" value="Cancel">
+                <button  onclick="location.href='{% url 'warehouses'%}'" type="button" class="cancel" value="Cancel" id="c_button" style="padding: 3%;"> Cancel </button>
+                  <!-- <input onclick="location.href='{% url 'warehouses' %}'" type="cancel" name="cancel" class="cancel" value="Cancel"> -->
                   <button type="submit" class="save-button"  name="Remove Warehouse">
                       Remove
                     </button>

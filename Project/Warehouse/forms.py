@@ -15,7 +15,9 @@ class EditProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['first_name'].widget.attrs['placeholder'] = 'Enter first name'
+        self.fields['first_name'].widget.attrs['maxlength'] = 20
         self.fields['last_name'].widget.attrs['placeholder'] = 'Enter Last name'
+        self.fields['last_name'].widget.attrs['maxlength'] = 20
         self.fields['phone_no'].widget.attrs['placeholder'] = 'Enter Phone number'
         self.fields['phone_no'].widget.attrs['min'] = 1000000000
         self.fields['phone_no'].widget.attrs['max'] = 9999999999
