@@ -230,6 +230,7 @@ def search(request):
             nearby_warehouse_list.sort(key=sortFunc)
         else:
             nearby_warehouse_list = warehouses_with_unit
+        print(nearby_warehouse_list)
         paginator = Paginator(nearby_warehouse_list, 6)  # Show 6 Bookings per page.
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
