@@ -121,10 +121,9 @@ def register(request):
         pass1 = request.POST.get('password1')
         pass2 = request.POST.get('password2')
         flag = request.POST.get('user')
-        print(email,pass1,flag) 
+        print(email,pass1,flag)
         try:
             validate_email(email)
-            pass
         except ValidationError as e:
             messages.error(request, "Invalid Email Address!")
             return redirect('register')
@@ -143,9 +142,8 @@ def register(request):
                     return redirect('register')
                 
                 login(request, my_user)
-                # send_verification_email(request,my_user,flag)
-                my_user.is_active = True
-                my_user.save()
+                send_verification_email(request,my_user,flag)
+                
                 if my_user.is_active == True:
                     # print(email, pass1, pass2, flag)
                     # return HttpResponse("Warehouse Owner created !!!")

@@ -122,7 +122,6 @@ def unit(request, id, id1):
 
 @login_required(login_url='login')
 def warehouses(request):
-    return render(request,"Warehouse/index.html")
     search_query = ''
 
     if request.GET.get('search_query'):
@@ -149,7 +148,6 @@ def warehouses(request):
 
 @login_required(login_url='login')
 def addunit(request, id):
-    return render(request,"Warehouse/index.html")
     # print(id)
     # warehouse = get_object_or_404(Warehouse_owner, id=id)
     warehouse = Warehouse.objects.get(id=id)
